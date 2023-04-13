@@ -1,0 +1,12 @@
+{
+    "devices": [
+        {
+            "type": "pixbar",
+            "nb": 4
+        },
+        {
+            "type": "effets",
+            "nb": 4
+        }
+    ]
+}
