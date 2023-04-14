@@ -26,5 +26,4 @@ class PixelBar(Device):
     def set_color(self, color):
         self.set_data([i for i in range(12, self.nb_channels)], color*self.nb_channels)
 
-pix = PixelBar(12)
-pix.set_color((255, 0, 125))
+
