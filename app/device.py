@@ -21,5 +21,5 @@ class Device():
         self.set_data(channels, color)
 
     def set_intensity(self, value):
-        self.set_data(self.channels["intensity"], value)
+        self.set_data(self.channels["intensity"], [value])
 
