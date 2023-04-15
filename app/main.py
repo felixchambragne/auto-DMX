@@ -34,9 +34,6 @@ class Controller:
             device.set_color(const.WHITE)
             device.set_intensity(125)
         
-        """for device_group in self.device_groups.values():
-            for device in device_group:
-                self.data[device.address:device.address+len(device.data)] = device.data"""
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
 
@@ -45,13 +42,19 @@ class Controller:
             channels = [channels]
         if type(values) is not list and type(values) is not tuple:
             values = [values]
+
+        print(channels)
+        print(values)
+
         for channel, value in zip(channels, values):
             self.data[address + channel] = value
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
             print('Success!')
+            print("nombre de datas", len(self.data))
             print(self.data)
+            
         else:
             print('Error: %s' % status.message, file=sys.stderr)
             self.wrapper.Stop()
