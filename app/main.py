@@ -27,12 +27,11 @@ class Controller:
                 self.devices.append(device)
 
     def update_dmx(self):
-        device[0].set_color(const.WHITE)
+        self.devices[0].set_color(const.WHITE)
         
-
         for device in self.devices:
             self.data[device.address:device.address+len(device.data)] = device.data
-            
+
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         
