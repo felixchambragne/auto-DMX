@@ -10,6 +10,7 @@ class Controller:
     UNIVERSE = 1
     UPDATE_INTERVAL = 1000 #ms
     wrapper: ClientWrapper
+    
 
     def __init__(self, wrapper) -> None:
         self.wrapper = wrapper
@@ -43,7 +44,7 @@ class Controller:
         if type(values) is not list and type(values) is not tuple:
             values = [values]
 
-        print(channel + address for channel in channels)
+        print((channel + address) for channel in channels)
         print(values)
 
         for channel, value in zip(channels, values):
