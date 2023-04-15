@@ -26,7 +26,7 @@ class Controller:
             self.device_groups[device_data["type"]] = []
             for i in range(device_data["count"]):
                 address = device_data["start_address"] + len(device_data["channels"]) * i
-                device = Device(address, device_data["channels"], device_data["type"])
+                device = Device(self.set_data, address, device_data["channels"], device_data["type"])
                 self.device_groups[device_data["type"]].append(device)
 
     def update_dmx(self):
@@ -39,6 +39,14 @@ class Controller:
                 self.data[device.address:device.address+len(device.data)] = device.data
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
+
+    def set_data(self, address, channels, values):
+        if type(channels) is not list and type(channels) is not tuple:
+            channels = [channels]
+        if type(values) is not list and type(values) is not tuple:
+            values = [values]
+        for channel, value in zip(channels, values):
+            self.data[address + channel] = value
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
