@@ -11,7 +11,6 @@ class Controller:
     UPDATE_INTERVAL = 1000 #ms
     wrapper: ClientWrapper
     
-
     def __init__(self, wrapper) -> None:
         self.wrapper = wrapper
         self.client = self.wrapper.Client()
@@ -45,6 +44,8 @@ class Controller:
             values = [values]
 
         for channel, value in zip(channels, values):
+            print(address)
+            print(channel)
             print(channel + address, " --> ", value)
             self.data[address + channel] = value
         
