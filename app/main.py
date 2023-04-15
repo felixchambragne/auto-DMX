@@ -7,7 +7,7 @@ from device import PixelBar
 #self.data[device.address:device.address+len(device.data)] = device.data
 
 class Controller:
-    UNIVERSE = 1
+    UNIVERSE = 0
     UPDATE_INTERVAL = 25 #ms
     wrapper: ClientWrapper
 
