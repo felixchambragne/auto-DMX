@@ -1,5 +1,3 @@
-from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVERSE_SIZE)
-import constants as const
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
