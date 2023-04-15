@@ -44,10 +44,8 @@ class Controller:
         if type(values) is not list and type(values) is not tuple:
             values = [values]
 
-        print((channel + address) for channel in channels)
-        print(values)
-
         for channel, value in zip(channels, values):
+            print(channel + address, " --> ", value)
             self.data[address + channel] = value
         
     def dmx_sent_callback(self, status):
