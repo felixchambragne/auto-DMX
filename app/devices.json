@@ -2,11 +2,17 @@
     "devices": [
         {
             "type": "pixbar",
-            "nb": 4
-        },
-        {
-            "type": "effets",
-            "nb": 4
+            "count": 4,
+            "start_address": 215,
+            "channels": {
+                "red": 1,
+                "green": 2,
+                "blue": 3,
+                "intensity": 4,
+                "program": 5,
+                "program_speed": 6,
+                "strob": 7
+            }
         }
     ]
 }

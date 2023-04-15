@@ -2,7 +2,8 @@ from ola.ClientWrapper import ClientWrapper
 from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVERSE_SIZE)
 import array
 import sys
-from device import PixelBar
+import json
+from device import Device
 
 class Controller:
     UNIVERSE = 1
@@ -24,7 +25,6 @@ class Controller:
             self.devices[0].set_color((0, 0, 0))
         self.i += 1
 
-        print("update")
         for device in self.devices:
             self.data[device.address:device.address+len(device.data)] = device.data
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
@@ -39,8 +39,17 @@ class Controller:
             self.wrapper.Stop()
 
     def run(self):
-        pix = PixelBar(12)
-        self.devices.append(pix)
+        with open('devices.json', 'r') as file:
+            data = json.load(file)
+
+        for device_data in data["devices"]:
+            for i in range(device_data["count"]):
+                address = device_data["start_address"] + device_data["channels"] * i
+                device = Device(address, device_data["channels"])
+                self.devices.append(device)
+
+        for device in self.devices:
+            print(device.address)
 
 if __name__ == '__main__':
     wrapper = ClientWrapper()
