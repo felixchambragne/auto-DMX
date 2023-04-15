@@ -1,4 +1,3 @@
-import array
 from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVERSE_SIZE)
 import constants as const
 
@@ -8,10 +7,6 @@ class Device():
         self.channels = channels
         self.type = type
         self.set_data = set_data
-
-        #self.color = const.BLACK
-        #self.intensity = DMX_MIN_SLOT_VALUE
-        #self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * len(self.channels))
 
     def set_color(self, color):
         channels = [self.channels["red"], self.channels["green"], self.channels["blue"]]
