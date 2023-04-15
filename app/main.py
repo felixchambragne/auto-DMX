@@ -33,8 +33,6 @@ class Controller:
 if __name__ == '__main__':
     wrapper = ClientWrapper()
     controller = Controller(wrapper)
-    wrapper.Run()
-
     pix = PixelBar(12)
     pix.set_color((255, 0, 125))
-    
+    wrapper.Run()
