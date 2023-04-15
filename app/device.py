@@ -13,6 +13,9 @@ class Device():
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * len(self.channels))
 
     def set_data(self, channels, values):
+        if type(channels) is not list or type(values) is not list:
+            channels = [channels]
+            values = [values]
         for channel, value in zip(channels, values):
             self.data[channel] = value
 
@@ -21,5 +24,5 @@ class Device():
         self.set_data(channels, color)
 
     def set_intensity(self, value):
-        self.set_data(self.channels["intensity"], [value])
+        self.set_data(self.channels["intensity"], value)
 
