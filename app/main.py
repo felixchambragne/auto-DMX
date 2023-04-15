@@ -6,7 +6,7 @@ from device import PixelBar
 
 class Controller:
     UNIVERSE = 1
-    UPDATE_INTERVAL = 25 #ms
+    UPDATE_INTERVAL = 1000 #ms
     wrapper: ClientWrapper
 
     def __init__(self, wrapper) -> None:
@@ -19,9 +19,9 @@ class Controller:
 
     def update_dmx(self):
         if self.i % 2 == 0:
-            self.devices[0].set_color((255, 0, 125))
+            self.devices[0].set_color((255, 255, 255))
         else:
-            self.devices[0].set_color((180, 50, 50))
+            self.devices[0].set_color((0, 0, 0))
         self.i += 1
 
         print("update")
