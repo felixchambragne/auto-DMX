@@ -21,6 +21,7 @@ class Controller:
         for device in self.devices:
             self.data[device.address:device.address+len(device.data)] = device.data
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
+        self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
