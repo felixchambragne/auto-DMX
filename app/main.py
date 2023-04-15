@@ -34,9 +34,9 @@ class Controller:
             device.set_color(const.WHITE)
             device.set_intensity(125)
         
-        for device_group in self.device_groups.values():
+        """for device_group in self.device_groups.values():
             for device in device_group:
-                self.data[device.address:device.address+len(device.data)] = device.data
+                self.data[device.address:device.address+len(device.data)] = device.data"""
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
 
