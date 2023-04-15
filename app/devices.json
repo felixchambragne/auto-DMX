@@ -13,6 +13,28 @@
                 "program_speed": 6,
                 "strob": 7
             }
+        },
+        {
+            "type": "washbeam",
+            "count": 6,
+            "start_address": 341,
+            "channels": {
+                "pan": 1,
+                "pan_fin": 2,
+                "tilt": 3,
+                "tilt_fin": 4,
+                "pan_tilt_speed": 5,
+                "zoom": 6,
+                "intensity": 7,
+                "strob": 8,
+                "red": 9,
+                "green": 10,
+                "blue": 11,
+                "white": 12,
+                "program": 13,
+                "program_speed": 14,
+                "reset": 15
+            }
         }
     ]
 }

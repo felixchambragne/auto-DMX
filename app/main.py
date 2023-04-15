@@ -17,7 +17,9 @@ class Controller:
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
-        
+        self.get_devices()
+
+    def get_devices(self):
         with open('devices.json', 'r') as file:
             data = json.load(file)
         for device_data in data["devices"]:
@@ -28,9 +30,9 @@ class Controller:
                 self.device_groups[device_data["type"]].append(device)
 
     def update_dmx(self):
-        for device in self.device_groups["pixbar"]:
+        for device in self.device_groups["washbeam"]:
             device.set_color(const.WHITE)
-            device.set_intensity(255)
+            device.set_intensity(125)
         
         for device_group in self.device_groups.values():
             for device in device_group:
