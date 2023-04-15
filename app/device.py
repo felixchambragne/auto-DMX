@@ -15,7 +15,6 @@ class Device(object):
     def set_data(self, channels, values):
         for channel, value in zip(channels, values):
             self.data[channel] = value
-        print(self.data)
 
 class PixelBar(Device):
     def __init__(self, address) -> None:
@@ -26,4 +25,4 @@ class PixelBar(Device):
     def set_color(self, color):
         self.set_data([i for i in range(12, self.nb_channels)], color*self.nb_channels)
 
-
+    
