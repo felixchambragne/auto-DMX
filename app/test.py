@@ -4,7 +4,7 @@ from ola.ClientWrapper import ClientWrapper
 def DmxSent(state):
   wrapper.Stop()
 
-universe = 1
+universe = 0
 data = array.array('B', [10, 50, 255])
 wrapper = ClientWrapper()
 client = wrapper.Client()
