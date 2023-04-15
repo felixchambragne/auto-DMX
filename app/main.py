@@ -19,7 +19,7 @@ class Controller:
     def update_dmx(self):
         print("update")
         for device in self.devices:
-            device.update()
+            self.data[device.address:device.address+len(device.data)] = device.data
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         
     def dmx_sent_callback(self, status):
