@@ -30,7 +30,7 @@ class Controller:
     def update_dmx(self):
         for device in self.device_groups["pixbar"]:
             device.set_color(const.WHITE)
-            device.set_color(255)
+            device.set_intensity(255)
         
         for device_group in self.device_groups.values():
             for device in device_group:
