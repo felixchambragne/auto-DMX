@@ -15,23 +15,25 @@ class Controller:
         self.wrapper = wrapper
         self.client = self.wrapper.Client()
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
-        self.devices = []
+        self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         
         with open('devices.json', 'r') as file:
             data = json.load(file)
         for device_data in data["devices"]:
+            self.device_groups[device_data["type"]] = []
             for i in range(device_data["count"]):
                 address = device_data["start_address"] + len(device_data["channels"]) * i
                 device = Device(address, device_data["channels"], device_data["type"])
-                self.devices.append(device)
+                self.device_groups[device_data["type"]].append(device)
 
     def update_dmx(self):
-        self.devices[0].set_color(const.WHITE)
+        for device in self.device_groups["pixbar"]:
+            device.set_color(const.WHITE)
+            device.set_color(255)
         
         for device in self.devices:
             self.data[device.address:device.address+len(device.data)] = device.data
-
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         
