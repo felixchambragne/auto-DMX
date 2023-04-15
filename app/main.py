@@ -44,8 +44,7 @@ class Controller:
             values = [values]
         
         for channel, value in zip(channels, values):
-            print(address)
-            print(channel)
+            print(channel + address)
             self.data[address + channel] = value
         
     def dmx_sent_callback(self, status):
