@@ -33,7 +33,13 @@ class Controller:
     def run(self):
         pix = PixelBar(12)
         self.devices.append(pix)
-        pix.set_color((255, 0, 125))
+        i = 0
+        while True:
+            if i % 2 == 0:
+                pix.set_color((255, 0, 125))
+            else:
+                pix.set_color((180, 50, 50))
+            i += 1
 
 if __name__ == '__main__':
     wrapper = ClientWrapper()
