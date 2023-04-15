@@ -3,6 +3,7 @@ from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVER
 import array
 import sys
 import json
+import constants as const
 from device import Device
 
 class Controller:
@@ -16,17 +17,22 @@ class Controller:
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         self.devices = []
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
-        self.i = 0
+        
+        with open('devices.json', 'r') as file:
+            data = json.load(file)
+        for device_data in data["devices"]:
+            for i in range(device_data["count"]):
+                address = device_data["start_address"] + len(device_data["channels"]) * i
+                device = Device(address, device_data["channels"], device_data["type"])
+                self.devices.append(device)
 
     def update_dmx(self):
-        if self.i % 2 == 0:
-            self.devices[0].set_color((255, 255, 255))
-        else:
-            self.devices[0].set_color((0, 0, 0))
-        self.i += 1
+        device[0].set_color(const.WHITE)
+        
 
         for device in self.devices:
             self.data[device.address:device.address+len(device.data)] = device.data
+            
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         
@@ -38,21 +44,7 @@ class Controller:
             print('Error: %s' % status.message, file=sys.stderr)
             self.wrapper.Stop()
 
-    def run(self):
-        with open('devices.json', 'r') as file:
-            data = json.load(file)
-
-        for device_data in data["devices"]:
-            for i in range(device_data["count"]):
-                address = device_data["start_address"] + len(device_data["channels"]) * i
-                device = Device(address, device_data["channels"])
-                self.devices.append(device)
-
-        for device in self.devices:
-            print(device.address)
-
 if __name__ == '__main__':
     wrapper = ClientWrapper()
     controller = Controller(wrapper)
-    controller.run()
     wrapper.Run()
