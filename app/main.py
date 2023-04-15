@@ -44,7 +44,7 @@ class Controller:
 
         for device_data in data["devices"]:
             for i in range(device_data["count"]):
-                address = device_data["start_address"] + device_data["channels"] * i
+                address = device_data["start_address"] + len(device_data["channels"]) * i
                 device = Device(address, device_data["channels"])
                 self.devices.append(device)
 
