@@ -18,7 +18,7 @@ class Device():
         if type(values) is not list and type(values) is not tuple:
             values = [values]
         for channel, value in zip(channels, values):
-            self.data[channel-1] = value
+            self.data[channel] = value
 
     def set_color(self, color):
         channels = [self.channels["red"], self.channels["green"], self.channels["blue"]]
