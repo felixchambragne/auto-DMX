@@ -15,8 +15,15 @@ class Controller:
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         self.devices = []
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
+        self.i = 0
 
     def update_dmx(self):
+        if self.i % 2 == 0:
+            self.devices[0].set_color((255, 0, 125))
+        else:
+            self.devices[0].set_color((180, 50, 50))
+        self.i += 1
+
         print("update")
         for device in self.devices:
             self.data[device.address:device.address+len(device.data)] = device.data
@@ -34,13 +41,6 @@ class Controller:
     def run(self):
         pix = PixelBar(12)
         self.devices.append(pix)
-        i = 0
-        while True:
-            if i % 2 == 0:
-                pix.set_color((255, 0, 125))
-            else:
-                pix.set_color((180, 50, 50))
-            i += 1
 
 if __name__ == '__main__':
     wrapper = ClientWrapper()
