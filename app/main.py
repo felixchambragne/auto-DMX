@@ -32,7 +32,7 @@ class Controller:
     def update_dmx(self):
         for device in self.device_groups["washbeam"]:
             device.set_color(const.WHITE)
-            device.set_intensity(125)
+            device.set_intensity(50)
         
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
@@ -45,7 +45,7 @@ class Controller:
         
         for channel, value in zip(channels, values):
             print(channel + address, " --> ", value)
-            self.data[address + channel - 1] = value
+            self.data[address + channel] = value
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
