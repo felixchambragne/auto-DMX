@@ -13,9 +13,9 @@ class Device():
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * len(self.channels))
 
     def set_data(self, channels, values):
-        if type(channels) is not list or type(channels) is not tuple:
+        if type(channels) is not list and type(channels) is not tuple:
             channels = [channels]
-        if type(values) is not list or type(values) is not tuple:
+        if type(values) is not list and type(values) is not tuple:
             values = [values]
         for channel, value in zip(channels, values):
             self.data[channel] = value
