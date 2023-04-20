@@ -1,0 +1,26 @@
+<!--Félix Chambragne-->
+<!--Contenu de la page d'acceuil-->
+
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/home_page.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="left-container">
+        <h1 animate="up">Geo-Treasure <br> Hunters</h1>
+        <p animate="up" class="text">Bienvenue dans Geo-Treasure Hunters, un jeu <br> 
+            de recherche dans le monde entier pour les<br> 
+            personnes qui aiment explorer et enquêter</p>
+        <a animate="up" class="button" href="{{ url_for('hunt_page') }}">
+            <p>Commencer à Jouer</p>
+            <div class="icon-container">
+                <img src="{{ url_for('static', filename='assets/arrow.svg') }}" alt="">
+            </div>
+        </a>
+    </div>
+    <div animate="fade" class="right-container">
+        <img class="map-image" src="{{ url_for('static', filename='assets/map.png') }}"/>
+    </div>
+{% endblock %}
