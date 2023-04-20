@@ -1,3 +1,4 @@
+from constants import colors
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -6,7 +7,8 @@ class Device():
         self.type = type
         self.set_data = set_data
 
-    def set_color(self, color):
+    def set_color(self, color_name):
+        color = colors[color_name]
         channels = [self.channels["red"], self.channels["green"], self.channels["blue"]]
         self.set_data(self.address, channels, color)
 

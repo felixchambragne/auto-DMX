@@ -3,7 +3,6 @@ from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVER
 import array
 import sys
 import json
-import constants as const
 from device import Device
 
 class Controller:
@@ -19,21 +18,44 @@ class Controller:
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
 
+        self.current_step = 0
+        self.selected_category = "electro"
+        self.selected_program_id = 0
+        self.update_selected_program()
+
+        with open('programs.json', 'r') as file:
+            self.programs_data = json.load(file)["programs"]
+
     def get_devices(self):
         with open('devices.json', 'r') as file:
-            data = json.load(file)
-        for device_data in data["devices"]:
+            devices_data = json.load(file)["devices"]
+        for device_data in devices_data:
             self.device_groups[device_data["type"]] = []
             for i in range(device_data["count"]):
                 address = device_data["start_address"] + len(device_data["channels"]) * i
                 device = Device(self.set_data, address, device_data["channels"], device_data["type"])
                 self.device_groups[device_data["type"]].append(device)
 
-    def update_dmx(self):
-        for device in self.device_groups["washbeam"]:
-            device.set_color(const.WHITE)
-            device.set_intensity(50)
+    def update_selected_program(self):
+        self.selected_program = self.programs_data[self.selected_category][self.selected_program_id]["steps"]
+
+    def do_step(self, device_type):
+        step = self.selected_program[device_type][self.current_step]
+
+        for i in range(step["duration"]):
+            for j, device in enumerate(self.device_groups[device_type]):
+                color = step["color"][(j + i) % len(step["color"])]
+                device.set_color(color)
+                intensity = step["intensity"][(j + i) % len(step["intensity"])]
+                device.set_intensity()
+            self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         
+    def update_dmx(self):
+        for device_types in self.device_groups.keys():
+            self.do_step(device_types)
+        
+        self.current_step = (self.current_step + 1) % len(self.selected_program[self.device_groups.keys()[0]])
+
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
 
