@@ -1,6 +1,7 @@
 #from ola.ClientWrapper import ClientWrapper
 import flask
 import json
+import webbrowser
 #from dmx_controller import DmxController
 
 class App():
@@ -35,3 +36,4 @@ def categories_page():
 
 if __name__ == '__main__':
     app.run()
+    webbrowser.open('http://localhost')
