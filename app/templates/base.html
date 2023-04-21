@@ -4,46 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/normalize.css') }}">
-    <title>auto-DMX</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/logo-icon-x0.5.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
     {% block head %} {% endblock %}
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul id="alert-container">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{category}}">
-                        {% if category == "success" %}
-                            <img src="{{ url_for('static', filename='assets/check.svg') }}" alt="">
-                        {% elif category == "error" %}
-                            <img src="{{ url_for('static', filename='assets/error.svg') }}" alt="">
-                        {% endif %}
-                        <p>{{ message }}</p>
-                    </div>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    <header>
-        <a class="logo-container" href="{{ url_for('home_page') }}">
-            <img class="logo" src="{{ url_for('static', filename='assets/logo.png') }}" alt="">
-        </a>
-        <ul class="nav">
-            <a href="{{ url_for('hunt_page') }}">Chercher des trésors</a>
-            <a href="{{ url_for('hide_page') }}">Cacher des trésors</a>
-            <a href="{{ url_for('tutorials_page') }}">Tutoriels</a>
-            <a href="{{ url_for('login_page') }}">Connexion</a>
-        </ul>
-    </header>
     <main class="base-main">
         {% block content %} {% endblock %}
-        <div class="wave">
-            <svg width="1427" height="100" viewBox="0 0 1427 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 144.065L48 126.097C96 108.129 192 72.1942 288 42.2107C384 12.6764 480 -12.0291 576 6.27539C672 23.9061 768 84.5469 864 102.178C960 120.482 1056 95.7767 1152 102.178C1248 108.129 1344 144.065 1392 162.032L1440 180H1392C1344 180 1248 180 1152 180C1056 180 960 180 864 180C768 180 672 180 576 180C480 180 384 180 288 180C192 180 96 180 48 180H0V144.065Z" fill="#FDA728"/>
-            </svg>
-        </div>
     </main>
 </body>
 </html>

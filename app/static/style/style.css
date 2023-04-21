@@ -1,0 +1,42 @@
+*{
+    font-family: 'Verdana';
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+html, body{
+    height: 100%;
+}
+body{
+    background-color: black;
+}
+
+.grid{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 5px;
+    grid-auto-rows: minmax(100px, auto);
+}
+.card-button{
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+.card-button p{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    height: fit-content;
+    padding: 15px 30px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.settings{
+    
+}

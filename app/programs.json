@@ -28,7 +28,7 @@
                             "color": ["BLUE"],
                             "fade": 0,
                             "zoom": [255],
-                            "animation": "linaer",
+                            "animation": "linear",
                             "duration": 8,
                             "pan": "random",
                             "tilt": "random",
