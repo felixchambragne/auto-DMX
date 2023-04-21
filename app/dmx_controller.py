@@ -5,26 +5,19 @@ import sys
 import json
 from device import Device
 
-class Controller:
+class DmxController:
     UNIVERSE = 1
     UPDATE_INTERVAL = 1000 #ms
     wrapper: ClientWrapper
     
-    def __init__(self, wrapper) -> None:
+    def __init__(self, app, wrapper) -> None:
         self.wrapper = wrapper
         self.client = self.wrapper.Client()
-        self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
 
-        self.current_step = 0
-        self.selected_category = "electro"
-        self.selected_program_id = 0
-        self.update_selected_program()
-
-        with open('programs.json', 'r') as file:
-            self.programs_data = json.load(file)["programs"]
+        self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -36,11 +29,8 @@ class Controller:
                 device = Device(self.set_data, address, device_data["channels"], device_data["type"])
                 self.device_groups[device_data["type"]].append(device)
 
-    def update_selected_program(self):
-        self.selected_program = self.programs_data[self.selected_category][self.selected_program_id]["steps"]
-
-    def do_step(self, device_type):
-        step = self.selected_program[device_type][self.current_step]
+    def do_step(self, device_type, step):
+        step = self.app.selected_program[device_type][self.current_step]
 
         for i in range(step["duration"]):
             for j, device in enumerate(self.device_groups[device_type]):

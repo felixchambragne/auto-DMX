@@ -1,0 +1,6 @@
+to do :
+uninstall xrdp
+
+
+store git credentials :
+git config --global credential.helper store

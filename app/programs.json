@@ -1,53 +1,81 @@
 {
-    "programs": {
-        "electro": [
-            {
-                "name": "Bleu Blanc",
-                "steps": {
-                    "pixbar": [
-                        {
-                            "intensity": [255],
-                            "color": ["WHITE", "BLUE", "BLUE", "BLUE"],
-                            "fade": 0,
-                            "duration": 16,
-                            "animation": "linear",
-                            "strob": [false]
-                        },
-                        {
-                            "intensity": [255],
-                            "color": ["WHITE", "BLUE"],
-                            "fade": 0,
-                            "duration": 8,
-                            "animation": "linear",
-                            "strob": [true, false, true, false]
-                        }
-                    ],
-                    "washbeam": [
-                        {
-                            "intensity": [255],
-                            "color": ["BLUE"],
-                            "fade": 0,
-                            "zoom": [255],
-                            "animation": "linear",
-                            "duration": 8,
-                            "pan": "random",
-                            "tilt": "random",
-                            "strob": [true, false, false, false, false, false]
-                        },
-                        {
-                            "intensity": [255],
-                            "color": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
-                            "fade": 20,
-                            "zoom": [0],
-                            "animation": "linear",
-                            "duration": 8,
-                            "pan": "random",
-                            "tilt": "random",
-                            "strob": [false]
-                        }
-                    ]
+    "categories": [
+        {
+            "name": "Electro",
+            "color": "#F54545",
+            "programs": [
+                {
+                    "name": "Bleu Blanc",
+                    "steps": {
+                        "pixbar": [
+                            {
+                                "intensity": [255],
+                                "color": ["WHITE", "BLUE", "BLUE", "BLUE"],
+                                "fade": 0,
+                                "duration": 16,
+                                "animation": "linear",
+                                "strob": [false]
+                            },
+                            {
+                                "intensity": [255],
+                                "color": ["WHITE", "BLUE"],
+                                "fade": 0,
+                                "duration": 8,
+                                "animation": "linear",
+                                "strob": [true, false, true, false]
+                            }
+                        ],
+                        "washbeam": [
+                            {
+                                "intensity": [255],
+                                "color": ["BLUE"],
+                                "fade": 0,
+                                "zoom": [255],
+                                "animation": "linear",
+                                "duration": 8,
+                                "pan": "random",
+                                "tilt": "random",
+                                "strob": [true, false, false, false, false, false]
+                            },
+                            {
+                                "intensity": [255],
+                                "color": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
+                                "fade": 20,
+                                "zoom": [0],
+                                "animation": "linear",
+                                "duration": 8,
+                                "pan": "random",
+                                "tilt": "random",
+                                "strob": [false]
+                            }
+                        ]
+                    }
                 }
-            }
-        ]
-    }
+            ]
+        },
+        {
+            "name": "Rock",
+            "color": "#6B70FA",
+            "programs": [
+            ]
+        },
+        {
+            "name": "Statique",
+            "color": "#E59434",
+            "programs": [
+            ]
+        },
+        {
+            "name": "Reggae",
+            "color": "#63BE4C",
+            "programs": [
+            ]
+        },
+        {
+            "name": "Lent",
+            "color": "#CF53D1",
+            "programs": [
+            ]
+        }
+    ]
 }
