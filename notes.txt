@@ -13,6 +13,7 @@ sudo adduser pi olad
 for ix in /etc/ola/*; do echo "-> $(basename $ix)"; grep enabled $ix; done
 grep -rl "enabled = true" /etc/ola/* | while read f; do echo "$(basename $f) -> setting enabled = false;"; sudo sed -i 's/enabled = true/enabled = false/' $f; done
 sudo nano /etc/ola/ola-ftdidmx.conf
+
 sudo killall -s SIGHUP olad
 ola_dev_info | grep FT232R
 ola_patch -d 11 -p 1 -u 1

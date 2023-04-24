@@ -1,6 +1,7 @@
 from ola.ClientWrapper import ClientWrapper
 import flask
 import json
+import threading
 from dmx_controller import DmxController
 
 class App():
@@ -9,8 +10,7 @@ class App():
 
         with open('programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
-            
-        
+
         self.selected_category = 0
         self.selected_program_id = 0
         self.update_selected_program()
@@ -19,11 +19,19 @@ class App():
         self.selected_program = self.categories[self.selected_category]['programs'][self.selected_program_id]["steps"]
 
     def run(self):
-        
-        self.wrapper = ClientWrapper()
-        self.dmx_controller = DmxController(self, self.wrapper)
-        self.wrapper.Run()
+        ola_thread = OlaThread(app)
+        ola_thread.start()
         self.flask_app.run(host='0.0.0.0', debug=True)
+
+class OlaThread(threading.Thread):
+    def __init__(self, app):
+        threading.Thread.__init__(self)
+        self.app = app
+
+    def run(self):
+        wrapper = ClientWrapper()
+        dmx_controller = DmxController(self.app, wrapper)
+        wrapper.Run()
 
 app = App()
 @app.flask_app.route("/", methods=["GET", "POST"])
