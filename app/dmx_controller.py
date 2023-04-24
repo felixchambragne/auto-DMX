@@ -39,7 +39,7 @@ class DmxController:
                 color = step["color"][(j + i) % len(step["color"])]
                 device.set_color(color)
                 intensity = step["intensity"][(j + i) % len(step["intensity"])]
-                device.set_intensity()
+                device.set_intensity(intensity)
             self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         
     def update_dmx(self):
