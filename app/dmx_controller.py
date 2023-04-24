@@ -11,6 +11,7 @@ class DmxController:
     wrapper: ClientWrapper
     
     def __init__(self, app, wrapper) -> None:
+        self.app = app
         self.wrapper = wrapper
         self.client = self.wrapper.Client()
         self.device_groups = {}

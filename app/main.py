@@ -1,7 +1,7 @@
-#from ola.ClientWrapper import ClientWrapper
+from ola.ClientWrapper import ClientWrapper
 import flask
 import json
-#from dmx_controller import DmxController
+from dmx_controller import DmxController
 
 class App():
     def __init__(self) -> None:
@@ -20,9 +20,9 @@ class App():
 
     def run(self):
         self.flask_app.run(host='0.0.0.0', debug=True)
-        #self.wrapper = ClientWrapper()
-        #self.dmx_controller = DmxController(self.wrapper)
-        #self.wrapper.Run()
+        self.wrapper = ClientWrapper()
+        self.dmx_controller = DmxController(self.wrapper)
+        self.wrapper.Run()
 
 app = App()
 @app.flask_app.route("/", methods=["GET", "POST"])
