@@ -1,20 +1,35 @@
 **************install steps :*************
-gitclone https://github.com/felixchambragne/auto-DMX
+git clone https://github.com/felixchambragne/auto-DMX
+token : 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
 git config --global credential.helper store
 git pull
+sudo apt install -y python3-pip
+pip install flask
+
+*********************OLA setup*********************
 sudo apt-get install -y ola
 sudo apt-get install -y ola-python
 sudo adduser pi olad
 for ix in /etc/ola/*; do echo "-> $(basename $ix)"; grep enabled $ix; done
 grep -rl "enabled = true" /etc/ola/* | while read f; do echo "$(basename $f) -> setting enabled = false;"; sudo sed -i 's/enabled = true/enabled = false/' $f; done
-sudo nano /etc/ola/ola-dtdidmx.conf
+sudo nano /etc/ola/ola-ftdidmx.conf
 sudo killall -s SIGHUP olad
 ola_dev_info | grep FT232R
 ola_patch -d 11 -p 1 -u 1
 
 
+**************************Access Point :*****************
+git clone https://github.com/idev1/rpihotspot.git
+cd rpihotspot
+sudo chmod +x setup-network.sh
+sudo ./setup-network.sh --install --ap-ssid="Light" --ap-password="chambfils" --ap-password-encrypt --ap-country-code="FR" --ap-ip-address="192.168.220.1" --wifi-interface="wlan0"
+iw dev wlan0 interface add uap0 type __ap
+
+
 ***************to do :***********
 uninstall xrdp
+uninstall git
+uninstall dkms
 
 
 ***************store git credentials :**********

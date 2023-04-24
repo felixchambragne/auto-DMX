@@ -36,4 +36,4 @@ def categories_page():
 
 if __name__ == '__main__':
     app.run()
-    webbrowser.open('http://localhost:5000')
+    webbrowser.open('0.0.0.0')
