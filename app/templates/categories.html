@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="grid">
-        <div class="settings">
+        <a class="settings" href="/test">
             <p>Auto</p>
-        </div>
+        </a>
         {% for category in categories %}
             <a class="card-button" {% if loop.index0 == selected_category %} selected {% endif %} style="background-color: {{ category.color }};">
                 <p>{{ category.name}}</p>

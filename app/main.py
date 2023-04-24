@@ -33,5 +33,10 @@ def categories_page():
         selected_category = app.selected_category
     )
 
+@app.flask_app.route("/test", methods=["GET", "POST"])
+def test():
+    return flask.render_template_string("<h1>Test</h1>")
+
+
 if __name__ == '__main__':
     app.run()
