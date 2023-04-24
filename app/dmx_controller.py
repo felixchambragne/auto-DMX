@@ -30,7 +30,7 @@ class DmxController:
                 device = Device(self.set_data, address, device_data["channels"], device_data["type"])
                 self.device_groups[device_data["type"]].append(device)
 
-    def do_step(self, device_type, step):
+    def do_step(self, device_type):
         step = self.app.selected_program[device_type][self.current_step]
 
         for i in range(step["duration"]):
