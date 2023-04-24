@@ -13,10 +13,10 @@ class App():
         self.current_step = 0
         self.selected_category = 0
         self.selected_program_id = 0
-        #self.update_selected_program()
+        self.update_selected_program()
     
     def update_selected_program(self):
-        self.selected_program = self.programs_data[self.selected_category][self.selected_program_id]["steps"]
+        self.selected_program = self.categories[self.selected_category]['programs'][self.selected_program_id]["steps"]
 
     def run(self):
         
