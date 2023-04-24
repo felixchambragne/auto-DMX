@@ -10,7 +10,7 @@ class App():
         with open('programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
             
-        self.current_step = 0
+        
         self.selected_category = 0
         self.selected_program_id = 0
         self.update_selected_program()

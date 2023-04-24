@@ -17,6 +17,7 @@ class DmxController:
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
+        self.current_step = 0
 
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
 
