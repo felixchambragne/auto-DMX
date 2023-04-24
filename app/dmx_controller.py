@@ -46,7 +46,7 @@ class DmxController:
         for device_types in self.device_groups.keys():
             self.do_step(device_types)
         
-        self.current_step = (self.current_step + 1) % len(self.app.selected_program[self.device_groups.keys()[0]])
+        self.current_step = (self.current_step + 1) % len(self.app.selected_program[list(self.device_groups.keys())[0]])
 
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
         self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
