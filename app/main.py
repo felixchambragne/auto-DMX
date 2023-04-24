@@ -21,7 +21,7 @@ class App():
     def run(self):
         
         self.wrapper = ClientWrapper()
-        self.dmx_controller = DmxController(self.wrapper)
+        self.dmx_controller = DmxController(self, self.wrapper)
         self.wrapper.Run()
         self.flask_app.run(host='0.0.0.0', debug=True)
 
