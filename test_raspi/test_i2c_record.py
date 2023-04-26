@@ -20,6 +20,7 @@ stream = p.open(format=FORMAT,
                 channels=CHANNELS,
                 rate=RATE,
                 input=True,
+                output=False,
                 frames_per_buffer=CHUNK)
 
 frames = []
