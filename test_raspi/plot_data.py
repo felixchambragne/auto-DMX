@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file
-df = pd.read_csv('data.csv')
+df = pd.read_csv('test_raspi/data.csv')
 
 # Extract the data from the DataFrame
 timestamps = df['timestamp']
