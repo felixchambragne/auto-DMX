@@ -24,14 +24,18 @@ git clone https://github.com/idev1/rpihotspot.git
 cd rpihotspot
 sudo chmod +x setup-network.sh
 sudo ./setup-network.sh --install --ap-ssid="Light" --ap-password="chambfils" --ap-password-encrypt --ap-country-code="FR" --ap-ip-address="192.168.220.1" --wifi-interface="wlan0"
-iw dev wlan0 interface add uap0 type __ap
+sudo iw dev wlan0 interface add uap0 type __ap
+
+******************Setup Microphone*************
+sudo raspi-config
+--> enable i2c
+pip install smbus
+sudo apt-get install i2c-tools
+test i2c : sudo i2cdetect -y 0 ou sudo i2cdetect -y 1
+sudo apt install python3-pyaudio
 
 
 ***************to do :***********
 uninstall xrdp
 uninstall git
 uninstall dkms
-
-
-***************store git credentials :**********
-git config --global credential.helper store

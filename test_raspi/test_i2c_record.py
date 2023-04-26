@@ -1,6 +1,8 @@
 import smbus
 import pyaudio
 import wave
+
+print(pyaudio.get_portaudio_version())
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
