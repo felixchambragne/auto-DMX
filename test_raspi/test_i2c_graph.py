@@ -23,7 +23,7 @@ while time.time() - start_time < duration:
     timestamp = time.time()
     values.append(value)
     timestamps.append(timestamp)
-    time.sleep(0.05)
+    time.sleep(0.005)
 
 # Save the data to a CSV file
 with open('data.csv', 'w') as f:
