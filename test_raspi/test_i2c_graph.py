@@ -1,7 +1,6 @@
 import smbus
 import time
 import csv
-import matplotlib.pyplot as plt
 
 bus = smbus.SMBus(1)
 
@@ -32,8 +31,3 @@ with open('data.csv', 'w') as f:
     for i in range(len(values)):
         writer.writerow([timestamps[i], values[i]])
 
-# Plot the data
-plt.plot(timestamps, values)
-plt.xlabel('Time')
-plt.ylabel('Value')
-plt.savefig('plot.png')
