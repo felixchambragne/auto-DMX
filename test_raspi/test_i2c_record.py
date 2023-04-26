@@ -2,7 +2,10 @@ import smbus
 import pyaudio
 import wave
 
-print(pyaudio.get_portaudio_version())
+import pyaudio
+p = pyaudio.PyAudio()
+for i in range(p.get_device_count()):
+    print p.get_device_info_by_index(i)
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
