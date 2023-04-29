@@ -1,50 +1,40 @@
 import smbus
-import struct
-import librosa
-import time
+import numpy as np
+import scipy.fftpack as fft
 
-# Define the I2C bus and device addresses
-DEVICE_ADDRESS = 0x48
-
-# Initialize the I2C bus and device
 bus = smbus.SMBus(1)
 
-# Set up the audio data buffer and the sample rate
-buffer_size = 1024
-sample_rate = 22050
-audio_buffer = []
+# Fréquence d'échantillonnage du signal audio
+fs = 44100
 
-# Continuously read audio data from the I2C device and detect beats
+# Nombre d'échantillons à analyser pour chaque FFT
+chunk_size = 2048
+
+# Seuil de puissance des basses fréquences pour la détection de beats
+power_threshold = 0.1
+
+def read_pcf8591():
+    bus.write_byte(0x48, 0x40)
+    return bus.read_byte(0x48)
+
 while True:
-    # Read a block of audio data from the I2C device
-    audio_data = []
-    for i in range(buffer_size):
-        # Read a signed 16-bit integer from the I2C device
-        data = bus.read_i2c_block_data(DEVICE_ADDRESS, i*2, 2)
-        sample = struct.unpack(">h", bytes(data))[0]
-        audio_data.append(sample)
-    
-    # Convert the audio data to a numpy array with the correct sample rate
-    audio_data = librosa.util.fix_length(audio_data, sample_rate)
-    audio_data = librosa.resample(audio_data, 44100, sample_rate)
-    
-    # Append the audio data to the audio buffer
-    audio_buffer.extend(audio_data)
-    
-    # If the audio buffer is long enough, detect the beats
-    if len(audio_buffer) >= sample_rate:
-        # Slice the audio buffer to the correct length
-        audio_slice = audio_buffer[:sample_rate]
-        
-        # Detect the beats in the audio slice
-        tempo, beats = librosa.beat.beat_track(audio_slice, sr=sample_rate)
-        
-        # Print the tempo and the indices of the detected beats
-        print("Tempo: {:.2f} BPM".format(tempo))
-        print("Beat indices:", beats)
-        
-        # Remove the processed audio data from the audio buffer
-        audio_buffer = audio_buffer[sample_rate:]
-    
-    # Wait for a short period of time to control the loop rate
-    time.sleep(0.01)
+    # Lecture d'un chunk de données audio depuis le PCF8591
+    data = [read_pcf8591() for i in range(chunk_size)]
+
+    # Conversion des données en un tableau NumPy de flottants normalisés entre -1 et 1
+    data = np.array(data) / 128.0 - 1.0
+
+    # Application d'une fenêtre de Hamming aux données pour réduire les effets de bord
+    data *= np.hamming(len(data))
+
+    # Calcul de la FFT des données
+    fft_data = fft.fft(data)
+
+    # Extraction de la puissance des basses fréquences (entre 20 Hz et 200 Hz)
+    freqs = fft.fftfreq(len(data), 1.0 / fs)
+    idx = np.logical_and(freqs >= 20, freqs <= 200)
+    power = np.sum(np.abs(fft_data[idx]) ** 2)
+
+    # Si la puissance des basses fréquences dépasse le seuil, on considère qu'il y a un beat
+    if power > power_threshold:
+        print("Beat detected!")
