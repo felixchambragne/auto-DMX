@@ -14,13 +14,10 @@ FORMAT = pyaudio.paInt16
 
 # Création du stream PyAudio
 p = pyaudio.PyAudio()
-for i in range(p.get_device_count()):
-    dev = p.get_device_info_by_index(i)
-    print((i,dev['name'],dev['maxInputChannels']))
-#stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True)
+stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True)
 
 # Lecture et traitement en continu
-"""while True:
+while True:
     # Lecture d'une valeur depuis le microphone
     value = read_pcf8591()
 
@@ -32,5 +29,5 @@ for i in range(p.get_device_count()):
 
 # Fermeture du stream PyAudio
 stream.stop_stream()
-stream.close()"""
+stream.close()
 p.terminate()
