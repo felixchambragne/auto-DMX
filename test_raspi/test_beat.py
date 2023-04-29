@@ -20,7 +20,8 @@ ENERGY_THRESHOLD_RATIO = 1.5  # ratio of current energy to average energy thresh
 SAMPLING_RATE = 44100  # replace with your sampling rate
 BANDPASS_FREQ_RANGE = [70, 150]  # replace with your desired frequency range
 BANDPASS_ORDER = 3  # order of the filter
-BANDPASS_COEFFS = signal.butter(BANDPASS_ORDER, [BANDPASS_FREQ_RANGE[0], BANDPASS_FREQ_RANGE[1]], btype='bandpass', fs=SAMPLING_RATE, output='sos')
+nyquist = 0.5 * SAMPLING_RATE
+b, a = signal.butter(BANDPASS_ORDER, np.array(BANDPASS_FREQ_RANGE) / nyquist, btype='band')
 #BANDPASS_COEFFS = librosa.filters.band_pass(SAMPLING_RATE, BANDPASS_FREQ_RANGE[0], BANDPASS_FREQ_RANGE[1], BANDPASS_ORDER)
 
 # initialize the energy and beat variables
@@ -40,9 +41,10 @@ while True:
     data = np.array([data_l, data_r], dtype=np.float32)
     data = (data / 1024.0) - 1.0
     # apply the bandpass filter and calculate the energy
-    data_filtered = np.abs(np.fft.rfft(data * BANDPASS_COEFFS, n=FRAME_SIZE))
-    energy = 0.9 * energy + 0.1 * data_filtered ** 2
-    average_energy = 0.99 * average_energy + 0.01 * np.mean(energy)
+    data_filtered = signal.filtfilt(b, a, data, axis=0)
+    data_envelope = np.abs(signal.hilbert(data_filtered, axis=0))
+    energy = 0.9 * energy + 0.1 * data_envelope ** 2
+    average_energy = 0.99 * average_energy + 0.01 * np.mean(energy, axis=0)
     # detect beat if the energy exceeds the threshold
     if np.mean(energy) > ENERGY_THRESHOLD_RATIO * average_energy:
         beat = True
