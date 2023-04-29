@@ -13,21 +13,14 @@ DETECT_LENGTH = 50
 # Initialisation de l'interface I2C
 bus = smbus.SMBus(1)
 
-def read_pcf8591():
-    bus.write_byte(0x48, 0x40)
-    return bus.read_byte(0x48)
-
-# Initialisation de PyAudio
-p = pyaudio.PyAudio()
-stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE, input=True, frames_per_buffer=CHUNK)
-
 # Boucle de détection de beat
 beat_detected = False
 silence_count = 0
 while True:
     # Lecture des échantillons audio
-    data = stream.read(CHUNK)
-    audio_data = np.frombuffer(data, dtype=np.int16)
+    audio_data = np.zeros(CHUNK, dtype=np.int16)
+    for i in range(CHUNK):
+        audio_data[i] = bus.read_byte(0x48)
 
     # Calcul de la FFT
     fft_data = fft(audio_data)
@@ -45,3 +38,6 @@ while True:
         silence_count += 1
         if silence_count >= SILENCE_LIMIT:
             beat_detected = False
+
+    # Affichage de la détection de beat
+    print("Beat detected: ", beat_detected)
