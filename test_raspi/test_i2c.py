@@ -1,5 +1,4 @@
 import smbus
-import time
 
 bus = smbus.SMBus(1)
 
@@ -10,4 +9,3 @@ def read_pcf8591():
 while True:
     value = read_pcf8591()
     print(value)
-    time.sleep(0.05)
