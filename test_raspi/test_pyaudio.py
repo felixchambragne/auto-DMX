@@ -14,6 +14,8 @@ FORMAT = pyaudio.paInt16
 
 # Création du stream PyAudio
 p = pyaudio.PyAudio()
+for i in range(p.get_device_count()):
+    print(p.get_device_info_by_index(i))
 stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True)
 
 # Lecture et traitement en continu
