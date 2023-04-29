@@ -14,7 +14,7 @@ FORMAT = pyaudio.paInt16
 
 # Création du stream PyAudio
 p = pyaudio.PyAudio()
-stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True)
+stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=False)
 
 # Lecture et traitement en continu
 while True:
