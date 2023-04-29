@@ -1,7 +1,6 @@
 import smbus
-import time
 import numpy as np
-import librosa
+import scipy
 
 # set up I2C communication
 I2C_ADDRESS = 0x48  # replace with your ADC's I2C address
@@ -21,7 +20,8 @@ ENERGY_THRESHOLD_RATIO = 1.5  # ratio of current energy to average energy thresh
 SAMPLING_RATE = 44100  # replace with your sampling rate
 BANDPASS_FREQ_RANGE = [70, 150]  # replace with your desired frequency range
 BANDPASS_ORDER = 3  # order of the filter
-BANDPASS_COEFFS = librosa.filters.band_pass(SAMPLING_RATE, BANDPASS_FREQ_RANGE[0], BANDPASS_FREQ_RANGE[1], BANDPASS_ORDER)
+BANDPASS_COEFFS = scipy.signal.butter(BANDPASS_ORDER, [BANDPASS_FREQ_RANGE[0], BANDPASS_FREQ_RANGE[1]], btype='bandpass', fs=SAMPLING_RATE, output='sos')
+#BANDPASS_COEFFS = librosa.filters.band_pass(SAMPLING_RATE, BANDPASS_FREQ_RANGE[0], BANDPASS_FREQ_RANGE[1], BANDPASS_ORDER)
 
 # initialize the energy and beat variables
 energy = np.zeros((FRAME_SIZE // 2 + 1,))
