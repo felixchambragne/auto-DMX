@@ -1,43 +1,50 @@
-import pyaudio
-import numpy as np
-from scipy.fftpack import fft
 import smbus
+import struct
+import librosa
+import time
 
-# Variables de configuration
-CHUNK = 1024
-RATE = 44100
-THRESHOLD = 12000
-SILENCE_LIMIT = 10
-DETECT_LENGTH = 50
+# Define the I2C bus and device addresses
+DEVICE_ADDRESS = 0x48
 
-# Initialisation de l'interface I2C
+# Initialize the I2C bus and device
 bus = smbus.SMBus(1)
 
-# Boucle de détection de beat
-beat_detected = False
-silence_count = 0
+# Set up the audio data buffer and the sample rate
+buffer_size = 1024
+sample_rate = 22050
+audio_buffer = []
+
+# Continuously read audio data from the I2C device and detect beats
 while True:
-    # Lecture des échantillons audio
-    audio_data = np.zeros(CHUNK, dtype=np.int16)
-    for i in range(CHUNK):
-        audio_data[i] = bus.read_byte(0x48)
-
-    # Calcul de la FFT
-    fft_data = fft(audio_data)
-    freqs = np.fft.fftfreq(len(fft_data))
-
-    # Obtention de la puissance des fréquences basses
-    low_freqs = np.where(freqs >= 0)[0][:len(freqs)//2]
-    power = np.abs(fft_data[low_freqs])**2
-
-    # Détection de beat
-    if np.max(power) > THRESHOLD and not beat_detected:
-        beat_detected = True
-        silence_count = 0
-    elif beat_detected:
-        silence_count += 1
-        if silence_count >= SILENCE_LIMIT:
-            beat_detected = False
-
-    # Affichage de la détection de beat
-    print("Beat detected: ", beat_detected)
+    # Read a block of audio data from the I2C device
+    audio_data = []
+    for i in range(buffer_size):
+        # Read a signed 16-bit integer from the I2C device
+        data = bus.read_i2c_block_data(DEVICE_ADDRESS, i*2, 2)
+        sample = struct.unpack(">h", bytes(data))[0]
+        audio_data.append(sample)
+    
+    # Convert the audio data to a numpy array with the correct sample rate
+    audio_data = librosa.util.fix_length(audio_data, sample_rate)
+    audio_data = librosa.resample(audio_data, 44100, sample_rate)
+    
+    # Append the audio data to the audio buffer
+    audio_buffer.extend(audio_data)
+    
+    # If the audio buffer is long enough, detect the beats
+    if len(audio_buffer) >= sample_rate:
+        # Slice the audio buffer to the correct length
+        audio_slice = audio_buffer[:sample_rate]
+        
+        # Detect the beats in the audio slice
+        tempo, beats = librosa.beat.beat_track(audio_slice, sr=sample_rate)
+        
+        # Print the tempo and the indices of the detected beats
+        print("Tempo: {:.2f} BPM".format(tempo))
+        print("Beat indices:", beats)
+        
+        # Remove the processed audio data from the audio buffer
+        audio_buffer = audio_buffer[sample_rate:]
+    
+    # Wait for a short period of time to control the loop rate
+    time.sleep(0.01)
