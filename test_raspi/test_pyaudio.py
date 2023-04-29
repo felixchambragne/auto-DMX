@@ -9,7 +9,7 @@ def read_pcf8591():
 
 # Paramètres audio
 RATE = 44100
-CHANNELS = 1
+CHANNELS = 2
 FORMAT = pyaudio.paInt16
 
 # Création du stream PyAudio
