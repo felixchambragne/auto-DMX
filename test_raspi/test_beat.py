@@ -3,6 +3,7 @@ import numpy as np
 import scipy.signal as signal
 
 bus = smbus.SMBus(1)
+data = np.zeros(1024)
 
 def read_pcf8591():
     bus.write_byte(0x48, 0x40)
@@ -35,8 +36,6 @@ def detect_beats(data, sampling_rate):
 
     return beats
 
-
-
 def beat_callback():
     # Code à exécuter à chaque battement de la musique
     print("Beat detected!")
@@ -47,7 +46,9 @@ beat_threshold = 0.1  # Seuil de détection de battements
 
 while True:
     # Collecte des données
-    data = read_pcf8591()
+    for i in range(data.shape[0]):
+        value = read_pcf8591()
+        data[i] = value  # Ajout de l'échantillon au tableau de données
 
     # Prétraitement des données
     data = preprocess_data(data)
