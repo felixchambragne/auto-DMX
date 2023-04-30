@@ -9,6 +9,9 @@ def read_pcf8591():
     return bus.read_byte(0x48)
 
 def preprocess_data(data):
+    if np.var(data) == 0:
+        return data
+    
     # Normalisation
     data = (data - np.mean(data)) / np.std(data)
 
