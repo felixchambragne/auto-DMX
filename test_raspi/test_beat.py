@@ -17,13 +17,13 @@ def preprocess_data(data):
 
     # Filtre passe-bas pour éliminer les hautes fréquences
     b, a = signal.butter(4, 0.1)
-    data = signal.filtfilt(b, a, data)
+    data = signal.filtfilt(b, a, data, axis=0)
 
     return data
 
 def detect_beats(data, sampling_rate):
     # Transformation de Fourier
-    fft_data = np.fft.fft(data)
+    fft_data = np.fft.fft(data, axis=0)
     freqs = np.fft.fftfreq(len(data)) * sampling_rate
     powers = np.abs(fft_data) ** 2
 
@@ -33,6 +33,8 @@ def detect_beats(data, sampling_rate):
     beats = freqs[indices]
 
     return beats
+
+
 
 def beat_callback():
     # Code à exécuter à chaque battement de la musique
