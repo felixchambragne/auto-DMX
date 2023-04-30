@@ -22,7 +22,36 @@ def preprocess_data(data):
 
     return data
 
-def detect_beats(data, sampling_rate):
+def beat_callback():
+    # Code à exécuter à chaque battement de la musique
+    print("Beat detected!")
+    
+sampling_rate = 44100  # Fréquence d'échantillonnage en Hz
+beat_threshold = 0.5  # Seuil de détection de battements
+prev_freq = 0  # Fréquence dominante précédente
+
+while True:
+    # Collecte des données
+    for i in range(data.shape[0]):
+        value = read_pcf8591()
+        data[i] = value  # Ajout de l'échantillon au tableau de données
+
+    # Prétraitement des données
+    data = preprocess_data(data)
+
+    # Détection des battements
+    fft_data = np.fft.fft(data)
+    freqs = np.fft.fftfreq(len(data)) * sampling_rate
+    powers = np.abs(fft_data) ** 2
+    threshold = np.mean(powers) + np.std(powers)
+    indices = np.where(powers > threshold)[0]
+    freq = freqs[indices][np.argmax(powers[indices])]
+    if abs(freq - prev_freq) > beat_threshold * prev_freq:
+        beat_callback()
+    prev_freq = freq
+
+
+"""def detect_beats(data, sampling_rate):
     # Transformation de Fourier
     print(data)
     fft_data = np.fft.fft(data)
@@ -36,9 +65,7 @@ def detect_beats(data, sampling_rate):
 
     return beats
 
-def beat_callback():
-    # Code à exécuter à chaque battement de la musique
-    print("Beat detected!")
+
 
 # Paramètres
 sampling_rate = 44100  # Fréquence d'échantillonnage en Hz
@@ -54,6 +81,4 @@ while True:
     data = preprocess_data(data)
 
     # Détection des battements
-    beats = detect_beats(data, sampling_rate)
-
-    print(beats)
+    beats = detect_beats(data, sampling_rate)"""
