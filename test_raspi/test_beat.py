@@ -1,40 +1,54 @@
 import smbus
 import numpy as np
-import scipy.fftpack as fft
+import scipy.signal as signal
 
 bus = smbus.SMBus(1)
-
-# Fréquence d'échantillonnage du signal audio
-fs = 44100
-
-# Nombre d'échantillons à analyser pour chaque FFT
-chunk_size = 2048
-
-# Seuil de puissance des basses fréquences pour la détection de beats
-power_threshold = 0.1
 
 def read_pcf8591():
     bus.write_byte(0x48, 0x40)
     return bus.read_byte(0x48)
 
+def preprocess_data(data):
+    # Normalisation
+    data = (data - np.mean(data)) / np.std(data)
+
+    # Filtre passe-bas pour éliminer les hautes fréquences
+    b, a = signal.butter(4, 0.1)
+    data = signal.filtfilt(b, a, data)
+
+    return data
+
+def detect_beats(data, sampling_rate):
+    # Transformation de Fourier
+    fft_data = np.fft.fft(data)
+    freqs = np.fft.fftfreq(len(data)) * sampling_rate
+    powers = np.abs(fft_data) ** 2
+
+    # Détection de battements
+    threshold = np.mean(powers) + np.std(powers)
+    indices = np.where(powers > threshold)[0]
+    beats = freqs[indices]
+
+    return beats
+
+def beat_callback():
+    # Code à exécuter à chaque battement de la musique
+    print("Beat detected!")
+
+# Paramètres
+sampling_rate = 44100  # Fréquence d'échantillonnage en Hz
+beat_threshold = 0.1  # Seuil de détection de battements
+
 while True:
-    # Lecture d'un chunk de données audio depuis le PCF8591
-    data = [read_pcf8591() for i in range(chunk_size)]
+    # Collecte des données
+    data = read_pcf8591()
 
-    # Conversion des données en un tableau NumPy de flottants normalisés entre -1 et 1
-    data = np.array(data) / 128.0 - 1.0
+    # Prétraitement des données
+    data = preprocess_data(data)
 
-    # Application d'une fenêtre de Hamming aux données pour réduire les effets de bord
-    data *= np.hamming(len(data))
+    # Détection des battements
+    beats = detect_beats(data, sampling_rate)
 
-    # Calcul de la FFT des données
-    fft_data = fft.fft(data)
-
-    # Extraction de la puissance des basses fréquences (entre 20 Hz et 200 Hz)
-    freqs = fft.fftfreq(len(data), 1.0 / fs)
-    idx = np.logical_and(freqs >= 20, freqs <= 200)
-    power = np.sum(np.abs(fft_data[idx]) ** 2)
-
-    # Si la puissance des basses fréquences dépasse le seuil, on considère qu'il y a un beat
-    if power > power_threshold:
-        print("Beat detected!")
+    # Callback à chaque battement
+    if len(beats) > 0 and beats[0] > beat_threshold:
+        beat_callback()
