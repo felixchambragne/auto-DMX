@@ -26,6 +26,7 @@ def detect_beats(data, sampling_rate):
     # Transformation de Fourier
     print(data)
     fft_data = np.fft.fft(data)
+    print(fft_data)
     freqs = np.fft.fftfreq(len(data)) * sampling_rate
     powers = np.abs(fft_data) ** 2
 
