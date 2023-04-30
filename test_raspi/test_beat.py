@@ -56,6 +56,4 @@ while True:
     # Détection des battements
     beats = detect_beats(data, sampling_rate)
 
-    # Callback à chaque battement
-    if len(beats) > 0 and beats[0] > beat_threshold:
-        beat_callback()
+    print(beats)
