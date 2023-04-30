@@ -26,7 +26,6 @@ def detect_beats(data, sampling_rate):
     # Transformation de Fourier
     print(data)
     fft_data = np.fft.fft(data)
-    print(fft_data)
     freqs = np.fft.fftfreq(len(data)) * sampling_rate
     powers = np.abs(fft_data) ** 2
 
@@ -43,7 +42,7 @@ def beat_callback():
 
 # Paramètres
 sampling_rate = 44100  # Fréquence d'échantillonnage en Hz
-beat_threshold = 0.1  # Seuil de détection de battements
+beat_threshold = 0.5  # Seuil de détection de battements
 
 while True:
     # Collecte des données
