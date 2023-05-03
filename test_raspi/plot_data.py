@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file
-df = pd.read_csv('test_raspi/data4.csv')
+df = pd.read_csv('test_raspi/data3.csv')
 
 # Extract the data from the DataFrame
 timestamps = df['timestamp']
@@ -12,4 +12,4 @@ values = df['value']
 plt.plot(timestamps, values)
 plt.xlabel('Time')
 plt.ylabel('Value')
-plt.savefig('plot4.png')
+plt.savefig('plot3.png')
