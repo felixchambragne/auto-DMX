@@ -39,14 +39,12 @@ values2 = []
 values3 = []
 values4 = []
 timestamps = []
+frequencies = []
 
 duration = 10 # seconds
 start_time = time.time()
 
 while time.time() - start_time < duration:
-
-    
-
     # Collecte des données
     for i in range(data.shape[0]):
         value = read_pcf8591()
@@ -66,7 +64,7 @@ while time.time() - start_time < duration:
         values3.append(d)
     freqs = np.fft.fftfreq(len(data)) * sampling_rate
     for d in freqs:
-        values4.append(d)
+        frequencies.append(d)
     powers = np.abs(fft_data) ** 2
     threshold = np.mean(powers) + np.std(powers)
     indices = np.where(powers > threshold)[0]
@@ -86,7 +84,6 @@ def save_data(filename, values):
 save_data('data1.csv', values1)
 save_data('data2.csv', values2)
 save_data('data3.csv', values3)
-save_data('data4.csv', values4)
 
 """def detect_beats(data, sampling_rate):
     # Transformation de Fourier
