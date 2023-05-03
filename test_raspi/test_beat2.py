@@ -23,7 +23,7 @@ frequencies = []
 
 while time.time() - start_time < duration:
     value = read_pcf8591()
-    timestamp = time.time()
+    timestamp = time.time() - start_time
     timestamps.append(timestamp)
 
     audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
@@ -50,7 +50,7 @@ while time.time() - start_time < duration:
         frequencies.append(d)
     for d in audio_fft:
         values2.append(d)"""
-
+print("saving data...")
 def save_data(filename, values, ref):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
