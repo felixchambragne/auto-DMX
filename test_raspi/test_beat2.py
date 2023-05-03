@@ -5,7 +5,7 @@ import time
 import csv
 
 bus = smbus.SMBus(1)
-data = np.zeros(32)
+data = np.zeros(128)
 
 def read_pcf8591():
     bus.write_byte(0x48, 0x40)
@@ -53,22 +53,22 @@ while time.time() - start_time < duration:
     bass_max = max(bass_max, bass)
     low_midrange_max = max(low_midrange_max, low_midrange)
 
-    if sub_bass >= sub_bass_max*.9 and not sub_bass_beat:
+    if sub_bass >= sub_bass_max*.8 and not sub_bass_beat:
         sub_bass_beat = True
         print("Sub Bass Beat")
-    elif sub_bass < sub_bass_max*.3:
+    elif sub_bass < sub_bass_max*.5:
         sub_bass_beat = False
 
-    if bass >= bass_max*.9 and not bass_beat:
+    if bass >= bass_max*.8 and not bass_beat:
         bass_beat = True
         print("Bass Beat")
-    elif bass < bass_max*.3:
+    elif bass < bass_max*.5:
         bass_beat = False
 
-    if low_midrange >= low_midrange_max*.9 and not low_midrange_beat:
+    if low_midrange >= low_midrange_max*.8 and not low_midrange_beat:
         low_midrange_beat = True
         print("Low Midrange Beat")
-    elif low_midrange < low_midrange_max*.3:
+    elif low_midrange < low_midrange_max*.5:
         low_midrange_beat = False
 
     """for v in freqs:
