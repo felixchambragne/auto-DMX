@@ -74,7 +74,7 @@ while time.time() - start_time < duration:
     prev_freq = freq
 
 def save_data(filename, values):
-    with open(os.path.join(filename, '.csv'), 'w') as f:
+    with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['timestamp', 'value'])
         for i in range(len(values)):
