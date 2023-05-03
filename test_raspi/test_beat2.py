@@ -21,9 +21,9 @@ values2 = []
 timestamps = []
 frequencies = []
 
-sub_bass_max = 10
-bass_max = 10
-low_midrange_max = 10
+sub_bass_max = 0.001
+bass_max = 0.001
+low_midrange_max = 0.001
 sub_bass_beat = False
 bass_beat = False
 low_midrange_beat = False
