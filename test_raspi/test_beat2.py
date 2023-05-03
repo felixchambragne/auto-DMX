@@ -22,16 +22,20 @@ timestamps = []
 frequencies = []
 
 while time.time() - start_time < duration:
-    value = read_pcf8591()
-    timestamp = time.time() - start_time
-    timestamps.append(timestamp)
+    for i in range(data.shape[0]):
+        value = read_pcf8591()
+        timestamp = time.time() - start_time
+        timestamps.append(timestamp)
+        values1.append(value)
+        data[i] = value  # Ajout de l'échantillon au tableau de données
 
-    audio_fft = np.abs((np.fft.fft(value)[0:int(len(value)/2)])/len(value))
-    freqs = framerate*np.arange(len(value)/2)/len(value)
+    audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
+    freqs = framerate*np.arange(len(data)/2)/len(data)
 
-    values1.append(value)
-    frequencies.append(freqs)
-    values2.append(audio_fft)
+    for v in freqs:
+        frequencies.append(v)
+    for v in audio_fft:
+        values2.append(v)
 
     # Collecte des données
     """for i in range(data.shape[0]):
