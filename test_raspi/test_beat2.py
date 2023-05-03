@@ -22,8 +22,19 @@ timestamps = []
 frequencies = []
 
 while time.time() - start_time < duration:
+    value = read_pcf8591()
+    timestamp = time.time()
+    timestamps.append(timestamp)
+
+    audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
+    freqs = framerate*np.arange(len(data)/2)/len(data)
+
+    values1.append(value)
+    frequencies.append(freqs)
+    values2.append(audio_fft)
+
     # Collecte des données
-    for i in range(data.shape[0]):
+    """for i in range(data.shape[0]):
         value = read_pcf8591()
         timestamp = time.time()
         timestamps.append(timestamp)
@@ -38,8 +49,8 @@ while time.time() - start_time < duration:
     for d in freqs:
         frequencies.append(d)
     for d in audio_fft:
-        values2.append(d)
-
+        values2.append(d)"""
+print(values2)
 def save_data(filename, values, ref):
     with open(filename, 'w') as f:
         writer = csv.writer(f)

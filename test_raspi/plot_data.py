@@ -2,14 +2,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Read the CSV file
-df = pd.read_csv('test_raspi/data3.csv')
+df = pd.read_csv('test_raspi/data2.csv')
 
 # Extract the data from the DataFrame
 timestamps = df['timestamp']
 values = df['value']
 
 # Plot the data
-plt.plot(timestamps, values)
+#plt.bar(timestamps, values)
+plt.stem(timestamps, values, markerfmt=' ')
 plt.xlabel('Time')
 plt.ylabel('Value')
-plt.savefig('plot3.png')
+plt.savefig('plot2.png')
