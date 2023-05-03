@@ -55,9 +55,6 @@ while time.time() - start_time < duration:
     for d in data:
         values2.append(d)
 
-    timestamp = time.time()
-    timestamps.append(timestamp)
-
     # Détection des battements
     fft_data = np.fft.fft(data)
     for d in fft_data:
@@ -73,7 +70,11 @@ while time.time() - start_time < duration:
         beat_callback()
     prev_freq = freq
 
+    timestamp = time.time()
+    timestamps.append(timestamp)
+
 def save_data(filename, values):
+    print(values, timestamps)
     with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['timestamp', 'value'])
