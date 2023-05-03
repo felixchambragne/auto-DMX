@@ -47,9 +47,9 @@ while time.time() - start_time < duration:
     # Collecte des données
     for i in range(data.shape[0]):
         value = read_pcf8591()
-        values1.append(value)
         data[i] = value  # Ajout de l'échantillon au tableau de données
-
+    for d in data:
+        values1.append(d)
     # Prétraitement des données
     data = preprocess_data(data)
     for d in data:
