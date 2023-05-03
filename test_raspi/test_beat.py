@@ -74,16 +74,16 @@ while time.time() - start_time < duration:
     prev_freq = freq
 
     
-def save_data(filename, values):
+def save_data(filename, values, ref):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(['timestamp', 'value'])
         for i in range(len(values)):
-            writer.writerow([timestamps[i], values[i]])
+            writer.writerow([ref[i], values[i]])
 
-save_data('data1.csv', values1)
-save_data('data2.csv', values2)
-save_data('data3.csv', values3)
+save_data('data1.csv', values1, timestamps)
+save_data('data2.csv', values2, timestamps)
+save_data('data3.csv', values3, frequencies)
 
 """def detect_beats(data, sampling_rate):
     # Transformation de Fourier
