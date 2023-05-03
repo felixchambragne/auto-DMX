@@ -5,7 +5,7 @@ import time
 import csv
 
 bus = smbus.SMBus(1)
-data = np.zeros(1024)
+data = np.zeros(32)
 
 def read_pcf8591():
     bus.write_byte(0x48, 0x40)
