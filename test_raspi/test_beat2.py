@@ -28,6 +28,8 @@ sub_bass_beat = False
 bass_beat = False
 low_midrange_beat = False
 
+print("collecting data...")
+
 while time.time() - start_time < duration:
     for i in range(data.shape[0]):
         value = read_pcf8591()
@@ -43,9 +45,9 @@ while time.time() - start_time < duration:
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 60 and val <= 250]
     low_midrange_indices = [idx for idx,val in enumerate(freqs) if val >= 250 and val <= 500]
 
-    sub_bass = np.max(audio_fft[sub_bass_indices])
-    bass = np.max(audio_fft[bass_indices])
-    low_midrange = np.max(audio_fft[low_midrange_indices])
+    sub_bass = np.max(audio_fft[sub_bass_indices-1])
+    bass = np.max(audio_fft[bass_indices-1])
+    low_midrange = np.max(audio_fft[low_midrange_indices-1])
 
     sub_bass_max = max(sub_bass_max, sub_bass)
     bass_max = max(bass_max, bass)
@@ -76,23 +78,6 @@ while time.time() - start_time < duration:
     
     time.sleep(0.001)
 
-    # Collecte des données
-    """for i in range(data.shape[0]):
-        value = read_pcf8591()
-        timestamp = time.time()
-        timestamps.append(timestamp)
-        data[i] = value  # Ajout de l'échantillon au tableau de données
-
-    for d in data:
-        values1.append(d)
-
-    audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
-    freqs = framerate*np.arange(len(data)/2)/len(data)
-
-    for d in freqs:
-        frequencies.append(d)
-    for d in audio_fft:
-        values2.append(d)"""
 print("saving data...")
 def save_data(filename, values, ref):
     with open(filename, 'w') as f:
