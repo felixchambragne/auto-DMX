@@ -28,6 +28,7 @@ while time.time() - start_time < duration:
 
     audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
     freqs = framerate*np.arange(len(data)/2)/len(data)
+    print(audio_fft)
 
     values1.append(value)
     frequencies.append(freqs)
@@ -50,7 +51,7 @@ while time.time() - start_time < duration:
         frequencies.append(d)
     for d in audio_fft:
         values2.append(d)"""
-print(values2)
+
 def save_data(filename, values, ref):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
