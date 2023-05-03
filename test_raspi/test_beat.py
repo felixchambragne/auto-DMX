@@ -2,6 +2,10 @@ import smbus
 import numpy as np
 import scipy.signal as signal
 
+import time
+import csv
+import os
+
 bus = smbus.SMBus(1)
 data = np.zeros(1024)
 
@@ -30,18 +34,37 @@ sampling_rate = 44100  # Fréquence d'échantillonnage en Hz
 beat_threshold = 0.5  # Seuil de détection de battements
 prev_freq = 0  # Fréquence dominante précédente
 
-while True:
+values1 = []
+values2 = []
+values3 = []
+values4 = []
+timestamps = []
+
+duration = 10 # seconds
+start_time = time.time()
+
+while time.time() - start_time < duration:
     # Collecte des données
     for i in range(data.shape[0]):
         value = read_pcf8591()
+        values1.append(d)
         data[i] = value  # Ajout de l'échantillon au tableau de données
 
     # Prétraitement des données
     data = preprocess_data(data)
+    for d in data:
+        values2.append(d)
+
+    timestamp = time.time()
+    timestamps.append(timestamp)
 
     # Détection des battements
     fft_data = np.fft.fft(data)
+    for d in fft_data:
+        values3.append(d)
     freqs = np.fft.fftfreq(len(data)) * sampling_rate
+    for d in freqs:
+        values4.append(d)
     powers = np.abs(fft_data) ** 2
     threshold = np.mean(powers) + np.std(powers)
     indices = np.where(powers > threshold)[0]
@@ -50,6 +73,16 @@ while True:
         beat_callback()
     prev_freq = freq
 
+def save_data(filename, values):
+    with open(os.path.join(filename, '.csv'), 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(['timestamp', 'value'])
+        for i in range(len(values)):
+            writer.writerow([timestamps[i], values[i]])
+
+save_data('data1.csv', values1)
+save_data('data2.csv', values2)
+save_data('data3.csv', values3)
 
 """def detect_beats(data, sampling_rate):
     # Transformation de Fourier
