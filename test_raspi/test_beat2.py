@@ -43,11 +43,11 @@ while time.time() - start_time < duration:
 
     sub_bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 60]
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 60 and val <= 250]
-    low_midrange_indices = [idx for idx,val in enumerate(freqs) if val >= 250 and val <= 500]
+    low_midrange_indices = [idx for idx,val in enumerate(freqs) if val >= 250 and val <= 450]
 
-    sub_bass = np.max(audio_fft[sub_bass_indices-1])
-    bass = np.max(audio_fft[bass_indices-1])
-    low_midrange = np.max(audio_fft[low_midrange_indices-1])
+    sub_bass = np.max(audio_fft[sub_bass_indices])
+    bass = np.max(audio_fft[bass_indices])
+    low_midrange = np.max(audio_fft[low_midrange_indices])
 
     sub_bass_max = max(sub_bass_max, sub_bass)
     bass_max = max(bass_max, bass)
