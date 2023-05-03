@@ -44,6 +44,9 @@ duration = 10 # seconds
 start_time = time.time()
 
 while time.time() - start_time < duration:
+
+    timestamp = time.time()
+    
     # Collecte des données
     for i in range(data.shape[0]):
         value = read_pcf8591()
@@ -70,7 +73,7 @@ while time.time() - start_time < duration:
         beat_callback()
     prev_freq = freq
 
-    timestamp = time.time()
+    
     timestamps.append(timestamp)
 
 def save_data(filename, values):
