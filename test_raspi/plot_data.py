@@ -14,3 +14,16 @@ plt.stem(timestamps, values, markerfmt=' ')
 plt.xlabel('Time')
 plt.ylabel('Value')
 plt.savefig('plot2.png')
+
+# Tracer le spectrogramme
+"""fig, ax = plt.subplots(figsize=(8, 4))
+spec = ax.specgram(values, Fs=44100, NFFT=1024, noverlap=512, mode='magnitude', scale='dB')
+
+# Ajuster l'échelle logarithmique pour l'axe des fréquences
+ax.set_yscale('log')
+
+# Ajouter une étiquette pour l'axe des fréquences
+ax.set_ylabel('Frequency [Hz]')
+
+# Afficher le spectrogramme
+plt.show()"""

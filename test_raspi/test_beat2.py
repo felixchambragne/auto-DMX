@@ -29,7 +29,7 @@ while time.time() - start_time < duration:
         values1.append(value)
         data[i] = value  # Ajout de l'échantillon au tableau de données
 
-    audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
+    audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
     freqs = framerate*np.arange(len(data)/2)/len(data)
 
     for v in freqs:
