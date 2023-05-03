@@ -13,7 +13,7 @@ def read_pcf8591():
 
 framerate = 1000
 
-duration = 10 # seconds
+duration = 100 # seconds
 start_time = time.time()
 
 values1 = []
