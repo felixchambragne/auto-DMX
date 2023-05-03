@@ -55,7 +55,7 @@ while time.time() - start_time < duration:
 
     if sub_bass >= sub_bass_max*.9 and not sub_bass_beat:
         sub_bass_beat = True
-        #print("Sub Bass Beat")
+        print("Sub Bass Beat")
     elif sub_bass < sub_bass_max*.3:
         sub_bass_beat = False
 
@@ -67,7 +67,7 @@ while time.time() - start_time < duration:
 
     if low_midrange >= low_midrange_max*.9 and not low_midrange_beat:
         low_midrange_beat = True
-        #print("Low Midrange Beat")
+        print("Low Midrange Beat")
     elif low_midrange < low_midrange_max*.3:
         low_midrange_beat = False
 
@@ -78,7 +78,7 @@ while time.time() - start_time < duration:
     
     time.sleep(0.001)
 
-print("saving data...")
+"""print("saving data...")
 def save_data(filename, values, ref):
     with open(filename, 'w') as f:
         writer = csv.writer(f)
@@ -87,4 +87,4 @@ def save_data(filename, values, ref):
             writer.writerow([ref[i], values[i]])
 
 save_data('data1.csv', values1, timestamps)
-save_data('data2.csv', values2, frequencies)
+save_data('data2.csv', values2, frequencies)"""
