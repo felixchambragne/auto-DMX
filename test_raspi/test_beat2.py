@@ -11,7 +11,7 @@ def read_pcf8591():
     bus.write_byte(0x48, 0x40)
     return bus.read_byte(0x48)
 
-framerate = 44100
+framerate = 1000
 
 duration = 10 # seconds
 start_time = time.time()
@@ -36,6 +36,8 @@ while time.time() - start_time < duration:
         frequencies.append(v)
     for v in audio_fft:
         values2.append(v)
+    
+    time.sleep(0.001)
 
     # Collecte des données
     """for i in range(data.shape[0]):
