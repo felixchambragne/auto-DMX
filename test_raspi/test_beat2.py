@@ -26,8 +26,8 @@ while time.time() - start_time < duration:
     timestamp = time.time() - start_time
     timestamps.append(timestamp)
 
-    audio_fft = np.abs((np.fft.fft(data)[0:int(len(data)/2)])/len(data))
-    freqs = framerate*np.arange(len(data)/2)/len(data)
+    audio_fft = np.abs((np.fft.fft(value)[0:int(len(value)/2)])/len(value))
+    freqs = framerate*np.arange(len(value)/2)/len(value)
 
     values1.append(value)
     frequencies.append(freqs)
