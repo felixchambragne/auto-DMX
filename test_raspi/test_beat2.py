@@ -41,19 +41,22 @@ while time.time() - start_time < duration:
     audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
     freqs = framerate*np.arange(len(data)/2)/len(data)
 
-    sub_bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 60]
+    """sub_bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 60]
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 60 and val <= 250]
-    low_midrange_indices = [idx for idx,val in enumerate(freqs) if val >= 250 and val <= 450]
-
-    sub_bass = np.max(audio_fft[sub_bass_indices])
+    low_midrange_indices = [idx for idx,val in enumerate(freqs) if val >= 250 and val <= 450]"""
+    sub_bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 200]
+    
+    """sub_bass = np.max(audio_fft[sub_bass_indices])
     bass = np.max(audio_fft[bass_indices])
-    low_midrange = np.max(audio_fft[low_midrange_indices])
+    low_midrange = np.max(audio_fft[low_midrange_indices])"""
+    sub_bass = np.max(audio_fft[sub_bass_indices])
 
-    sub_bass_max = max(sub_bass_max, sub_bass)
+    """sub_bass_max = max(sub_bass_max, sub_bass)
     bass_max = max(bass_max, bass)
-    low_midrange_max = max(low_midrange_max, low_midrange)
+    low_midrange_max = max(low_midrange_max, low_midrange)"""
+    sub_bass_max = max(sub_bass_max, sub_bass)
 
-    if sub_bass >= sub_bass_max*.8 and not sub_bass_beat:
+    """if sub_bass >= sub_bass_max*.8 and not sub_bass_beat:
         sub_bass_beat = True
         print("Sub Bass Beat")
     elif sub_bass < sub_bass_max*.5:
@@ -69,7 +72,13 @@ while time.time() - start_time < duration:
         low_midrange_beat = True
         print("Low Midrange Beat")
     elif low_midrange < low_midrange_max*.5:
-        low_midrange_beat = False
+        low_midrange_beat = False"""
+
+    if sub_bass >= sub_bass_max*.7 and not sub_bass_beat:
+        sub_bass_beat = True
+        print("Sub Bass Beat")
+    elif sub_bass < sub_bass_max*.5:
+        sub_bass_beat = False
 
     """for v in freqs:
         frequencies.append(v)
