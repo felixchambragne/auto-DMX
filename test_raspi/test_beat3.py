@@ -44,7 +44,7 @@ while time.time() - start_time < duration:
     if bass >= bass_max*.7 and not bass_beat:
         bass_beat = True
         beat_count += 1
-        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, "             ", end='\r')
+        
     elif bass < bass_max*.5:
         bass_beat = False
     
@@ -53,7 +53,9 @@ while time.time() - start_time < duration:
     # Ajuster le seuil en fonction de la valeur maximale de la PSD
     if np.max(psd) > 1:
         threshold = 0.1/np.max(psd)
-    
-    print("BEAT", bass_beat, end='\r')
+
+    print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, "             ", end='\r')
+    if bass_beat:
+        print("BEAT", bass_beat, end='\r')
     
     time.sleep(0.001)
