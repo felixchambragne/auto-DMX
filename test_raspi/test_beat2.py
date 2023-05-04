@@ -52,9 +52,10 @@ while time.time() - start_time < duration:
     if bass >= bass_max*.7 and not bass_beat:
         bass_beat = True
         beat_count += 1
-        print("bass", bass, "bass_max", bass_max, "Beat", beat_count, end='\r')
+        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, end='\r')
     elif bass < bass_max*.5:
         bass_beat = False
+        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat END", end='\r')
         
     """audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
     freqs = framerate*np.arange(len(data)/2)/len(data)"""
