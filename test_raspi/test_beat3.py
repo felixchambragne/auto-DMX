@@ -38,9 +38,9 @@ while time.time() - start_time < duration:
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 80]
 
     bass = np.max(psd[bass_indices])
-    bass_max = max(bass_max, bass)
+    bass_max = max(bass_max, bass)*0.9
 
-    if bass >= bass_max*.9 and not bass_beat:
+    if bass >= bass_max*.8 and not bass_beat:
         bass_beat = True
         beat_count += 1
     elif bass < bass_max*.4:
