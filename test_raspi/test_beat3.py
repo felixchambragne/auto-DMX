@@ -41,19 +41,19 @@ while time.time() - start_time < duration:
     bass = np.max(psd[bass_indices])
     bass_max = max(bass_max, bass)
 
-    if bass >= bass_max*.7 and not bass_beat:
+    if bass >= bass_max*.9 and not bass_beat:
         bass_beat = True
         beat_count += 1
-        
-    elif bass < bass_max*.5:
+    elif bass < bass_max*.4:
         bass_beat = False
     
-    bass_max *= 0.9
+    bass_max *= 0.99
 
     # Ajuster le seuil en fonction de la valeur maximale de la PSD
     if np.max(psd) > 1:
         threshold = 0.1/np.max(psd)
 
-    print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count,  "          ", "BEAT", bass_beat, "               ", end='\r')
+    if bass_beat:
+        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count,  "          ", "BEAT", bass_beat, "               ", end='\r')
     
     time.sleep(0.001)
