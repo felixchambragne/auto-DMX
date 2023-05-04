@@ -2,7 +2,6 @@ import smbus
 import numpy as np
 import scipy.signal as signal
 import time
-import csv
 
 print("starting...")
 
@@ -20,7 +19,7 @@ framerate = 1000
 duration = 100 # seconds
 start_time = time.time()
 
-bass_max = 0.001
+bass_max = 0
 bass_beat = False
 beat_count = 0
 
