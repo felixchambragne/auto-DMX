@@ -6,7 +6,7 @@ import csv
 
 print("starting...")
 
-sample_size = 256
+sample_size = 128
 
 bus = smbus.SMBus(1)
 data = np.zeros(sample_size)
