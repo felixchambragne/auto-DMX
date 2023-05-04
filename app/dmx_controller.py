@@ -62,7 +62,8 @@ class DmxController:
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
-            print('Success!')
+            #print('Success!')
+            pass
             #print(self.data)            
         else:
             print('Error: %s' % status.message, file=sys.stderr)
