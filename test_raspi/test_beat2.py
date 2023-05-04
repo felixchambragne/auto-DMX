@@ -4,6 +4,8 @@ import scipy.signal as signal
 import time
 import csv
 
+print("starting...")
+
 bus = smbus.SMBus(1)
 data = np.zeros(256)
 
@@ -30,6 +32,8 @@ bass_beat = False
 
 beat_count = 0
 
+threshold = 0.1
+
 print("collecting data...")
 
 while time.time() - start_time < duration:
@@ -42,7 +46,7 @@ while time.time() - start_time < duration:
     
     freqs, psd = signal.welch(data, framerate, nperseg=256)
     # Trouver les pics de fréquence
-    peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
+    peaks, _ = signal.find_peaks(psd, height=threshold*np.max(psd), distance=50)
 
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 40 and val <= 100]
 
@@ -56,13 +60,18 @@ while time.time() - start_time < duration:
     elif bass < bass_max*.5:
         bass_beat = False
 
+    # Ajuster le seuil en fonction de la valeur maximale de la PSD
+    if np.max(psd) > 1:
+        threshold = 0.1/np.max(psd)
+
     print("\n", end='\r')
     
     if bass_beat == True:
         print("BEAT", end='\r')
     else:
         print("     ", end='\r')
-        
+    
+    
     """audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
     freqs = framerate*np.arange(len(data)/2)/len(data)"""
 
