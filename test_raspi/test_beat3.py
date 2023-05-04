@@ -23,8 +23,6 @@ bass_max = 0
 bass_beat = False
 beat_count = 0
 
-threshold = 0.1
-
 print("collecting data...")
 
 while time.time() - start_time < duration:
@@ -33,7 +31,7 @@ while time.time() - start_time < duration:
         data[i] = value 
     
     freqs, psd = signal.welch(data, framerate, nperseg=sample_size)
-    peaks, _ = signal.find_peaks(psd, height=threshold*np.max(psd), distance=10)
+    peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
 
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 90]
 
@@ -48,11 +46,6 @@ while time.time() - start_time < duration:
         bass_beat = False
     
     bass_max *= 0.95
-
-    # Ajuster le seuil en fonction de la valeur maximale de la PSD
-    if np.max(psd) > 1:
-        threshold = 0.1/np.max(psd)
-        print(threshold)
 
     print("\n", end='\r')
     
