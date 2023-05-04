@@ -16,17 +16,17 @@ framerate = 1000
 duration = 100 # seconds
 start_time = time.time()
 
-values1 = []
-values2 = []
-timestamps = []
-frequencies = []
+#values1 = []
+#values2 = []
+#timestamps = []
+#frequencies = []
 
-sub_bass_max = 0.001
+#sub_bass_max = 0.001
 bass_max = 0.001
-low_midrange_max = 0.001
-sub_bass_beat = False
+#low_midrange_max = 0.001
+#sub_bass_beat = False
 bass_beat = False
-low_midrange_beat = False
+#low_midrange_beat = False
 
 beat_count = 0
 
@@ -43,20 +43,18 @@ while time.time() - start_time < duration:
     freqs, psd = signal.welch(data, framerate, nperseg=256)
     # Trouver les pics de fréquence
     peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
-    # Ajouter les fréquences des pics à la liste des fréquences
-    frequencies.append(freqs[peaks])
 
-    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 200]
+    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 40 and val <= 100]
 
     bass = np.max(psd[bass_indices])
-    sub_bass_max = max(sub_bass_max, bass)
+    bass_max = max(bass_max, bass)
 
-    if bass >= sub_bass_max*.7 and not sub_bass_beat:
-        sub_bass_beat = True
+    if bass >= bass_max*.7 and not bass_beat:
+        bass_beat = True
         beat_count += 1
-        print("Beat", beat_count, end='\r')
-    elif bass < sub_bass_max*.5:
-        sub_bass_beat = False
+        print("bass", bass, "bass_max", bass_max, "Beat", beat_count, end='\r')
+    elif bass < bass_max*.5:
+        bass_beat = False
         
     """audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
     freqs = framerate*np.arange(len(data)/2)/len(data)"""
