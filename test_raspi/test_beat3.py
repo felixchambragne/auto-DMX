@@ -55,5 +55,7 @@ while time.time() - start_time < duration:
 
     if bass_beat:
         print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count,  "          ", "BEAT", bass_beat, "               ", end='\r')
-    
+    else:
+        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count,  "          ", end='\r')
+
     time.sleep(0.001)
