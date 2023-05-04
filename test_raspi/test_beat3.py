@@ -54,6 +54,6 @@ while time.time() - start_time < duration:
     if np.max(psd) > 1:
         threshold = 0.1/np.max(psd)
 
-    print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count,  "             \n", "BEAT", bass_beat, end='\r')
+    print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count,  "          ", "BEAT", bass_beat, "               ", end='\r')
     
     time.sleep(0.001)
