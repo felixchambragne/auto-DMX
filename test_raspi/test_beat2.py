@@ -63,8 +63,8 @@ while time.time() - start_time < duration:
     bass_max *= 0.9
 
     # Ajuster le seuil en fonction de la valeur maximale de la PSD
-    if np.max(psd) > 1:
-        threshold = 0.1/np.max(psd)
+    """if np.max(psd) > 1:
+        threshold = 0.1/np.max(psd)"""
 
     print("\n", end='\r')
     
