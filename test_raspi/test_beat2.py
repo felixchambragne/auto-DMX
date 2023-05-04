@@ -60,7 +60,7 @@ while time.time() - start_time < duration:
     elif bass < bass_max*.5:
         bass_beat = False
     
-    bass_max *= 0.9
+    bass_max *= 0.99
 
     # Ajuster le seuil en fonction de la valeur maximale de la PSD
     if np.max(psd) > 1:
