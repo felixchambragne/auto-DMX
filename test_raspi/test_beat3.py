@@ -33,9 +33,9 @@ while time.time() - start_time < duration:
         data[i] = value 
     
     freqs, psd = signal.welch(data, framerate, nperseg=sample_size)
-    peaks, _ = signal.find_peaks(psd, height=threshold*np.max(psd), distance=50)
+    peaks, _ = signal.find_peaks(psd, height=threshold*np.max(psd), distance=10)
 
-    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 80]
+    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 90]
 
     bass = np.max(psd[bass_indices])
     bass_max = max(bass_max, bass)*0.9
