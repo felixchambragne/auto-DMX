@@ -6,8 +6,10 @@ import csv
 
 print("starting...")
 
+sample_size = 256
+
 bus = smbus.SMBus(1)
-data = np.zeros(256)
+data = np.zeros(sample_size)
 
 def read_pcf8591():
     bus.write_byte(0x48, 0x40)
@@ -21,46 +23,41 @@ start_time = time.time()
 bass_max = 0.001
 bass_beat = False
 beat_count = 0
-beat_detected = False
 
-segment_size = 256
-
-# Number of previous segments used to calculate the threshold
-n_past_segments = 10
-
-# Threshold factor
-threshold_factor = 1.5
-
-# Initialize threshold
-threshold = 0
+threshold = 0.1
 
 print("collecting data...")
 
 while time.time() - start_time < duration:
-        # Read data
-    for i in range(segment_size):
+    for i in range(data.shape[0]):
         value = read_pcf8591()
-        data[i] = value
+        data[i] = value 
     
-    # Compute energy of current segment
-    energy = np.sum(data**2)
+    freqs, psd = signal.welch(data, framerate, nperseg=sample_size)
+    peaks, _ = signal.find_peaks(psd, height=threshold*np.max(psd), distance=50)
 
-    # Update threshold
-    if beat_detected:
-        threshold = np.mean(energies[-n_past_segments:]) * threshold_factor
+    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 200]
+
+    bass = np.max(psd[bass_indices])
+    bass_max = max(bass_max, bass)
+
+    if bass >= bass_max*.7 and not bass_beat:
+        bass_beat = True
+        beat_count += 1
+        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, "             ", end='\r')
+    elif bass < bass_max*.5:
+        bass_beat = False
     
-    # Compare energy with threshold
-    if energy > threshold:
-        if not beat_detected:
-            beat_detected = True
-            beat_count += 1
-            print("Beat", beat_count, end='\r')
+    bass_max *= 0.9
+
+    # Ajuster le seuil en fonction de la valeur maximale de la PSD
+    if np.max(psd) > 1:
+        threshold = 0.1/np.max(psd)
+    
+    if bass_beat == True:
+        print("BEAT", end='\r')
     else:
-        beat_detected = False
+        print("     ", end='\r')
     
-    # Update energy buffer
-    if 'energies' not in locals():
-        energies = np.zeros(n_past_segments)
-    energies[:-1] = energies[1:]
-    energies[-1] = energy
+    
     time.sleep(0.001)
