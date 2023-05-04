@@ -39,24 +39,42 @@ while time.time() - start_time < duration:
         timestamps.append(timestamp)
         values1.append(value)"""
         data[i] = value  # Ajout de l'échantillon au tableau de données
+    
+    freqs, psd = signal.welch(data, framerate, nperseg=256)
+    # Trouver les pics de fréquence
+    peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
+    # Ajouter les fréquences des pics à la liste des fréquences
+    frequencies.append(freqs[peaks])
 
-    audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
-    freqs = framerate*np.arange(len(data)/2)/len(data)
+    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 200]
+
+    bass = np.max(psd[bass_indices])
+    sub_bass_max = max(sub_bass_max, bass)
+
+    if bass >= sub_bass_max*.7 and not sub_bass_beat:
+        sub_bass_beat = True
+        beat_count += 1
+        print("Beat", beat_count, end='\r')
+    elif bass < sub_bass_max*.5:
+        sub_bass_beat = False
+        
+    """audio_fft = np.abs((np.fft.fft(data)[1:int(len(data)/2)])/len(data))
+    freqs = framerate*np.arange(len(data)/2)/len(data)"""
 
     """sub_bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 60]
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 60 and val <= 250]
     low_midrange_indices = [idx for idx,val in enumerate(freqs) if val >= 250 and val <= 450]"""
-    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 200]
+    #bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 200]
     
     """sub_bass = np.max(audio_fft[sub_bass_indices])
     bass = np.max(audio_fft[bass_indices])
     low_midrange = np.max(audio_fft[low_midrange_indices])"""
-    bass = np.max(audio_fft[bass_indices])
+    #bass = np.max(audio_fft[bass_indices])
 
     """sub_bass_max = max(sub_bass_max, sub_bass)
     bass_max = max(bass_max, bass)
     low_midrange_max = max(low_midrange_max, low_midrange)"""
-    sub_bass_max = max(sub_bass_max, bass)
+    #bass_max = max(bass_max, bass)
 
     """if sub_bass >= sub_bass_max*.8 and not sub_bass_beat:
         sub_bass_beat = True
@@ -76,12 +94,12 @@ while time.time() - start_time < duration:
     elif low_midrange < low_midrange_max*.5:
         low_midrange_beat = False"""
 
-    if bass >= sub_bass_max*.7 and not sub_bass_beat:
-        sub_bass_beat = True
+    """if bass >= bass_max*.7 and not bass_beat:
+        bass_beat = True
         beat_count += 1
         print("Beat", beat_count, end='\r')
     elif bass < sub_bass_max*.5:
-        sub_bass_beat = False
+        bass_beat = False"""
 
     """for v in freqs:
         frequencies.append(v)
