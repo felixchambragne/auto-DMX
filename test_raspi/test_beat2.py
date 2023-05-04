@@ -55,6 +55,8 @@ while time.time() - start_time < duration:
         print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, "             ", end='\r')
     elif bass < bass_max*.5:
         bass_beat = False
+
+    print("\n", end='\r')
     
     if bass_beat == True:
         print("BEAT", end='\r')
