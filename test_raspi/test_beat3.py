@@ -21,6 +21,7 @@ start_time = time.time()
 bass_max = 0.001
 bass_beat = False
 beat_count = 0
+beat_detected = False
 
 segment_size = 256
 
