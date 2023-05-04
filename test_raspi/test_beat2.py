@@ -28,6 +28,8 @@ sub_bass_beat = False
 bass_beat = False
 low_midrange_beat = False
 
+beat_count = 0
+
 print("collecting data...")
 
 while time.time() - start_time < duration:
@@ -76,7 +78,8 @@ while time.time() - start_time < duration:
 
     if bass >= sub_bass_max*.7 and not sub_bass_beat:
         sub_bass_beat = True
-        print("Sub Bass Beat")
+        beat_count += 1
+        print("Beat", beat_count, end='\r')
     elif bass < sub_bass_max*.5:
         sub_bass_beat = False
 
