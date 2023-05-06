@@ -13,7 +13,7 @@ class App():
         self.update_current_category(0)
         self.update_current_program(0)
 
-        self.ola_thread = OlaThread(app)
+        self.ola_thread = OlaThread(self)
         self.beat_detection = BeatDetection(self.ola_thread.on_beat)
 
     def update_current_category(self, id):
