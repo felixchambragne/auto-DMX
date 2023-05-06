@@ -1,8 +1,7 @@
-from ola.ClientWrapper import ClientWrapper
 import flask
 import json
-import threading
-from dmx_controller import DmxController
+from beat_detection import BeatDetection
+from ola_thread import OlaThread
 
 class App():
     def __init__(self) -> None:
@@ -11,27 +10,22 @@ class App():
         with open('programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
 
-        self.selected_category = 0
-        self.selected_program_id = 0
-        self.update_selected_program()
-    
-    def update_selected_program(self):
-        self.selected_program = self.categories[self.selected_category]['programs'][self.selected_program_id]["steps"]
+        self.update_current_category(0)
+        self.update_current_program(0)
+
+        self.ola_thread = OlaThread(app)
+        self.beat_detection = BeatDetection(self.ola_thread.on_beat)
+
+    def update_current_category(self, id):
+        self.current_category = self.categories[id]
+
+    def update_current_program(self, id):
+        self.current_program = self.current_category['programs'][id]
 
     def run(self):
-        ola_thread = OlaThread(app)
-        ola_thread.start()
+        self.ola_thread.start()
+        self.beat_detection.start()
         self.flask_app.run(host='0.0.0.0', debug=True)
-
-class OlaThread(threading.Thread):
-    def __init__(self, app):
-        threading.Thread.__init__(self)
-        self.app = app
-
-    def run(self):
-        wrapper = ClientWrapper()
-        dmx_controller = DmxController(self.app, wrapper)
-        wrapper.Run()
 
 app = App()
 @app.flask_app.route("/", methods=["GET", "POST"])
@@ -45,7 +39,6 @@ def categories_page():
 @app.flask_app.route("/test", methods=["GET", "POST"])
 def test():
     return flask.render_template_string("<h1>Test</h1>")
-
 
 if __name__ == '__main__':
     app.run()

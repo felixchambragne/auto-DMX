@@ -17,9 +17,9 @@ class DmxController:
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
-        self.current_step = 0
-
-        self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
+        self.current_step_id = 0
+        self.update_current_step()
+        self.update_dmx()
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -31,25 +31,40 @@ class DmxController:
                 device = Device(self.set_data, address, device_data["channels"], device_data["type"])
                 self.device_groups[device_data["type"]].append(device)
 
-    def do_step(self, device_type):
-        step = self.app.selected_program[device_type][self.current_step]
+    def update_current_step(self):
+        self.current_step_id = (self.current_step_id + 1) % len(self.app.current_program["steps"])
+        self.current_step = self.app.current_program["steps"][self.current_step_id]
 
-        for i in range(step["duration"]):
-            for j, device in enumerate(self.device_groups[device_type]):
-                color = step["color"][(j + i) % len(step["color"])]
-                device.set_color(color)
-                intensity = step["intensity"][(j + i) % len(step["intensity"])]
-                device.set_intensity(intensity)
-            self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
+    def on_beat(self):
+        print("ok")
+
+    def set_color_animation(self, device_step):
+        color_animation = device_step["color"]
+    
+        
+        """["WHITE", "BLUE", "BLUE", "BLUE"][]
+        color = color_animation["values"][i % len(device_step["color"])]"""
+
+    def do_step(self):
+        for device_type in self.device_groups.keys():
+            device_step = self.current_step[device_type]
+            
+            #self.set_color_animation(device_step)
+
+            """for i in range(device_step["duration"]):
+                for j, device in enumerate(self.device_groups[device_type]):
+                    color = device_step["color"][(j + i) % len(device_step["color"])]
+                    device.set_color(color)
+                    intensity = device_step["intensity"][(j + i) % len(device_step["intensity"])]
+                    device.set_intensity(intensity)
+                self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)"""
         
     def update_dmx(self):
-        for device_types in self.device_groups.keys():
-            self.do_step(device_types)
-        
-        self.current_step = (self.current_step + 1) % len(self.app.selected_program[list(self.device_groups.keys())[0]])
+        """self.do_step()
+        self.update_current_step()
 
-        self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
-        self.wrapper.AddEvent(self.UPDATE_INTERVAL, self.update_dmx)
+        self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)"""
+        pass
 
     def set_data(self, address, channels, values):
         if type(channels) is not list and type(channels) is not tuple:
