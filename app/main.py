@@ -14,7 +14,7 @@ class App():
         self.update_current_program(0)
 
         self.ola_thread = OlaThread(self)
-        self.beat_detection = BeatDetection(self.ola_thread.on_beat)
+        self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat)
 
     def update_current_category(self, id):
         self.current_category = self.categories[id]
