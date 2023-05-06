@@ -1,4 +1,4 @@
-from constants import colors
+from app_constants import colors
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
