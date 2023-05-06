@@ -13,7 +13,7 @@ class DmxController:
     def __init__(self, app, wrapper) -> None:
         self.app = app
         self.wrapper = wrapper
-        self.client = self.wrapper.Client()
+        #self.client = self.wrapper.Client()
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
