@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 
 
 GPIO.setmode(GPIO.BOARD)
-pin = 4
+pin = 7
 
 GPIO.setup(pin, GPIO.IN)
 
