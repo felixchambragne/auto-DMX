@@ -178,13 +178,13 @@ class AudioAnalyzer:
             self.low_avg_time = -1
 
         # Reset tracking if intensity dropped significantly for multiple iterations
-        if y_avg < 100:
+        """if y_avg < 100:
             self.detect_new_song()
             return True
 
         if self.low_avg_time > 0 and (self.current_time - self.low_avg_time) * 1000 > 1000:
             self.detect_new_song()
-            return True
+            return True"""
         return False
 
     def housekeeping(self):
