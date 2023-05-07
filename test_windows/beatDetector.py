@@ -91,15 +91,11 @@ class BeatDetector:
         if self.auto_prog:
             self.change_program = True
 
-    def close(self):
-        self.input_recorder.close()
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     # Start beat tracking
     beat_detector = BeatDetector()
 
     code = app.exec_()
-    # Clean up
-    beat_detector.close()
+
     sys.exit(code)

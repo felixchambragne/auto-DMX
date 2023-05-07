@@ -260,7 +260,49 @@ class AudioAnalyzer:
     def on_intensity_changed(self, callback):
         self.callback_intensity_changed = callback
 
+class BeatDetector:
+    timer_period = int(round(1000 / (180 / 60) / 16))  # 180bpm / 16
 
-audio_analyzer = AudioAnalyzer()
-while True:
-    audio_analyzer.analyze_audio()
+    min_program_beats = 8
+    max_program_beats = 8 * 4
+
+    current_intensity = 0
+    current_program = 0
+    current_program_beats = 0
+    change_program = False
+
+    def __init__(self) -> None:
+        self.auto_prog = False
+
+        # Wire up beat detector and signal generation
+        self.audio_analyzer = AudioAnalyzer()
+
+    def run(self):
+        while True:
+            self.audio_analyzer.analyze_audio()
+
+    def on_beat(self, beat_index):
+        print("beat", beat_index)
+        # Keep track how long current program is running
+        if self.auto_prog:
+            self.current_program_beats += 1
+            if self.current_program_beats > self.max_program_beats:
+                self.change_program = True
+
+    def on_bar(self):
+        print("NEW bar")
+
+    def on_new_song(self):
+        print("next song")
+        self.change_program = True
+
+    def on_bpm_change(self, bpm):
+        print("bpm changed", bpm)
+
+    def on_intensity_change(self, intensity):
+        self.current_intensity = intensity
+        if self.auto_prog:
+            self.change_program = True
+
+beat_detector = BeatDetector()
+beat_detector.run()
