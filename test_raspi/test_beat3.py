@@ -16,7 +16,7 @@ def read_pcf8591():
 
 framerate = 1000
 
-duration = 300 # seconds
+duration = 600 # seconds
 start_time = time.time()
 
 bass_max = 0
