@@ -13,6 +13,3 @@ while True:
         print("Low                     ", end="\r")
     else:
         print("High ----------------", end="\r")
-
-
-
