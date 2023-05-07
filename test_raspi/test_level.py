@@ -13,7 +13,6 @@ while True:
         print("Low                     ", end="\r")
     else:
         print("High ----------------", end="\r")
-        time.sleep(0.5)
 
 
 
