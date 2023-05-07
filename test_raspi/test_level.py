@@ -8,6 +8,10 @@ GPIO.setup(pin, GPIO.IN)
 
 while True:
     state = GPIO.input(pin)
-    print(state)
+    if state == 0:
+        print("Low", end="\r")
+    else:
+        print("High", end="\r")
+
 
 
