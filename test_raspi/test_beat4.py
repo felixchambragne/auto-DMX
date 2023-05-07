@@ -7,13 +7,6 @@ sample_size = 128
 bus = smbus.SMBus(1)
 data = np.zeros(sample_size)
 
-def read_pcf8591():
-    bus.write_byte(0x48, 0x40)
-    return bus.read_byte(0x48)
-
-
-
-
 class AudioAnalyzer:
     min_bpm = 80
     max_bpm = 160
@@ -54,6 +47,10 @@ class AudioAnalyzer:
         self.callback_intensity_changed = lambda: None
         self.prev_volume_track_time = 0
         self.volume_long_history = []
+    
+    def read_pcf8591(self):
+        bus.write_byte(0x48, 0x40)
+        return bus.read_byte(0x48)
 
     def reset_tracking(self):
         self.current_bpm = 0
@@ -68,9 +65,8 @@ class AudioAnalyzer:
         self.intensity_history = []
 
     def analyze_audio(self):
-
         for i in range(data.shape[0]):
-            value = read_pcf8591()
+            value = self.read_pcf8591()
             data[i] = value 
 
         self.current_time = time.perf_counter()
