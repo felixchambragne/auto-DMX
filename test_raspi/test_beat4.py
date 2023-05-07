@@ -21,18 +21,21 @@ bass_max = 0
 bass_beat = False
 beat_count = 0
 
+RATE = 44100
+BUFFERSIZE = 2**10
+
 print("collecting data...")
 
-def fft(self, data, trim_by=2, log_scale=False, div_by=100):
+def fft(data, trim_by=2, log_scale=False, div_by=100):
     left, right = np.split(np.abs(np.fft.fft(data)), 2)
     ys = np.add(left, right[::-1])
     if log_scale:
         ys = np.multiply(20, np.log10(ys))
-    xs = np.arange(self.BUFFERSIZE/2, dtype=float)
+    xs = np.arange(BUFFERSIZE/2, dtype=float)
     if trim_by:
-        i = int((self.BUFFERSIZE/2) / trim_by)
+        i = int((BUFFERSIZE/2) / trim_by)
         ys = ys[:i]
-        xs = xs[:i] * self.RATE / self.BUFFERSIZE
+        xs = xs[:i] * RATE / BUFFERSIZE
     if div_by:
         ys = ys / float(div_by)
     return xs, ys
@@ -43,7 +46,7 @@ while time.time() - start_time < duration:
         data[i] = value 
     
     xs, ys = fft(data)
-    
+
     time.sleep(0.001)
 
 
