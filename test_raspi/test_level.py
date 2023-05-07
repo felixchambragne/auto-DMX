@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 
 GPIO.setmode(GPIO.BOARD)
@@ -12,6 +13,7 @@ while True:
         print("Low                     ", end="\r")
     else:
         print("High ----------------", end="\r")
+        time.sleep(0.5)
 
 
 
