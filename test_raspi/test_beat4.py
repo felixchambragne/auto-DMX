@@ -51,7 +51,7 @@ while time.time() - start_time < duration:
     elif bass < bass_max*0.5:
         bass_beat = False
     
-    bass_max *= 0.8
+    bass_max *= 0.6
 
     print("\n", end='\r')
     
