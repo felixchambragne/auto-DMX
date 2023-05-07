@@ -28,9 +28,10 @@ print("collecting data...")
 while time.time() - start_time < duration:
     for i in range(data.shape[0]):
         value = read_pcf8591()
+        print(value)
         data[i] = value 
     
-    freqs, psd = signal.welch(data, framerate, nperseg=sample_size)
+    """freqs, psd = signal.welch(data, framerate, nperseg=sample_size)
     peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
 
     bass_indices = [idx for idx,val in enumerate(freqs) if val >= 20 and val <= 90]
@@ -43,10 +44,8 @@ while time.time() - start_time < duration:
         beat_count += 1
         print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, "             ", end='\r')
     
-    else:
+    elif bass < bass_max*0.5:
         bass_beat = False
-    """elif bass < bass_max*0.5:
-        bass_beat = False"""
     
     bass_max *= 0.95
 
@@ -56,4 +55,4 @@ while time.time() - start_time < duration:
         print("BEAT", end='\r')
     else:
         print("     ", end='\r')
-    time.sleep(0.001)
+    time.sleep(0.001)"""
