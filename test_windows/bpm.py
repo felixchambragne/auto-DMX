@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QTimer
 from PyQt5 import QtCore
-from recorder import *
 from time import perf_counter
+import numpy
 
 class AudioAnalyzer:
     min_bpm = 80
@@ -10,7 +10,6 @@ class AudioAnalyzer:
     freq_history_length = 24  # samples
     intensity_history_length = 128  # samples
     volume_history_length = 3*60  # seconds
-    input_recorder: InputRecorder
 
     # Timing
     current_time: float
@@ -33,14 +32,13 @@ class AudioAnalyzer:
     low_midrange_history: list
     low_avg_time: -1
 
-    def __init__(self, input_recorder):
-        self.input_recorder = input_recorder
+    def __init__(self):
         self.current_intensity = 0
         self.reset_tracking()
         self.callback_beat_detected = lambda: None
         self.callback_new_song = lambda: None
         self.callback_pause = lambda: None
-        """self.callback_intensity_changed = lambda: None"""
+        self.callback_intensity_changed = lambda: None
         self.prev_volume_track_time = 0
         self.volume_long_history = []
 
@@ -53,13 +51,10 @@ class AudioAnalyzer:
         self.bass_history = []
         self.low_midrange_history = []
         self.low_avg_time = -1
-        """self.change_intensity(0)"""
+        self.change_intensity(0)
         self.intensity_history = []
 
     def analyze_audio(self):
-        if not self.input_recorder.has_new_audio:
-            return
-
         self.current_time = perf_counter()
 
         # Get x and y values from FFT
@@ -164,12 +159,12 @@ class AudioAnalyzer:
         else:  # Calm
             intensity = -1
 
-        """self.change_intensity(intensity)"""
+        self.change_intensity(intensity)
 
-    """def change_intensity(self, intensity):
+    def change_intensity(self, intensity):
         if intensity != self.current_intensity:
             self.current_intensity = intensity
-            self.detect_intensity_changed(self.current_intensity)"""
+            self.detect_intensity_changed(self.current_intensity)
 
     def track_low_volume(self, y_avg):
         # Detect very low volume (to detect new track)
@@ -215,7 +210,7 @@ class AudioAnalyzer:
         return numpy.max([-15 * variance + 1.55, 1.2])
 
     def detect_beat(self, time_since_last_beat):
-        """print("Detected: Beat")"""
+        print("Detected: Beat")
         bpm_detected = 60 / time_since_last_beat
         if len(self.bpm_history) < 8:
             if bpm_detected > self.min_bpm:
@@ -246,9 +241,9 @@ class AudioAnalyzer:
         print("Detected: Pause")
         self.callback_pause()
 
-    """def detect_intensity_changed(self, intensity):
+    def detect_intensity_changed(self, intensity):
         print("New intensity: {:d}".format(intensity))
-        self.callback_intensity_changed(intensity)"""
+        self.callback_intensity_changed(intensity)
 
     def on_beat_detected(self, callback):
         self.callback_beat_detected = callback
@@ -259,8 +254,8 @@ class AudioAnalyzer:
     def on_pause(self, callback):
         self.callback_pause = callback
 
-    """def on_intensity_changed(self, callback):
-        self.callback_intensity_changed = callback"""
+    def on_intensity_changed(self, callback):
+        self.callback_intensity_changed = callback
 
 
 class SignalGenerator:
@@ -286,7 +281,7 @@ class SignalGenerator:
         audio_analyzer.on_beat_detected(self.track_beat)
         audio_analyzer.on_new_song_detected(self.track_new_song)
         audio_analyzer.on_pause(self.track_pause)
-        """audio_analyzer.on_intensity_changed(self.track_intensity_change)"""
+        audio_analyzer.on_intensity_changed(self.track_intensity_change)
 
     def reset_tracking(self):
         self.bar_modulo = 2
@@ -330,12 +325,12 @@ class SignalGenerator:
 
         if self.auto_generating:
             if bpm_changed:
-                """print("Sync auto generated beat")"""
+                print("Sync auto generated beat")
                 self.timer.stop()
                 self.generate_beat_signal(beat_time=beat_time)
         else:
             if bpm_changed and self.can_auto_generate():
-                """print("Start auto generating beat with {:d} BPM".format(int(self.bpm)))"""
+                print("Start auto generating beat with {:d} BPM".format(int(self.bpm)))
                 self.auto_generating = True
             self.generate_beat_signal(beat_time=beat_time)
 
@@ -378,7 +373,7 @@ class SignalGenerator:
 
     def track_new_song(self):
         self.callback_new_song()
-        """self.callback_intensity_change(0)"""
+        self.callback_intensity_change(0)
         self.reset_tracking()
 
     def track_pause(self):
@@ -387,10 +382,10 @@ class SignalGenerator:
         self.auto_generating = False
         self.reset_beat_index()
 
-    """def track_intensity_change(self, intensity):
+    def track_intensity_change(self, intensity):
         self.intensity = intensity
         self.recalculate_bar_modulo()
-        self.callback_intensity_change(intensity)"""
+        self.callback_intensity_change(intensity)
 
     def on_beat(self, callback):
         self.callback_beat = callback
@@ -404,5 +399,5 @@ class SignalGenerator:
     def on_bpm_change(self, callback):
         self.callback_bpm_change = callback
 
-    """def on_intensity_change(self, callback):
-        self.callback_intensity_change = callback"""
+    def on_intensity_change(self, callback):
+        self.callback_intensity_change = callback

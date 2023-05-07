@@ -2,7 +2,7 @@
     "devices": [
         {
             "type": "pixbar",
-            "count": 4,
+            "number": 4,
             "start_address": 215,
             "channels": {
                 "red": 1,
@@ -16,7 +16,7 @@
         },
         {
             "type": "washbeam",
-            "count": 6,
+            "number": 6,
             "start_address": 1,
             "channels": {
                 "pan": 1,

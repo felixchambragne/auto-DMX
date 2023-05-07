@@ -17,7 +17,7 @@ class BeatDetection(threading.Thread):
 
         self.bass_max = 0
         self.bass_beat = False
-        self.beat_count = 0
+        self.beat_number = 0
     
     def read_pcf8591(self):
         self.bus.write_byte(0x48, 0x40)

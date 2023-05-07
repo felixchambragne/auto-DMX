@@ -7,10 +7,8 @@ class OlaThread(threading.Thread):
         threading.Thread.__init__(self)
         self.app = app
 
-        #wrapper = ClientWrapper()
-        wrapper = None
-        self.dmx_controller = DmxController(self.app, wrapper)
+        self.wrapper = ClientWrapper()
+        self.dmx_controller = DmxController(self.app, self.wrapper)
 
     def run(self):
-        #wrapper.Run()
-        pass
+        self.wrapper.Run()
