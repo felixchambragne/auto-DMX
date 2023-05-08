@@ -34,6 +34,22 @@ sudo apt-get install i2c-tools
 test i2c : sudo i2cdetect -y 0 ou sudo i2cdetect -y 1
 sudo apt install python3-pyaudio
 
+*****************Au demarrage*****************
+sudo nano /etc/systemd/system/uap0.service
+    [Unit]
+    Description=Create uap0 interface
+
+    [Service]
+    ExecStart=/sbin/iw dev wlan0 interface add uap0 type __ap
+
+    [Install]
+    WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+sudo systemctl enable uap0.service
+sudo systemctl daemon-reload
+sudo reboot
+
 
 ***************to do :***********
 uninstall xrdp
