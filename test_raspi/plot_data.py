@@ -10,7 +10,7 @@ values = df['value']
 
 # Plot the data
 #plt.bar(timestamps, values)
-plt.stem(timestamps, values, markerfmt=' ')
+plt.plot(timestamps, values)
 plt.xlabel('Time')
 plt.ylabel('Value')
 plt.savefig('plot1.png')
