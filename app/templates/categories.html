@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="grid">
-        <a class="settings" href="/test">
+    <form class="container" method="POST">
+        <a class="settings card-button" href="">
             <p>Auto</p>
         </a>
+        
         {% for category in categories %}
-            <a class="card-button" {% if loop.index0 == selected_category %} selected {% endif %} style="background-color: {{ category.color }};">
+            <label 
+                class="card-button" style="background-color: {{ category.color }};"
+                {% if loop.index0 == selected_category_id %} selected {% endif %} >
+                <input 
+                    type="radio" value="{{ loop.index0 }}" name="category_id" onchange="this.form.submit()"
+                />
                 <p>{{ category.name}}</p>
-            </a>
+            </label>
         {% endfor %}
-    </div>
+    </form>
 {% endblock %}

@@ -5,7 +5,8 @@
             "color": "#F54545",
             "programs": [
                 {
-                    "name": "Bleu Blanc Electro",
+                    "name": "Bleu Blanc",
+                    "colors": ["#0000FF", "#FFFFFF"],
                     "steps": [
                         {
                             "duration": 16,
@@ -115,7 +116,8 @@
                     ]
                 },
                 {
-                    "name": "Rouge Blanc Electro",
+                    "name": "Rouge Blanc",
+                    "colors": ["#FF0000", "#FFFFFF"],
                     "steps": [
                         {
 
@@ -134,6 +136,24 @@
             "name": "Statique",
             "color": "#E59434",
             "programs": [
+                {
+                    "name": "Blanc",
+                    "colors": ["#FFFFFF", "#FFFFFF"],
+                    "steps": [
+                        {
+
+                        }
+                    ]
+                },
+                {
+                    "name": "Ambre",
+                    "colors": ["#c79655", "#c79655"],
+                    "steps": [
+                        {
+
+                        }
+                    ]
+                }
             ]
         },
         {
