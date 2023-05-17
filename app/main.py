@@ -57,6 +57,7 @@ def programs_page():
 
     if flask.request.method == "POST":
         app.set_selected_program(app.current_category_id, flask.request.form['program_id'])
+        app.ola_thread.dmx_controller.beat_count = 0
         app.ola_thread.dmx_controller.update_current_step()
 
     if app.current_category == app.selected_category:
