@@ -171,7 +171,7 @@
                     "colors": ["#FFFFFF", "#FFFFFF"],
                     "steps": [
                         {
-                            "duration": 1,
+                            "duration": 6,
                             "pixbar": {
                                 "color": {
                                     "values": ["RED"],
@@ -180,7 +180,7 @@
                                     "sound_mode": true
                                 },
                                 "intensity": {
-                                    "values": [255],
+                                    "values": [255, 0],
                                     "fade": 0,
                                     "animation": null,
                                     "sound_mode": false
@@ -223,7 +223,7 @@
                             } 
                         },
                         {
-                            "duration": 1,
+                            "duration": 6,
                             "pixbar": {
                                 "color": {
                                     "values": ["GREEN"],
@@ -232,7 +232,7 @@
                                     "sound_mode": true
                                 },
                                 "intensity": {
-                                    "values": [255],
+                                    "values": [255, 0],
                                     "fade": 0,
                                     "animation": null,
                                     "sound_mode": false
