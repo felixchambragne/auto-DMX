@@ -174,13 +174,13 @@
                             "duration": 6,
                             "pixbar": {
                                 "color": {
-                                    "values": ["RED"],
+                                    "values": ["PURPLE"],
                                     "fade": 0,
                                     "animation": "linear",
                                     "sound_mode": true
                                 },
                                 "intensity": {
-                                    "values": [255, 0],
+                                    "values": [255],
                                     "fade": 0,
                                     "animation": null,
                                     "sound_mode": false
@@ -232,7 +232,7 @@
                                     "sound_mode": true
                                 },
                                 "intensity": {
-                                    "values": [255, 0],
+                                    "values": [255],
                                     "fade": 0,
                                     "animation": null,
                                     "sound_mode": false

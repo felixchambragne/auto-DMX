@@ -37,11 +37,11 @@ class DmxController:
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
     def on_beat(self):
-        print("beat")
         self.beat_count += 1
         if self.beat_count == self.current_step["duration"]:
             self.update_current_step()
             self.beat_count = 0
+        print("beat", self.beat_count)
         self.do_step()
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
