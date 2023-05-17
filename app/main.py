@@ -10,13 +10,14 @@ class App():
         with open('programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
 
-        self.set_selected_program(0, 0)
         self.current_category = None
         self.current_category_id = None
         self.current_program_id = None
  
         self.ola_thread = OlaThread(self)
         self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat)
+
+        self.set_selected_program(0, 0)
 
     def set_current_category(self, category_id):
         self.current_category_id = int(category_id)
