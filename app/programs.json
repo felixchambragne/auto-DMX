@@ -166,6 +166,117 @@
             "name": "Lent",
             "color": "#CF53D1",
             "programs": [
+                {
+                    "name": "TEST",
+                    "colors": ["#FFFFFF", "#FFFFFF"],
+                    "steps": [
+                        {
+                            "duration": 1,
+                            "pixbar": {
+                                "color": {
+                                    "values": ["RED"],
+                                    "fade": 0,
+                                    "animation": "linear",
+                                    "sound_mode": true
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "animation": null,
+                                    "sound_mode": false
+                                },
+                                "integrated_program": {
+                                    "value": 0,
+                                    "speed": 0,
+                                    "strob": [false]
+                                }
+                            },
+                            "washbeam": {
+                                "color": {
+                                    "values": ["BLUE"],
+                                    "fade": 0,
+                                    "animation": "linear",
+                                    "sound_mode": true
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "animation": null,
+                                    "sound_mode": false
+                                },
+                                "strob": {
+                                    "values": [true, false, false, false, false, false],
+                                    "fade": 0,
+                                    "animation": null,
+                                    "sound_mode": false
+                                },
+                                "movement": {
+                                    "pan": [50],
+                                    "tilt": [50],
+                                    "fade": 0,
+                                    "animation": "random",
+                                    "pan_limit": [20, 120],
+                                    "tilt_limit": [20, 120],
+                                    "sound_mode": false
+                                },
+                                "zoom": [255]
+                            } 
+                        },
+                        {
+                            "duration": 1,
+                            "pixbar": {
+                                "color": {
+                                    "values": ["GREEN"],
+                                    "fade": 0,
+                                    "animation": "linear",
+                                    "sound_mode": true
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "animation": null,
+                                    "sound_mode": false
+                                },
+                                "integrated_program": {
+                                    "value": 0,
+                                    "speed": 0,
+                                    "strob": [false]
+                                }
+                            },
+                            "washbeam": {
+                                "color": {
+                                    "values": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
+                                    "fade": 20,
+                                    "animation": "linear",
+                                    "sound_mode": true
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "animation": null,
+                                    "sound_mode": false
+                                },
+                                "strob": {
+                                    "values": [false],
+                                    "fade": 0,
+                                    "animation": null,
+                                    "sound_mode": false
+                                },
+                                "movement": {
+                                    "pan": [50],
+                                    "tilt": [50],
+                                    "fade": 0,
+                                    "animation": "random",
+                                    "pan_limit": [20, 120],
+                                    "tilt_limit": [20, 120],
+                                    "sound_mode": false
+                                },
+                                "zoom": [0]
+                            }
+                            
+                        }
+                    ]
+                },
             ]
         }
     ]
