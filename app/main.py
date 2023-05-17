@@ -10,14 +10,13 @@ class App():
         with open('programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
 
+        self.set_selected_program(0, 0)
         self.current_category = None
         self.current_category_id = None
         self.current_program_id = None
  
         self.ola_thread = OlaThread(self)
         self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat)
-
-        self.set_selected_program(0, 0)
 
     def set_current_category(self, category_id):
         self.current_category_id = int(category_id)
@@ -30,7 +29,7 @@ class App():
         self.selected_category = self.categories[self.selected_category_id]
         self.selected_program = self.selected_category['programs'][self.selected_program_id]
         print("NEW PROGRAM SELECTED: " + self.selected_program["name"])
-        self.ola_thread.dmx_controller.update_current_step()
+        
 
     def run(self):
         self.ola_thread.start()
@@ -58,6 +57,7 @@ def programs_page():
 
     if flask.request.method == "POST":
         app.set_selected_program(app.current_category_id, flask.request.form['program_id'])
+        app.ola_thread.dmx_controller.update_current_step()
 
     if app.current_category == app.selected_category:
         app.current_program_id = app.selected_program_id
