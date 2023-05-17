@@ -28,6 +28,8 @@ class App():
         
         self.selected_category = self.categories[self.selected_category_id]
         self.selected_program = self.selected_category['programs'][self.selected_program_id]
+        print("NEW PROGRAM SELECTED: " + self.selected_program["name"])
+        self.ola_thread.dmx_controller.update_current_step()
 
     def run(self):
         self.ola_thread.start()
