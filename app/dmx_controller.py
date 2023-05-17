@@ -32,8 +32,8 @@ class DmxController:
                 self.device_groups[device_data["type"]].append(device)
 
     def update_current_step(self):
-        self.current_step_id = (self.current_step_id + 1) % len(self.app.current_program["steps"])
-        self.current_step = self.app.current_program["steps"][self.current_step_id]
+        self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
+        self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
     def on_beat(self):
         self.beat_count += 1
