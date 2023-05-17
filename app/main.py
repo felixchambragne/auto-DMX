@@ -34,7 +34,7 @@ class App():
     def run(self):
         self.ola_thread.start()
         self.beat_detection.start()
-        self.flask_app.run(host='0.0.0.0', debug=True)
+        self.flask_app.run(host='0.0.0.0')
 
 app = App()
 @app.flask_app.route("/", methods=["GET", "POST"])
