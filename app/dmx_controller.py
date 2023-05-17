@@ -37,7 +37,7 @@ class DmxController:
 
     def on_beat(self):
         self.beat_count += 1
-        if self.beat_count == self.current_step["beat_count"]:
+        if self.beat_count == self.current_step["duration"]:
             self.update_current_step()
             self.beat_count = 0
         self.do_step()
