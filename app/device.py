@@ -12,7 +12,7 @@ class Device():
         self.fade_thread = None
 
         self.current_color = None
-        self.current_intensity = None
+        self.current_intensity = 0
 
     def set_color(self, color_name):
         color = colors[color_name]
