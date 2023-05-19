@@ -26,7 +26,7 @@ class Device():
         if fade_time == 0: # No Fade
             self.set_data(self.address, self.channels["intensity"], value)
         else: # Fade
-            self.fade_thread = threading.Thread(target=self.fade_intensity, args=(value, fade_time, self.current_intensity))
+            self.fade_thread = threading.Thread(target=self.fade_intensity, args=(value, fade_time))
             self.fade_thread.start()
         
     def fade_intensity(self, target_value, fade_time):
@@ -41,5 +41,5 @@ class Device():
             self.set_data(self.address, self.channels["intensity"], new_value) # Set the new intensity value
 
             time.sleep(0.01)  # Adjust sleep time as needed
-            
+
         self.set_data(self.address, self.channels["intensity"], target_value) # Ensure the target value is set at the end of the fade
