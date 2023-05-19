@@ -39,6 +39,8 @@ class Device():
             progress = elapsed_time / fade_time
             new_value = self.current_intensity + (target_value - self.current_intensity) * progress
 
+            new_value = max(0, min(255, int(new_value)))
+
             self.set_data(self.address, self.channels["intensity"], new_value) # Set the new intensity value
             self.current_intensity = new_value
 
