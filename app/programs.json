@@ -181,7 +181,7 @@
                                 },
                                 "intensity": {
                                     "values": [255, 0],
-                                    "fade": 0,
+                                    "fade": 0.5,
                                     "type": "linear",
                                     "sound_mode": false
                                 },
