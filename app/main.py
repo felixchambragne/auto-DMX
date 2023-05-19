@@ -51,7 +51,6 @@ def categories_page():
 
 @app.flask_app.route("/programs", methods=["GET", "POST"])
 def programs_page():
-    
     if app.current_category == None:
         return flask.redirect(flask.url_for('categories_page'))
 

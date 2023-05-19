@@ -14,13 +14,13 @@
                                 "color": {
                                     "values": ["WHITE", "BLUE", "BLUE", "BLUE"],
                                     "fade": 0,
-                                    "animation": "linear",
+                                    "type": "linear",
                                     "sound_mode": true
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "integrated_program": {
@@ -33,26 +33,26 @@
                                 "color": {
                                     "values": ["BLUE"],
                                     "fade": 0,
-                                    "animation": "linear",
+                                    "type": "linear",
                                     "sound_mode": true
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "strob": {
                                     "values": [true, false, false, false, false, false],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "movement": {
                                     "pan": [50],
                                     "tilt": [50],
                                     "fade": 0,
-                                    "animation": "random",
+                                    "type": "random",
                                     "pan_limit": [20, 120],
                                     "tilt_limit": [20, 120],
                                     "sound_mode": false
@@ -66,13 +66,13 @@
                                 "color": {
                                     "values": ["WHITE", "BLUE"],
                                     "fade": 0,
-                                    "animation": "linear",
+                                    "type": "linear",
                                     "sound_mode": true
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "integrated_program": {
@@ -85,26 +85,26 @@
                                 "color": {
                                     "values": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
                                     "fade": 20,
-                                    "animation": "linear",
+                                    "type": "linear",
                                     "sound_mode": true
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "strob": {
                                     "values": [false],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "movement": {
                                     "pan": [50],
                                     "tilt": [50],
                                     "fade": 0,
-                                    "animation": "random",
+                                    "type": "random",
                                     "pan_limit": [20, 120],
                                     "tilt_limit": [20, 120],
                                     "sound_mode": false
@@ -171,18 +171,18 @@
                     "colors": ["#FFFFFF", "#FFFFFF"],
                     "steps": [
                         {
-                            "duration": 6,
+                            "duration": null,
                             "pixbar": {
                                 "color": {
                                     "values": ["PURPLE"],
                                     "fade": 0,
-                                    "animation": "linear",
+                                    "type": null,
                                     "sound_mode": true
                                 },
                                 "intensity": {
-                                    "values": [255],
+                                    "values": [255, 0],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": "linear",
                                     "sound_mode": false
                                 },
                                 "integrated_program": {
@@ -195,85 +195,32 @@
                                 "color": {
                                     "values": ["BLUE"],
                                     "fade": 0,
-                                    "animation": "linear",
+                                    "type": "linear",
                                     "sound_mode": true
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "strob": {
                                     "values": [true, false, false, false, false, false],
                                     "fade": 0,
-                                    "animation": null,
+                                    "type": null,
                                     "sound_mode": false
                                 },
                                 "movement": {
                                     "pan": [50],
                                     "tilt": [50],
                                     "fade": 0,
-                                    "animation": "random",
+                                    "type": "random",
                                     "pan_limit": [20, 120],
                                     "tilt_limit": [20, 120],
                                     "sound_mode": false
                                 },
                                 "zoom": [255]
                             } 
-                        },
-                        {
-                            "duration": 6,
-                            "pixbar": {
-                                "color": {
-                                    "values": ["GREEN"],
-                                    "fade": 0,
-                                    "animation": "linear",
-                                    "sound_mode": true
-                                },
-                                "intensity": {
-                                    "values": [255],
-                                    "fade": 0,
-                                    "animation": null,
-                                    "sound_mode": false
-                                },
-                                "integrated_program": {
-                                    "value": 0,
-                                    "speed": 0,
-                                    "strob": [false]
-                                }
-                            },
-                            "washbeam": {
-                                "color": {
-                                    "values": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
-                                    "fade": 20,
-                                    "animation": "linear",
-                                    "sound_mode": true
-                                },
-                                "intensity": {
-                                    "values": [255],
-                                    "fade": 0,
-                                    "animation": null,
-                                    "sound_mode": false
-                                },
-                                "strob": {
-                                    "values": [false],
-                                    "fade": 0,
-                                    "animation": null,
-                                    "sound_mode": false
-                                },
-                                "movement": {
-                                    "pan": [50],
-                                    "tilt": [50],
-                                    "fade": 0,
-                                    "animation": "random",
-                                    "pan_limit": [20, 120],
-                                    "tilt_limit": [20, 120],
-                                    "sound_mode": false
-                                },
-                                "zoom": [0]
-                            }
-                            
                         }
                     ]
                 }

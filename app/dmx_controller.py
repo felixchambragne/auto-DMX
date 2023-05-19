@@ -3,6 +3,7 @@ from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVER
 import array
 import sys
 import json
+import random
 from device import Device
 
 class DmxController:
@@ -56,12 +57,33 @@ class DmxController:
             intensity_values = intensity_animation["values"]
 
             for index, device in enumerate(devices):
-                color = color_values[(self.beat_count + index) % len(color_values)]
-                intensity = intensity_values[(self.beat_count + index) % len(intensity_values)]
+
+                if color_animation["type"] == "linear":
+                    color = self.linear_animation(index, color_values)
+                elif color_animation["type"] == "random":
+                    color = self.random_animation(color_values)
+                elif color_animation["type"] == None:
+                    color = self.no_animation(index, color_values)
+                
+                if intensity_animation["type"] == "linear":
+                    intensity = self.linear_animation(index, intensity_values)
+                elif intensity_animation["type"] == "random":
+                    intensity = self.random_animation(intensity_values)
+                elif intensity_animation["type"] == None:
+                    intensity = self.no_animation(index, intensity_values)
 
                 device.set_color(color)
-                device.set_intensity(intensity)
-        
+                device.set_intensity(intensity, intensity_animation["fade"])
+    
+    def linear_animation(self, index, values):
+        return values[(self.beat_count + index) % len(values)]
+
+    def random_animation(self, values):
+        return values[random.randint(0, len(values) - 1)]
+
+    def no_animation(self, index, values):
+        return values[index % len(values)]
+
     def set_data(self, address, channels, values):
         if type(channels) is not list and type(channels) is not tuple:
             channels = [channels]
