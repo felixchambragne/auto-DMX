@@ -21,10 +21,11 @@ class Device():
 
     def set_intensity(self, value, fade_time):
         if self.fade_thread and self.fade_thread.is_alive():
-                self.fade_thread.interrupt() # If a fade is already in progress, interrupt it
+            self.fade_thread.interrupt() # If a fade is already in progress, interrupt it
 
         if fade_time == 0: # No Fade
             self.set_data(self.address, self.channels["intensity"], value)
+            self.current_intensity = value
         else: # Fade
             self.fade_thread = threading.Thread(target=self.fade_intensity, args=(value, fade_time))
             self.fade_thread.start()
@@ -39,7 +40,9 @@ class Device():
             new_value = self.current_intensity + (target_value - self.current_intensity) * progress
 
             self.set_data(self.address, self.channels["intensity"], new_value) # Set the new intensity value
+            self.current_intensity = new_value
 
             time.sleep(0.01)  # Adjust sleep time as needed
 
         self.set_data(self.address, self.channels["intensity"], target_value) # Ensure the target value is set at the end of the fade
+        self.current_intensity = target_value
