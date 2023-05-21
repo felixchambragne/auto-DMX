@@ -2,7 +2,7 @@ from app_constants import colors as colors_constants
 import threading
 import time
 from app_constants import STROB_VALUE, DMX_UPDATE_INTERVAL
-import asyncio
+from multiprocessing import Process
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -22,12 +22,13 @@ class Device():
 
     def set_intensity(self, value, fade_duration):
         if fade_duration > 0:
-            asyncio.ensure_future(self.fade_intensity(value, fade_duration))
+            p = Process(target=self.fade_intensity, args=(value, fade_duration))
+            p.start()
         else:
-            self.current_value = value
+            self.current_intensity = value
             self.set_data(self.address, self.channels["intensity"], value)
 
-    async def fade_intensity(self, target_value, fade_duration):
+    def fade_intensity(self, target_value, fade_duration):
         fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
         fade_step_value = (target_value - self.current_intensity) / fade_steps
 
@@ -41,7 +42,7 @@ class Device():
                     fade_value = target_value
 
             self.set_data(self.address, self.channels["intensity"], fade_value)
-            await asyncio.sleep(DMX_UPDATE_INTERVAL / 1000)
+            time.sleep(DMX_UPDATE_INTERVAL / 1000)
             
         self.current_intensity = target_value
         self.set_data(self.address, self.channels["intensity"], target_value)

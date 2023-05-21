@@ -11,5 +11,4 @@ class OlaThread(threading.Thread):
         self.dmx_controller = DmxController(app, self.wrapper)
 
     def run(self):
-
         self.wrapper.Run()
