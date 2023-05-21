@@ -42,7 +42,7 @@ class Device():
 
     def set_intensity(self, value, fade_duration):
         if fade_duration > 0:
-            t = threading.Thread(target=self.fade_intensity, args=(self.channels["intensity"], value, fade_duration))
+            t = threading.Thread(target=self.fade_intensity, args=(value, fade_duration))
             t.start()
         else:
             self.current_intensity = value
