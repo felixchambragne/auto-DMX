@@ -28,7 +28,7 @@ class Device():
             self.set_data(self.address, self.channels["intensity"], value)
 
     async def fade_intensity(self, target_value, fade_duration):
-        fade_steps = fade_duration // (DMX_UPDATE_INTERVAL / 1000)
+        fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
         fade_step_value = (target_value - self.current_intensity) / fade_steps
         for step in range(fade_steps):
             fade_value = int(self.current_intensity + (fade_step_value * step))
