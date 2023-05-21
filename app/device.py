@@ -22,7 +22,7 @@ class Device():
 
     def set_intensity(self, value, fade_duration):
         if fade_duration > 0:
-            asyncio.run(self.fade_intensity(value, fade_duration))
+            asyncio.create_task(self.fade_intensity(value, fade_duration))
         else:
             self.current_value = value
             self.set_data(self.address, self.channels["intensity"], value)
@@ -31,7 +31,6 @@ class Device():
         fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
         fade_step_value = (target_value - self.current_intensity) / fade_steps
 
-        tasks = []
         for step in range(fade_steps):
             fade_value = int(self.current_intensity + (fade_step_value * step))
             if fade_step_value >= 0:
@@ -41,10 +40,9 @@ class Device():
                 if fade_value < target_value:
                     fade_value = target_value
 
-            tasks.append(asyncio.create_task(self.set_data(self.address, self.channels["intensity"], fade_value)))
-            #self.set_data(self.address, self.channels["intensity"], fade_value)
-            #await asyncio.sleep(DMX_UPDATE_INTERVAL / 1000)
-        await asyncio.gather(*tasks)
+            self.set_data(self.address, self.channels["intensity"], fade_value)
+            await asyncio.sleep(DMX_UPDATE_INTERVAL / 1000)
+            
         self.current_intensity = target_value
         self.set_data(self.address, self.channels["intensity"], target_value)
         
