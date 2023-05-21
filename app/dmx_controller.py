@@ -17,6 +17,7 @@ class DmxController:
         self.client = self.wrapper.Client()
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
+        self.update_dmx()
         self.get_devices()
         self.current_step_id = 0
         self.beat_count = 0
