@@ -159,6 +159,25 @@
             "name": "Lent",
             "color": "#CF53D1",
             "programs": [
+                {
+                    "name": "TEST",
+                    "colors": ["#0000FF", "#FFFFFF"],
+                    "steps": [
+                        {
+                            "duration": null,
+                            "pixbar": {
+                                "intensity": {
+                                    "values": [255, 0],
+                                    "fade": 1,
+                                    "type": "linear"
+                                }
+                            },
+                            "washbeam": {
+                                
+                            } 
+                        }
+                    ]
+                }
             ]
         }
     ]
