@@ -10,3 +10,4 @@ colors = {
     'ORANGE': (255, 127, 0),
     'PURPLE': (127, 0, 255)
 }
+STROB_VALUE = 250

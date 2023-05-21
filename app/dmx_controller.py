@@ -31,6 +31,9 @@ class DmxController:
                 address = device_data["start_address"] + len(device_data["channels"]) * i
                 device = Device(self.set_data, address, device_data["channels"], device_data["type"])
                 self.device_groups[device_data["type"]].append(device)
+    
+    def reset_data(self):
+        self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
 
     def update_current_step(self):
         print("---------NEW STEP----------")
@@ -39,49 +42,46 @@ class DmxController:
 
     def on_beat(self):
         self.beat_count += 1
+
         if self.beat_count == self.current_step["duration"]:
-            self.update_current_step()
             self.beat_count = 0
-        print("beat", self.beat_count)
-        self.do_step()
+            self.reset_data()
+            self.update_current_step()
+
+        self.run_animations()
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
-    def do_step(self):
-        for device_type, devices in self.device_groups.items():
+        print("beat", self.beat_count)
+
+    def run_animations(self):
+        for device_type, devices in self.device_groups.items(): # For each device type
             device_step = self.current_step[device_type]
 
-            color_animation = device_step["color"]
-            intensity_animation = device_step["intensity"]
-            
-            color_values = color_animation["values"]
-            intensity_values = intensity_animation["values"]
+            for device in devices: # For each device of this type
+                for animation_type, animation in device_step.items(): # For each animation type
+                    if animation.get("type") == "static":
+                        value = self.set_static(devices.index(device), animation.get("values"))
+                    elif animation.get("type") == "linear":
+                        value = self.linear_animation(devices.index(device), animation.get("values"))
+                    elif animation.get("type") == "random":
+                        value = self.random_animation(animation.get("values"))
 
-            for index, device in enumerate(devices):
-
-                if color_animation["type"] == "linear":
-                    color = self.linear_animation(index, color_values)
-                elif color_animation["type"] == "random":
-                    color = self.random_animation(color_values)
-                elif color_animation["type"] == None:
-                    color = self.no_animation(index, color_values)
-                
-                if intensity_animation["type"] == "linear":
-                    intensity = self.linear_animation(index, intensity_values)
-                elif intensity_animation["type"] == "random":
-                    intensity = self.random_animation(intensity_values)
-                elif intensity_animation["type"] == None:
-                    intensity = self.no_animation(index, intensity_values)
-
-                device.set_color(color)
-                device.set_intensity(intensity, intensity_animation["fade"])
+                    if animation_type == "color":
+                        device.set_color(value)
+                    elif animation_type == "intensity":
+                        device.set_intensity(value, animation["fade"])
+                    elif animation_type == "strob":
+                        device.set_strob(value)
+                    elif animation_type == "position":
+                        device.set_position(value)
     
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]
 
     def random_animation(self, values):
         return values[random.randint(0, len(values) - 1)]
-
-    def no_animation(self, index, values):
+    
+    def set_static(self, index, values):
         return values[index % len(values)]
 
     def set_data(self, address, channels, values):

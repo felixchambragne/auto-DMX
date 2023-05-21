@@ -14,50 +14,47 @@
                                 "color": {
                                     "values": ["WHITE", "BLUE", "BLUE", "BLUE"],
                                     "fade": 0,
-                                    "type": "linear",
-                                    "sound_mode": true
+                                    "type": "linear"
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
+                                    "type": "static"
                                 },
-                                "integrated_program": {
-                                    "value": 0,
-                                    "speed": 0,
-                                    "strob": [false]
+                                "strob": {
+                                    "values": [false],
+                                    "fade": 0,
+                                    "type": "static"
                                 }
                             },
                             "washbeam": {
                                 "color": {
                                     "values": ["BLUE"],
                                     "fade": 0,
-                                    "type": "linear",
-                                    "sound_mode": true
+                                    "type": "static"
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
+                                    "type": "static"
                                 },
                                 "strob": {
                                     "values": [true, false, false, false, false, false],
                                     "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
+                                    "type": "static"
                                 },
-                                "movement": {
+                                "position": {
                                     "pan": [50],
                                     "tilt": [50],
                                     "fade": 0,
                                     "type": "random",
                                     "pan_limit": [20, 120],
-                                    "tilt_limit": [20, 120],
-                                    "sound_mode": false
+                                    "tilt_limit": [20, 120]
                                 },
-                                "zoom": [255]
+                                "zoom": {
+                                    "values": [255],
+                                    "type": "static"
+                                }
                             } 
                         },
                         {
@@ -66,39 +63,34 @@
                                 "color": {
                                     "values": ["WHITE", "BLUE"],
                                     "fade": 0,
-                                    "type": "linear",
-                                    "sound_mode": true
+                                    "type": "linear"
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
+                                    "type": "static"
                                 },
-                                "integrated_program": {
-                                    "value": 0,
-                                    "speed": 0,
-                                    "strob": [true, false, true, false]
+                                "strob": {
+                                    "values": [true, false, true, false],
+                                    "fade": 0,
+                                    "type": "random"
                                 }
                             },
                             "washbeam": {
                                 "color": {
                                     "values": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
                                     "fade": 20,
-                                    "type": "linear",
-                                    "sound_mode": true
+                                    "type": "linear"
                                 },
                                 "intensity": {
                                     "values": [255],
                                     "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
+                                    "type": "static"
                                 },
                                 "strob": {
                                     "values": [false],
                                     "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
+                                    "type": "static"
                                 },
                                 "movement": {
                                     "pan": [50],
@@ -106,10 +98,12 @@
                                     "fade": 0,
                                     "type": "random",
                                     "pan_limit": [20, 120],
-                                    "tilt_limit": [20, 120],
-                                    "sound_mode": false
+                                    "tilt_limit": [20, 120]
                                 },
-                                "zoom": [0]
+                                "zoom": {
+                                    "values": [0],
+                                    "type": "static"
+                                }
                             }
                             
                         }
@@ -166,64 +160,6 @@
             "name": "Lent",
             "color": "#CF53D1",
             "programs": [
-                {
-                    "name": "TEST",
-                    "colors": ["#FFFFFF", "#FFFFFF"],
-                    "steps": [
-                        {
-                            "duration": null,
-                            "pixbar": {
-                                "color": {
-                                    "values": ["PURPLE"],
-                                    "fade": 0,
-                                    "type": null,
-                                    "sound_mode": true
-                                },
-                                "intensity": {
-                                    "values": [255, 0],
-                                    "fade": 2,
-                                    "type": "linear",
-                                    "sound_mode": false
-                                },
-                                "integrated_program": {
-                                    "value": 0,
-                                    "speed": 0,
-                                    "strob": [false]
-                                }
-                            },
-                            "washbeam": {
-                                "color": {
-                                    "values": ["BLUE"],
-                                    "fade": 0,
-                                    "type": "linear",
-                                    "sound_mode": true
-                                },
-                                "intensity": {
-                                    "values": [255],
-                                    "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
-                                },
-                                "strob": {
-                                    "values": [true, false, false, false, false, false],
-                                    "fade": 0,
-                                    "type": null,
-                                    "sound_mode": false
-                                },
-                                "movement": {
-                                    "pan": [50],
-                                    "tilt": [50],
-                                    "fade": 0,
-                                    "type": "random",
-                                    "pan_limit": [20, 120],
-                                    "tilt_limit": [20, 120],
-                                    "sound_mode": false
-                                },
-                                "zoom": [255]
-                            } 
-                        }
-                    ]
-                }
             ]
         }
     ]

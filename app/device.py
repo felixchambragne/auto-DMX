@@ -1,6 +1,7 @@
 from app_constants import colors
 import threading
 import time
+from app_constants import STROB_VALUE
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -11,13 +12,14 @@ class Device():
 
         self.fade_thread = None
 
-        self.current_color = None
+        self.current_color = "BLACK"
         self.current_intensity = 0
 
     def set_color(self, color_name):
         color = colors[color_name]
         channels = [self.channels["red"], self.channels["green"], self.channels["blue"]]
         self.set_data(self.address, channels, color)
+        self.current_color = color
 
     def set_intensity(self, value, fade_time):
         if self.fade_thread and self.fade_thread.is_alive(): # If a fade is already in progress, interrupt it
@@ -49,7 +51,18 @@ class Device():
             self.set_data(self.address, self.channels["intensity"], new_value) # Set the new intensity value
             self.current_intensity = new_value
 
-            time.sleep(0.01)  # Adjust sleep time as needed
+            time.sleep(0.1)  # Adjust sleep time as needed
 
         self.set_data(self.address, self.channels["intensity"], target_value) # Ensure the target value is set at the end of the fade
         self.current_intensity = target_value
+    
+    def set_strob(self, strob):
+        if strob == True:
+            self.set_data(self.address, self.channels["strob"], STROB_VALUE)
+        else:
+            self.set_data(self.address, self.channels["strob"], 0)
+
+    def set_position(self, pan, tilt):
+        channels = [self.channels["pan"], self.channels["tilt"]]
+        self.set_data(self.address, channels, [pan, tilt])
+    
