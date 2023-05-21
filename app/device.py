@@ -2,7 +2,6 @@ from app_constants import colors as colors_constants
 import threading
 import time
 from app_constants import STROB_VALUE, DMX_UPDATE_INTERVAL
-from multiprocessing import Process
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -22,8 +21,8 @@ class Device():
 
     def set_intensity(self, value, fade_duration):
         if fade_duration > 0:
-            p = Process(target=self.fade_intensity, args=(value, fade_duration))
-            p.start()
+            t = threading.Thread(target=self.fade_intensity, args=(value, fade_duration))
+            t.start()
         else:
             self.current_intensity = value
             self.set_data(self.address, self.channels["intensity"], value)
