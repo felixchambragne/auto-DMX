@@ -62,7 +62,7 @@ class Device():
         else:
             self.set_data(self.address, self.channels["strob"], 0)
 
-    def set_position(self, pan, tilt):
+    def set_position(self, position):
         channels = [self.channels["pan"], self.channels["tilt"]]
-        self.set_data(self.address, channels, [pan, tilt])
+        self.set_data(self.address, channels, position)
     
