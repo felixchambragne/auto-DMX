@@ -17,11 +17,11 @@ class DmxController:
         self.client = self.wrapper.Client()
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
-        self.update_dmx()
         self.get_devices()
         self.current_step_id = 0
         self.beat_count = 0
         self.update_current_step()
+        self.update_dmx()
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -44,9 +44,9 @@ class DmxController:
         
         for channel, value in zip(channels, values):
             self.data[address + channel - 2] = value
-        self.update_dmx()
 
     def update_dmx(self):
+        self.wrapper.AddEvent(30, self.update_dmx)
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
     def update_current_step(self):
