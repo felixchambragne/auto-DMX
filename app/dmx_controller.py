@@ -6,6 +6,7 @@ import json
 import random
 from device import Device
 from app_constants import DMX_UPDATE_INTERVAL
+import asyncio
 
 class DmxController:
     UNIVERSE = 1
@@ -13,6 +14,8 @@ class DmxController:
     wrapper: ClientWrapper
     
     def __init__(self, app, wrapper) -> None:
+        loop = asyncio.get_event_loop()
+        loop.run_forever()
         self.app = app
         self.wrapper = wrapper
         self.client = self.wrapper.Client()
@@ -23,6 +26,7 @@ class DmxController:
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
+
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
