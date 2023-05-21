@@ -78,7 +78,7 @@
                             "washbeam": {
                                 "color": {
                                     "values": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
-                                    "fade": 20,
+                                    "fade": 1,
                                     "type": "linear"
                                 },
                                 "intensity": {
