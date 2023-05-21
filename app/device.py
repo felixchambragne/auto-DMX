@@ -40,7 +40,6 @@ class Device():
             else:
                 if fade_value < target_value:
                     fade_value = target_value
-            print(fade_value)
 
             self.set_data(self.address, self.channels["intensity"], fade_value)
             time.sleep(DMX_UPDATE_INTERVAL / 1000)
