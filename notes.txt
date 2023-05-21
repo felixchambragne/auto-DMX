@@ -16,7 +16,7 @@ sudo nano /etc/ola/ola-ftdidmx.conf
 
 sudo killall -s SIGHUP olad
 ola_dev_info | grep FT232R
-ola_patch -d 11 -p 1 -u 1
+ola_patch -d 1 -p 1 -u 1
 
 
 **************************Access Point :*****************

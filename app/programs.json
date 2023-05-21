@@ -46,7 +46,7 @@
                                 "position": {
                                     "values": [[50, 50]],
                                     "fade": 0,
-                                    "type": "random",
+                                    "type": "static",
                                     "pan_limit": [20, 120],
                                     "tilt_limit": [20, 120]
                                 },
@@ -91,10 +91,11 @@
                                     "fade": 0,
                                     "type": "static"
                                 },
-                                "movement": {
+                                "position": {
                                     "values": [[50, 50]],
                                     "fade": 0,
                                     "type": "random",
+                                    "shape": "random",
                                     "pan_limit": [20, 120],
                                     "tilt_limit": [20, 120]
                                 },

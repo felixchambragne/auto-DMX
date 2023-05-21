@@ -34,6 +34,19 @@ class DmxController:
     
     def reset_data(self):
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
+    
+    def set_data(self, address, channels, values):
+        if type(channels) is not list and type(channels) is not tuple:
+            channels = [channels]
+        if type(values) is not list and type(values) is not tuple:
+            values = [values]
+        
+        for channel, value in zip(channels, values):
+            self.data[address + channel - 2] = value
+        self.update_dmx()
+
+    def update_dmx(self):
+        self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
     def update_current_step(self):
         print("---------NEW STEP----------")
@@ -49,7 +62,6 @@ class DmxController:
             self.update_current_step()
 
         self.run_animations()
-        self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
         print("beat", self.beat_count)
 
@@ -83,15 +95,6 @@ class DmxController:
     
     def set_static(self, index, values):
         return values[index % len(values)]
-
-    def set_data(self, address, channels, values):
-        if type(channels) is not list and type(channels) is not tuple:
-            channels = [channels]
-        if type(values) is not list and type(values) is not tuple:
-            values = [values]
-        
-        for channel, value in zip(channels, values):
-            self.data[address + channel - 2] = value
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
