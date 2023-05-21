@@ -51,6 +51,7 @@ class DmxController:
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
     def update_current_step(self):
+        self.reset_data()
         print("---------NEW STEP----------")
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
@@ -60,7 +61,6 @@ class DmxController:
 
         if self.beat_count == self.current_step.get("duration"):
             self.beat_count = 0
-            self.reset_data()
             self.update_current_step()
 
         self.run_animations()
