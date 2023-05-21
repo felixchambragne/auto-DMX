@@ -5,6 +5,7 @@ import sys
 import json
 import random
 from device import Device
+from app_constants import DMX_UPDATE_INTERVAL
 
 class DmxController:
     UNIVERSE = 1
@@ -46,7 +47,7 @@ class DmxController:
             self.data[address + channel - 2] = value
 
     def update_dmx(self):
-        self.wrapper.AddEvent(30, self.update_dmx)
+        self.wrapper.AddEvent(DMX_UPDATE_INTERVAL, self.update_dmx)
         self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
     def update_current_step(self):
@@ -72,21 +73,22 @@ class DmxController:
 
             for device in devices: # For each device of this type
                 for animation_type, animation in device_step.items(): # For each animation type
-                    if animation.get("type") == "static":
-                        value = self.set_static(devices.index(device), animation.get("values"))
-                    elif animation.get("type") == "linear":
-                        value = self.linear_animation(devices.index(device), animation.get("values"))
-                    elif animation.get("type") == "random":
-                        value = self.random_animation(animation.get("values"))
+                    if animation.get("values") != None:
+                        if animation.get("type") == "static":
+                            value = self.set_static(devices.index(device), animation.get("values"))
+                        elif animation.get("type") == "linear":
+                            value = self.linear_animation(devices.index(device), animation.get("values"))
+                        elif animation.get("type") == "random":
+                            value = self.random_animation(animation.get("values"))
 
-                    if animation_type == "color":
-                        device.set_color(value)
-                    elif animation_type == "intensity":
-                        device.set_intensity(value, animation["fade"])
-                    elif animation_type == "strob":
-                        device.set_strob(value)
-                    elif animation_type == "position":
-                        device.set_position(value)
+                        if animation_type == "color":
+                            device.set_color(value)
+                        elif animation_type == "intensity":
+                            device.set_intensity(value, animation.get("fade"))
+                        elif animation_type == "strob":
+                            device.set_strob(value)
+                        elif animation_type == "position":
+                            device.set_position(value)
     
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]

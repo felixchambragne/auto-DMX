@@ -1,7 +1,8 @@
-from app_constants import colors
+from app_constants import colors as colors_constants
 import threading
 import time
-from app_constants import STROB_VALUE
+from app_constants import STROB_VALUE, DMX_UPDATE_INTERVAL
+import asyncio
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -10,51 +11,76 @@ class Device():
         self.type = type
         self.set_data = set_data
 
-        self.fade_thread = None
-
-        self.current_color = "BLACK"
+        self.current_color = colors_constants["BLACK"]
         self.current_intensity = 0
 
-    def set_color(self, color_name):
-        color = colors[color_name]
+    def set_color(self, color_name, fade_duration):
+        color = colors_constants[color_name]
         channels = [self.channels["red"], self.channels["green"], self.channels["blue"]]
         self.set_data(self.address, channels, color)
         self.current_color = color
 
-    def set_intensity(self, value, fade_time):
-        if self.fade_thread and self.fade_thread.is_alive(): # If a fade is already in progress, interrupt it
-            self.fade_interrupted = True
-            self.fade_thread.join()
+    def set_intensity(self, value, fade_duration):
+        if fade_duration > 0:
+            asyncio.run(self.fade_intensity(value, fade_duration))
+        else:
+            self.current_value = value
+            self.set_data(self.address, self.channels, value)
+
+    async def fade_intensity(self, target_value, fade_duration):
+        fade_steps = fade_duration // DMX_UPDATE_INTERVAL
+        fade_step_value = (target_value - self.current_intensity) / fade_steps
+        for step in range(fade_steps):
+            fade_value = int(self.current_intensity + (fade_step_value * step))
+            if fade_step_value >= 0:
+                if fade_value > target_value:
+                    fade_value = target_value
+            else:
+                if fade_value < target_value:
+                    fade_value = target_value
+            self.set_data(self.address, self.channels, fade_value)
+            await asyncio.sleep(DMX_UPDATE_INTERVAL / 1000)
+        self.current_intensity = target_value
+        self.set_data(self.address, self.channels, target_value)
+        
+    """def set_intensity(self, value, fade_time):
+        fade_thread = None
+        if fade_thread and fade_thread.is_alive(): # If a fade is already in progress, interrupt it
+            fade_interrupted = True
+            fade_thread.join()
         
         if fade_time == 0: # No Fade
             self.set_data(self.address, self.channels["intensity"], value)
-            self.current_intensity = value
+            self.set_current_intensity(value)
         else: # Fade
-            self.fade_interrupted = False
-            self.fade_thread = threading.Thread(target=self.fade_intensity, args=(value, fade_time))
-            self.fade_thread.start()
+            fade_interrupted = False
+            fade_thread = threading.Thread(target=self.start_fade, args=(value, self.channels["intensity"], fade_time, fade_interrupted, self.current_intensity, self.set_current_intensity))
+            fade_thread.start()"""
+
+    """def set_current_intensity(self, value):
+        self.current_intensity = value
         
-    def fade_intensity(self, target_value, fade_time):
+    def start_fade(self, target_value, channel, fade_time, fade_interrupted, current_value, set_current_value):
         start_time = time.time()
         end_time = start_time + fade_time
 
         while time.time() < end_time:
-            if self.fade_interrupted:
+            if fade_interrupted:
                 return
             
             elapsed_time = time.time() - start_time
             progress = elapsed_time / fade_time
-            new_value = self.current_intensity + (target_value - self.current_intensity) * progress
+            new_value = current_value + (target_value - current_value) * progress
 
             new_value = max(0, min(255, int(new_value)))
 
-            self.set_data(self.address, self.channels["intensity"], new_value) # Set the new intensity value
-            self.current_intensity = new_value
+            self.set_data(self.address, channel, new_value) # Set the new intensity value
+            set_current_value(new_value)
 
-            time.sleep(0.1)  # Adjust sleep time as needed
+            time.sleep(0.01)  # Adjust sleep time as needed
 
-        self.set_data(self.address, self.channels["intensity"], target_value) # Ensure the target value is set at the end of the fade
-        self.current_intensity = target_value
+        self.set_data(self.address, channel, target_value) # Ensure the target value is set at the end of the fade
+        set_current_value(target_value)"""
     
     def set_strob(self, strob):
         if strob == True:

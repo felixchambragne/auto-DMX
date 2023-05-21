@@ -11,3 +11,4 @@ colors = {
     'PURPLE': (127, 0, 255)
 }
 STROB_VALUE = 250
+DMX_UPDATE_INTERVAL = 30
