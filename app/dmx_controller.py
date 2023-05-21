@@ -82,7 +82,7 @@ class DmxController:
                             value = self.random_animation(animation.get("values"))
 
                         if animation_type == "color":
-                            device.set_color(value)
+                            device.set_color(value, animation.get("fade"))
                         elif animation_type == "intensity":
                             device.set_intensity(value, animation.get("fade"))
                         elif animation_type == "strob":
