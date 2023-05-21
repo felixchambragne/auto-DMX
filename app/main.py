@@ -2,6 +2,7 @@ import flask
 import json
 from beat_detection import BeatDetection
 from ola_thread import OlaThread
+import asyncio
 
 class App():
     def __init__(self) -> None:
@@ -35,6 +36,9 @@ class App():
         self.ola_thread.start()
         self.beat_detection.start()
         self.flask_app.run(host='0.0.0.0', debug=True, use_reloader=False)
+
+        loop = asyncio.get_event_loop()
+        loop.run_forever()
 
 app = App()
 @app.flask_app.route("/", methods=["GET", "POST"])

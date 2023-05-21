@@ -6,7 +6,6 @@ import json
 import random
 from device import Device
 from app_constants import DMX_UPDATE_INTERVAL
-import asyncio
 
 class DmxController:
     UNIVERSE = 1
@@ -85,7 +84,7 @@ class DmxController:
                         if animation_type == "color":
                             device.set_color(value, animation.get("fade"))
                         elif animation_type == "intensity":
-                            asyncio.run(device.set_intensity(value, animation.get("fade")))
+                            device.set_intensity(value, animation.get("fade"))
                         elif animation_type == "strob":
                             device.set_strob(value)
                         elif animation_type == "position":

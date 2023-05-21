@@ -20,9 +20,9 @@ class Device():
         self.set_data(self.address, channels, color)
         self.current_color = color
 
-    async def set_intensity(self, value, fade_duration):
+    def set_intensity(self, value, fade_duration):
         if fade_duration > 0:
-            asyncio.create_task(self.fade_intensity(value, fade_duration))
+            asyncio.ensure_future(self.fade_intensity(value, fade_duration))
         else:
             self.current_value = value
             self.set_data(self.address, self.channels["intensity"], value)
