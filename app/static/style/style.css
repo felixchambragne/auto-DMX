@@ -23,12 +23,11 @@ body{
     box-sizing: border-box;
 }
 .card-button{
-    max-height: 50%;
-    height: 50%;
-    width: 33.3%;
+    width: 33.33%;
+    float: left;
+    box-sizing: border-box;
+    padding: 10px;
     background-color: #3d3d3d;
-    justify-content: center;
-    align-items: center;
     border-radius: 20px;
     box-sizing: border-box;
     cursor: pointer;
