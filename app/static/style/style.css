@@ -24,6 +24,7 @@ body{
 }
 .card-button{
     width: 33.33%;
+    height: 50%;
     float: left;
     box-sizing: border-box;
     padding: 10px;
