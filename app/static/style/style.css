@@ -26,6 +26,8 @@ body{
     width: 33.33%;
     height: 50%;
     float: left;
+    vertical-align: middle;
+    
     box-sizing: border-box;
     padding: 10px;
     background-color: #3d3d3d;
