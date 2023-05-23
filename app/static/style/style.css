@@ -28,7 +28,7 @@ body{
     border-radius: 20px;
     cursor: pointer;
     position: relative;
-    margin: 20px;
+    margin: 10px;
 }
 .card-button p{
     width: fit-content;
