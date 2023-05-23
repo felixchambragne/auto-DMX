@@ -99,6 +99,7 @@ class DmxController:
         return values[index % len(values)]
     
     def start_strob(self):
+        self.previous_data = self.data
         self.strob_active = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
@@ -108,7 +109,7 @@ class DmxController:
     
     def stop_strob(self):
         self.strob_active = False
-        self.reset_data()
+        self.data = self.previous_data
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
