@@ -17,8 +17,16 @@
             </label>
         {% endfor %}
 
-        <div class="card-button">
+        <button onmousedown="buttonPressed()" onmouseup="buttonReleased()" class="card-button">
             <p>Strob</p>
-        </div>
+        </button>
     </form>
+    <script>
+        function buttonPressed() {
+          fetch('/strob_on', { method: 'POST' });
+        }
+        function buttonReleased() {
+          fetch('/strob_off', { method: 'POST' });
+        }
+      </script>
 {% endblock %}

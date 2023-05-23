@@ -70,5 +70,13 @@ def programs_page():
         selected_program_id = app.current_program_id
     )
 
+@app.route('/strob_on', methods=['POST'])
+def strob_on():
+    print("DEBUT STROB")
+
+@app.route('/strob_off', methods=['POST'])
+def strob_off():
+    print("FIN STROB")
+
 if __name__ == '__main__':
     app.run()
