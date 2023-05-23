@@ -74,10 +74,12 @@ def programs_page():
 @app.flask_app.route('/strob_on', methods=['POST'])
 def strob_on():
     print("DEBUT STROB")
+    return "DEBUT STROB"
 
 @app.flask_app.route('/strob_off', methods=['POST'])
 def strob_off():
     print("FIN STROB")
+    return "FIN STROB"
 
 if __name__ == '__main__':
     app.run()
