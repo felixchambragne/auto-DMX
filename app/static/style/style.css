@@ -20,22 +20,19 @@ body{
     flex-wrap: wrap;
     gap: 20px;
     padding: 5px;
-    box-sizing: border-box;
 }
 .card-button{
     width: 33.33%;
     height: 50%;
     float: left;
-    vertical-align: middle;
+    display: block;
     
-    box-sizing: border-box;
-    padding: 10px;
     background-color: #3d3d3d;
     border-radius: 20px;
-    box-sizing: border-box;
     cursor: pointer;
 }
 .card-button p{
+    width: fit-content;
     color: white;
     font-size: 20px;
     text-align: center;
