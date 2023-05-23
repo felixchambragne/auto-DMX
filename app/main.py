@@ -55,9 +55,10 @@ def programs_page():
         return flask.redirect(flask.url_for('categories_page'))
 
     if flask.request.method == "POST":
-        app.set_selected_program(app.current_category_id, flask.request.form['program_id'])
-        app.ola_thread.dmx_controller.beat_count = 0
-        app.ola_thread.dmx_controller.update_current_step()
+        if 'program_id' in flask.request.form:
+            app.set_selected_program(app.current_category_id, flask.request.form['program_id'])
+            app.ola_thread.dmx_controller.beat_count = 0
+            app.ola_thread.dmx_controller.update_current_step()
 
     if app.current_category == app.selected_category:
         app.current_program_id = app.selected_program_id
