@@ -24,9 +24,9 @@ body{
 }
 .card-button{
     max-height: 50%;
-    flex-basis: calc(34% - 20px);
+    height: 50%;
+    width: 33.3%;
     background-color: #3d3d3d;
-    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
