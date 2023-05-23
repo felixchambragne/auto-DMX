@@ -102,7 +102,7 @@ class DmxController:
         self.strob_active = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
-                device.set_color(colors["WHITE"], 0)
+                device.set_color("WHITE", 0)
                 device.set_intensity(255, 0)
                 device.set_strob(STROB_VALUE)
     
