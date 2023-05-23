@@ -71,13 +71,15 @@ def programs_page():
         selected_program_id = app.current_program_id
     )
 
-@app.flask_app.route('/strob_on', methods=['POST'])
-def strob_on():
+@app.flask_app.route('/start_strob', methods=['POST'])
+def start_strob():
+    app.ola_thread.dmx_controller.start_strob()
     print("DEBUT STROB")
     return "DEBUT STROB"
 
-@app.flask_app.route('/strob_off', methods=['POST'])
-def strob_off():
+@app.flask_app.route('/stop_strob', methods=['POST'])
+def stop_strob():
+    app.ola_thread.dmx_controller.stop_strob()
     print("FIN STROB")
     return "FIN STROB"
 

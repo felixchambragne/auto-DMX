@@ -5,7 +5,7 @@ import sys
 import json
 import random
 from device import Device
-from app_constants import DMX_UPDATE_INTERVAL
+from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors
 
 class DmxController:
     UNIVERSE = 1
@@ -23,7 +23,7 @@ class DmxController:
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
-
+        self.strob_active = False
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -58,15 +58,13 @@ class DmxController:
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
     def on_beat(self):
-        self.beat_count += 1
-
-        if self.beat_count == self.current_step.get("duration"):
-            self.beat_count = 0
-            self.update_current_step()
-
-        self.run_animations()
-
-        print("beat", self.beat_count)
+        if not self.strob_active:
+            self.beat_count += 1
+            if self.beat_count == self.current_step.get("duration"):
+                self.beat_count = 0
+                self.update_current_step()
+            self.run_animations()
+            print("beat", self.beat_count)
 
     def run_animations(self):
         for device_type, devices in self.device_groups.items(): # For each device type
@@ -99,6 +97,18 @@ class DmxController:
     
     def set_static(self, index, values):
         return values[index % len(values)]
+    
+    def start_strob(self):
+        self.strob_active = True
+        for device_type, devices in self.device_groups.items(): # For each device type
+            for device in devices: # For each device of this type
+                device.set_color(colors["WHITE"], 0)
+                device.set_intensity(255, 0)
+                device.set_strob(STROB_VALUE)
+    
+    def stop_strob(self):
+        self.strob_active = False
+        self.reset_data()
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():

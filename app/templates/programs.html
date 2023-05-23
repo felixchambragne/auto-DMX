@@ -23,10 +23,10 @@
     </form>
     <script>
         function buttonPressed() {
-          fetch('/strob_on', { method: 'POST' });
+          fetch('/start_strob', { method: 'POST' });
         }
         function buttonReleased() {
-          fetch('/strob_off', { method: 'POST' });
+          fetch('/stop_strob', { method: 'POST' });
         }
       </script>
 {% endblock %}
