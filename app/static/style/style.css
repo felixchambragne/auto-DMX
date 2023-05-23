@@ -19,7 +19,7 @@ body{
     box-sizing: border-box;
 }
 .card-button{
-    width: calc((100% - 40px) / 3);;
+    width: calc((100% - 60px) / 3);;
     height: calc(50% - 20px);
     float: left;
     display: block;
