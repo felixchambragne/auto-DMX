@@ -40,6 +40,9 @@ body{
     padding: 15px 30px;
     border-radius: 20px;
     background-color: #00000066;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 input[type="radio"]{
     display: none;
