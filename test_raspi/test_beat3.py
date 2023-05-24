@@ -56,14 +56,14 @@ class BeatDetection():
         print(np.max(self.data))
         if np.max(self.data) < self.threshold_value:
             self.blank_counter += 1
-            print("blank")
+            print("blank", end='\r')
         else:
             self.blank_counter = 0
 
         # If a blank has been detected for a long enough duration, take action
         if self.blank_counter >= self.blank_duration_threshold:
             # Perform actions for detecting a blank
-            print("Blank detected for a long time!")
+            print("Blank detected for a long time!", end='\r')
             # Reset the blank counter
             self.blank_counter = 0
 
