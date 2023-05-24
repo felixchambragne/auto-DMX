@@ -19,7 +19,7 @@ class BeatDetection():
         self.mid_beat = False
 
         self.blank_duration_threshold = 100
-        self.blank_count == 0
+        self.blank_count = 0
     
     def read_pcf8591(self):
         self.bus.write_byte(0x48, 0x40)
