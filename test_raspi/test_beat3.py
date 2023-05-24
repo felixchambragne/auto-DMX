@@ -18,9 +18,8 @@ class BeatDetection():
         self.mid_max = 0
         self.mid_beat = False
 
-        self.beat_number = 0
-
         self.blank_duration_threshold = 100
+        self.blank_count == 0
     
     def read_pcf8591(self):
         self.bus.write_byte(0x48, 0x40)
@@ -52,13 +51,13 @@ class BeatDetection():
 
     def detect_blank(self):
         if len(self.peaks) == 0:
-            blank_count += 1
+            self.blank_count += 1
         else:
-            blank_count = 0
+            self.blank_count = 0
 
-        if blank_count >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
+        if self.blank_count == 0 >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
             print("Blank detected - Silence or no beats to detect")
-            blank_count == 0
+            self.blank_count == 0
 
     def run(self):
         while True:
