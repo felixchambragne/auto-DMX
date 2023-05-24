@@ -58,7 +58,7 @@ class BeatDetection():
             peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
 
-            self.detect_bass()
+            #self.detect_bass()
             self.detect_mid()
 
             print("\n", end='\r')
