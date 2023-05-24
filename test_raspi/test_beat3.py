@@ -90,3 +90,4 @@ class BeatDetection():
 
 if __name__ == "__main__":
     beat_detection =  BeatDetection()
+    beat_detection.run()
