@@ -18,7 +18,7 @@ class BeatDetection():
         self.mid_max = 0
         self.mid_beat = False
 
-        self.blank_duration_threshold = 100
+        self.blank_duration_threshold = 20
         self.blank_count = 0
     
     def read_pcf8591(self):
