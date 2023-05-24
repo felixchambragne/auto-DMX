@@ -3,7 +3,6 @@ import smbus
 import numpy as np
 import scipy.signal as signal
 import time
-import keyboard
 
 class BeatDetection():
     def __init__(self):
@@ -65,7 +64,7 @@ class BeatDetection():
 
     def run(self):
         print("start")
-        switch = False
+
         while True:
             for i in range(self.data.shape[0]):
                 value = self.read_pcf8591()
@@ -74,18 +73,9 @@ class BeatDetection():
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
             peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
-            #if key is pressed, switch between bass and mid detection
-            if keyboard.is_pressed('q'):
-                print("**************SWITCH**************")
-                switch = not switch
-            
-            if switch:
-                self.detect_bass()
-            else:
-                self.detect_mid()
+            self.detect_bass()
+            self.detect_mid()
 
-
-            
             time.sleep(0.001)
 
 if __name__ == "__main__":
