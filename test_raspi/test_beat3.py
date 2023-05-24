@@ -56,7 +56,7 @@ class BeatDetection():
         else:
             self.blank_count = 0
 
-        if self.blank_count == 0 >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
+        if self.blank_count >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
             print("Long Blank detected - Silence or no beats to detect")
             self.blank_count = 0
 
