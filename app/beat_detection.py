@@ -28,7 +28,6 @@ class BeatDetection(threading.Thread):
             for i in range(self.data.shape[0]):
                 value = self.read_pcf8591()
                 self.data[i] = value
-                print(value)
             
             freqs, psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
             peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
@@ -37,8 +36,6 @@ class BeatDetection(threading.Thread):
 
             self.bass = np.max(psd[bass_indices])
             self.bass_max = max(self.bass_max, self.bass)*0.8
-
-            print(self.bass, self.bass_max)
 
             if self.bass >= self.bass_max*0.8 and not self.bass_beat:
                 self.bass_beat = True
