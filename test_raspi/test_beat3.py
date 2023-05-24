@@ -53,6 +53,7 @@ class BeatDetection():
 
     def detect_blank(self):
         # Check if the input data is below a certain threshold for a prolonged period
+        print(np.max(self.data))
         if np.max(self.data) < self.threshold_value:
             self.blank_counter += 1
             print("blank")
