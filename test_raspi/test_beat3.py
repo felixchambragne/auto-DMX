@@ -51,14 +51,18 @@ class BeatDetection():
         self.mid_max *= 0.95
 
     def detect_blank(self):
-            threshold = 0.1 * np.max(self.psd)
+        threshold = 0.1 * np.max(self.psd)
 
-            if len(self.peaks) == 0:
-                if np.all(self.psd < threshold):
-                    print("Blank detected - Silence or no beats to detect")
-            else:
-                pass
-  
+        # Check if there are no significant peaks in the power spectral density
+        if len(self.peaks) == 0:
+            # Check if the current bass and mid amplitudes are below a certain threshold
+            if self.bass_max < threshold and self.mid_max < threshold:
+                print("Blank detected - Silence or no beats to detect")
+                # Perform actions for detecting a blank or absence of beats
+        else:
+            # Reset any blank-related variables or counters
+            # Perform actions for when beats are present
+            pass
 
     def run(self):
         while True:
