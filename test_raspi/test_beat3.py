@@ -51,17 +51,14 @@ class BeatDetection():
         self.mid_max *= 0.95
 
     def detect_blank(self):
+            threshold = 0.1 * np.max(self.psd)
 
-        blank_threshold = 0.1 * np.max(self.psd)
-        if np.any(self.psd < blank_threshold):
-            self.blank_counter += 1
-            print("blank", end='\r')
-        else:
-            self.blank_counter = 0
-
-        if self.blank_counter >= self.blank_duration_threshold:
-            print("Blank detected for a long time!", end='\r')
-            self.blank_counter = 0
+            if len(self.peaks) == 0:
+                if np.all(self.psd < threshold):
+                    print("Blank detected - Silence or no beats to detect")
+            else:
+                pass
+  
 
     def run(self):
         while True:
@@ -70,7 +67,7 @@ class BeatDetection():
                 self.data[i] = value
             
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
-            peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
+            self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
             self.detect_bass()
             self.detect_mid()
