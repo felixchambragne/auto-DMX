@@ -1,56 +1,84 @@
+import threading
 import smbus
 import numpy as np
 import scipy.signal as signal
 import time
+import keyboard
 
-print("starting...")
+class BeatDetection():
+    def __init__(self, on_beat):
+        threading.Thread.__init__(self)
+        self.on_beat = on_beat
 
-sample_size = 128
+        self.sample_size = 128
+        self.bus = smbus.SMBus(1)
+        self.data = np.zeros(self.sample_size)
+        self.framerate = 1000
+        self.duration = 100 # seconds
 
-bus = smbus.SMBus(1)
-data = np.zeros(sample_size)
+        self.bass_max = 0
+        self.bass_beat = False
 
-def read_pcf8591():
-    bus.write_byte(0x48, 0x40)
-    return bus.read_byte(0x48)
+        self.mid_max = 0
+        self.mid_beat = False
 
-framerate = 1000
-
-duration = 600 # seconds
-start_time = time.time()
-
-bass_max = 0
-bass_beat = False
-beat_count = 0
-
-print("collecting data...")
-
-while time.time() - start_time < duration:
-    for i in range(data.shape[0]):
-        value = read_pcf8591()
-        data[i] = value 
+        self.beat_number = 0
     
-    freqs, psd = signal.welch(data, framerate, nperseg=sample_size)
-    peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
-
-    bass_indices = [idx for idx,val in enumerate(freqs) if val >= 40 and val <= 90]
-
-    bass = np.max(psd[bass_indices])
-    bass_max = max(bass_max, bass)*0.8
-
-    if bass >= bass_max*0.8 and not bass_beat:
-        bass_beat = True
-        beat_count += 1
-        print("bass", round(bass*100, 2), "bass_max", round(bass_max*100, 2), "Beat", beat_count, "             ", end='\r')
-    elif bass < bass_max*0.5:
-        bass_beat = False
+    def read_pcf8591(self):
+        self.bus.write_byte(0x48, 0x40)
+        return self.bus.read_byte(0x48)
     
-    bass_max *= 0.95
+    def detect_bass(self):
+        bass_indices = [idx for idx,val in enumerate(self.freqs) if val >= 20 and val <= 90]
 
-    print("\n", end='\r')
+        self.bass = np.max(self.psd[bass_indices])
+        self.bass_max = max(self.bass_max, self.bass)*0.8
+        if self.bass >= self.bass_max*0.8 and not self.bass_beat:
+            self.bass_beat = True
+            print("bass", round(self.bass*100, 2), "bass_max", round(self.bass_max*100, 2), "Beat", "             ", end='\r')
+        elif self.bass < self.bass_max*0.5:
+            self.bass_beat = False
+        self.bass_max *= 0.95
+
+    def detect_mid(self):
+        mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 90 and val <= 300]
+
+        self.mid = np.max(self.psd[mid_indices])
+        self.mid_max = max(self.mid_max, self.mid)*0.8
+        if self.mid >= self.mid_max*0.8 and not self.mid_beat:
+            self.mid_beat = True
+            print("mid", round(self.mid*100, 2), "mid_max", round(self.mid_max*100, 2), "Beat", "             ", end='\r')
+        elif self.mid < self.mid_max*0.5:
+            self.mid_beat = False
+        self.mid_max *= 0.95
+
+    def run(self):
+        switch = False
+        while True:
+            for i in range(self.data.shape[0]):
+                value = self.read_pcf8591()
+                self.data[i] = value
+            
+            self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
+            peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
+
+            #if key is pressed, switch between bass and mid detection
+            if keyboard.is_pressed('q'):
+                switch = not switch
+            
+            if switch:
+                self.detect_bass()
+            else:
+                self.detect_mid()
+
+            print("\n", end='\r')
     
-    if bass_beat == True:
-        print("BEAT", end='\r')
-    else:
-        print("     ", end='\r')
-    time.sleep(0.001)
+            if self.bass_beat == True:
+                print("BEAT", end='\r')
+            else:
+                print("     ", end='\r')
+            
+            time.sleep(0.001)
+
+if __name__ == "__main__":
+    beat_detection =  BeatDetection()
