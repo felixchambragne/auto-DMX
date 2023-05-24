@@ -54,6 +54,7 @@ class BeatDetection():
         threshold = 0.1 * np.max(self.psd)
 
         # Check if there are no significant peaks in the power spectral density
+        print(len(self.peaks))
         if len(self.peaks) == 0:
             # Check if the current bass and mid amplitudes are below a certain threshold
             if self.bass_max < threshold and self.mid_max < threshold:
