@@ -52,8 +52,8 @@ class BeatDetection():
 
     def detect_blank(self):
 
-        blank_threshold = 0.5 * np.max(self.psd)
-        if np.all(self.psd < blank_threshold):
+        blank_threshold = 0.1 * np.max(self.psd)
+        if np.any(self.psd < blank_threshold):
             self.blank_counter += 1
             print("blank", end='\r')
         else:
