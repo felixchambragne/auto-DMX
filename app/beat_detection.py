@@ -39,6 +39,7 @@ class BeatDetection(threading.Thread):
 
             if self.bass >= self.bass_max*0.8 and not self.bass_beat:
                 self.bass_beat = True
+                print("ok-------------")
                 self.on_beat()
                 
             elif self.bass < self.bass_max*0.5:
