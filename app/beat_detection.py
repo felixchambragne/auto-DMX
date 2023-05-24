@@ -37,11 +37,11 @@ class BeatDetection(threading.Thread):
             self.bass = np.max(psd[bass_indices])
             self.bass_max = max(self.bass_max, self.bass)*0.8
 
+            print(self.bass, self.bass_max)
+
             if self.bass >= self.bass_max*0.8 and not self.bass_beat:
                 self.bass_beat = True
-                print("ok-------------")
                 self.on_beat()
-                
             elif self.bass < self.bass_max*0.5:
                 self.bass_beat = False
             self.bass_max *= 0.95
