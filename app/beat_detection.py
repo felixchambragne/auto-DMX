@@ -27,7 +27,8 @@ class BeatDetection(threading.Thread):
         while True:
             for i in range(self.data.shape[0]):
                 value = self.read_pcf8591()
-                self.data[i] = value 
+                self.data[i] = value
+                print(value)
             
             freqs, psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
             peaks, _ = signal.find_peaks(psd, height=0.1*np.max(psd), distance=50)
