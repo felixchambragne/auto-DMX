@@ -65,6 +65,8 @@ class DmxController:
                 self.update_current_step()
             self.run_animations()
             print("beat", self.beat_count)
+        else:
+            print("pas normal")
 
     def run_animations(self):
         for device_type, devices in self.device_groups.items(): # For each device type
