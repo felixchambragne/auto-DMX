@@ -51,12 +51,13 @@ class BeatDetection():
 
     def detect_blank(self):
         if len(self.peaks) == 0:
+            print("Blank detected - No peaks found")
             self.blank_count += 1
         else:
             self.blank_count = 0
 
         if self.blank_count == 0 >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
-            print("Blank detected - Silence or no beats to detect")
+            print("Long Blank detected - Silence or no beats to detect")
             self.blank_count = 0
 
     def run(self):
