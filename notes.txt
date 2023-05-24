@@ -18,7 +18,6 @@ sudo killall -s SIGHUP olad
 ola_dev_info | grep FT232R
 ola_patch -d 1 -p 1 -u 1
 
-
 **************************Access Point :*****************
 git clone https://github.com/idev1/rpihotspot.git
 cd rpihotspot
@@ -33,6 +32,9 @@ pip install smbus
 sudo apt-get install i2c-tools
 test i2c : sudo i2cdetect -y 0 ou sudo i2cdetect -y 1
 sudo apt install python3-pyaudio
+
+***********Autres install**************
+pip install keyboard
 
 *****************Au demarrage*****************
 sudo nano /etc/systemd/system/uap0.service

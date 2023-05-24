@@ -6,10 +6,8 @@ import time
 import keyboard
 
 class BeatDetection():
-    def __init__(self, on_beat):
-        threading.Thread.__init__(self)
-        self.on_beat = on_beat
-
+    def __init__(self):
+    
         self.sample_size = 128
         self.bus = smbus.SMBus(1)
         self.data = np.zeros(self.sample_size)
