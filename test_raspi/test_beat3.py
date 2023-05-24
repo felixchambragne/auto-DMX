@@ -19,6 +19,9 @@ class BeatDetection():
         self.mid_beat = False
 
         self.beat_number = 0
+
+        self.threshold_value = 0.1
+        self.blank_duration_threshold = 100
     
     def read_pcf8591(self):
         self.bus.write_byte(0x48, 0x40)
@@ -31,7 +34,7 @@ class BeatDetection():
         self.bass_max = max(self.bass_max, bass)*0.8
         if bass >= self.bass_max*0.8 and not self.bass_beat:
             self.bass_beat = True
-            print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "Beat", "             ", end='\r')
+            print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
         elif bass < self.bass_max*0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
@@ -43,10 +46,25 @@ class BeatDetection():
         self.mid_max = max(self.mid_max, mid)*0.8
         if mid >= self.mid_max*0.8 and not self.mid_beat and not self.bass_beat:
             self.mid_beat = True
-            print("----- mid", round(mid*100, 2), "mid_max", round(self.mid_max*100, 2), "Beat", "             ", end='\r')
+            print("----- mid", round(mid*100, 2), "mid_max", round(self.mid_max*100, 2), "             ", end='\r')
         elif mid < self.mid_max*0.5:
             self.mid_beat = False
         self.mid_max *= 0.95
+
+    def detect_blank(self):
+        # Check if the input data is below a certain threshold for a prolonged period
+        if np.max(self.data) < self.threshold_value:
+            self.blank_counter += 1
+        else:
+            self.blank_counter = 0
+
+        # If a blank has been detected for a long enough duration, take action
+        if self.blank_counter >= self.blank_duration_threshold:
+            # Perform actions for detecting a blank
+            print("Blank detected for a long time!")
+            # Reset the blank counter
+            self.blank_counter = 0
+
 
     def run(self):
         while True:
@@ -57,9 +75,9 @@ class BeatDetection():
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
             peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
-
-            #self.detect_bass()
+            self.detect_bass()
             self.detect_mid()
+            self.detect_blank()
 
             print("\n", end='\r')
 
