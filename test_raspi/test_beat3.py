@@ -20,7 +20,6 @@ class BeatDetection():
 
         self.beat_number = 0
 
-        self.threshold_value = 0.1
         self.blank_duration_threshold = 100
     
     def read_pcf8591(self):
@@ -53,8 +52,11 @@ class BeatDetection():
 
     def detect_blank(self):
         # Check if the input data is below a certain threshold for a prolonged period
-        print(np.max(self.data))
-        if np.max(self.data) < self.threshold_value:
+
+        blank_threshold = 0.1 * np.max(self.psd)
+
+        print(self.psd)
+        if np.all(self.psd < blank_threshold):
             self.blank_counter += 1
             print("blank", end='\r')
         else:
