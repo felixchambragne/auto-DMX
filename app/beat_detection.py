@@ -13,7 +13,6 @@ class BeatDetection(threading.Thread):
         self.bus = smbus.SMBus(1)
         self.data = np.zeros(self.sample_size)
         self.framerate = 1000
-        self.duration = 100 # seconds
 
         self.bass_max = 0
         self.bass_beat = False
