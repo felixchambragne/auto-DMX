@@ -37,6 +37,13 @@ class BeatDetection():
             self.bass_beat = False
         self.bass_max *= 0.95
 
+        print("\n", end='\r')
+
+        if self.bass_beat == True:
+            print("BEAT", end='\r')
+        else:
+            print("     ", end='\r')
+
     def detect_mid(self):
         mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 90 and val <= 300]
 
@@ -49,7 +56,15 @@ class BeatDetection():
             self.mid_beat = False
         self.mid_max *= 0.95
 
+        print("\n", end='\r')
+
+        if self.mid_beat == True:
+            print("BEAT", end='\r')
+        else:
+            print("     ", end='\r')
+
     def run(self):
+        print("start")
         switch = False
         while True:
             for i in range(self.data.shape[0]):
@@ -61,6 +76,7 @@ class BeatDetection():
 
             #if key is pressed, switch between bass and mid detection
             if keyboard.is_pressed('q'):
+                print("**************SWITCH**************")
                 switch = not switch
             
             if switch:
@@ -68,12 +84,7 @@ class BeatDetection():
             else:
                 self.detect_mid()
 
-            print("\n", end='\r')
-    
-            if self.bass_beat == True:
-                print("BEAT", end='\r')
-            else:
-                print("     ", end='\r')
+
             
             time.sleep(0.001)
 
