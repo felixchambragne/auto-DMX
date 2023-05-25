@@ -40,8 +40,9 @@ app = App()
 @app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
     if flask.request.method == "POST":
-        app.set_current_category(flask.request.form['category_id'])
-        return flask.redirect(flask.url_for('programs_page'))
+         if 'category_id' in flask.request.form:
+            app.set_current_category(flask.request.form['category_id'])
+            return flask.redirect(flask.url_for('programs_page'))
     
     return flask.render_template(
         'categories.html',
