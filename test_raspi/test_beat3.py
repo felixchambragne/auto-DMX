@@ -81,7 +81,7 @@ class BeatDetection():
             #self.detect_bass()
             #self.detect_mid()
             #self.detect_blank()
-            volume_variations = self.detect_volume_variation(self.data, window_size=129, threshold=0.1)
+            volume_variations = self.detect_volume_variation(self.data, window_size=127, threshold=0.05)
             print("volume_variations", volume_variations, "             ", end='\r')
 
             print("\n", end='\r')
