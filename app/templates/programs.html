@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form class="container" method="POST">
+    <div class="container" method="POST">
         <a class="card-button" href="/">
             <p>Retour</p>
         </a>
@@ -16,17 +16,6 @@
                 <p>{{ program.name}}</p>
             </label>
         {% endfor %}
+    </div>
 
-        <button onmousedown="buttonPressed()" onmouseup="buttonReleased()" class="card-button">
-            <p>Strob</p>
-        </button>
-    </form>
-    <script>
-        function buttonPressed() {
-          fetch('/start_strob', { method: 'POST' });
-        }
-        function buttonReleased() {
-          fetch('/stop_strob', { method: 'POST' });
-        }
-      </script>
 {% endblock %}

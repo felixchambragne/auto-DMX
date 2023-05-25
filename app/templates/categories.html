@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form class="container" method="POST">
-        <a class="settings card-button" href="">
-            <p>Auto</p>
-        </a>
-        
+    <div class="container">
         {% for category in categories %}
             <label 
                 class="card-button" style="background-color: {{ category.color }};"
@@ -16,5 +12,5 @@
                 <p>{{ category.name}}</p>
             </label>
         {% endfor %}
-    </form>
+        </div>
 {% endblock %}

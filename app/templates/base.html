@@ -8,8 +8,29 @@
     {% block head %} {% endblock %}
 </head>
 <body>
-    <main class="base-main">
-        {% block content %} {% endblock %}
-    </main>
+    <form method="POST">
+        <div>
+            <button class="card-button">
+                <p>STOP</p>
+            </button>
+            <button class="card-button">
+                <p>*</p>
+            </button>
+            <button onmousedown="startStrob()" onmouseup="stopStrob()" class="card-button">
+                <p>Strob</p>
+            </button>
+        </div>
+        <main class="base-main">
+            {% block content %} {% endblock %}
+        </main>
+    </form>
 </body>
+<script>
+    function startStrob() {
+      fetch('/start_strob', { method: 'POST' });
+    }
+    function stopStrob() {
+      fetch('/stop_strob', { method: 'POST' });
+    }
+  </script>
 </html>
