@@ -102,7 +102,7 @@ class DmxController:
         return values[index % len(values)]
     
     def start_strob(self):
-        self.previous_data = self.data
+        self.previous_data = np.copy(self.data)
         self.strob_active = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
