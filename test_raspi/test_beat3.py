@@ -78,10 +78,10 @@ class BeatDetection():
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
             self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
-            self.detect_bass()
-            self.detect_mid()
-            self.detect_blank()
-            volume_variations = self.detect_volume_variation(self.data, window_size=100, threshold=0.1)
+            #self.detect_bass()
+            #self.detect_mid()
+            #self.detect_blank()
+            volume_variations = self.detect_volume_variation(self.data, window_size=128, threshold=0.1)
             print("volume_variations", volume_variations, "             ", end='\r')
 
             print("\n", end='\r')
