@@ -26,23 +26,38 @@ class BeatDetection():
         return self.bus.read_byte(0x48)
     
     def detect_bass(self):
-        bass_indices = [idx for idx,val in enumerate(self.freqs) if val >= 20 and val <= 90]
+        """bass_indices = [idx for idx,val in enumerate(self.freqs) if val >= 20 and val <= 90]
 
         bass = np.max(self.psd[bass_indices])
         self.bass_max = max(self.bass_max, bass)*0.8
-        """if bass >= self.bass_max*0.8 and not self.bass_beat:
+        if bass >= self.bass_max*0.8 and not self.bass_beat:
             self.bass_beat = True
             print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
         elif bass < self.bass_max*0.5:
             self.bass_beat = False
         self.bass_max *= 0.95"""
+        bass_indices = [idx for idx, val in enumerate(self.freqs) if val >= 20 and val <= 90]
+
+        bass = np.max(self.psd[bass_indices])
+        self.bass_max = max(self.bass_max, bass) * 0.8
+        
+        # Vérifier si un pic se trouve dans les fréquences de basses
         bass_peaks = np.intersect1d(self.peaks, bass_indices)
-        if len(bass_peaks) > 0 and not self.bass_beat:
+        
+        # Calculer la moyenne des amplitudes des pics dans les fréquences de basses
+        if len(bass_peaks) > 0:
+            bass_peak_amplitudes = self.psd[bass_peaks]
+            average_amplitude = np.mean(bass_peak_amplitudes)
+        else:
+            average_amplitude = 0
+        
+        if average_amplitude >= self.bass_max * 0.8 and not self.bass_beat:
             self.bass_beat = True
-            print("OOOOO bass", round(bass * 100, 2), "bass_max", round(self.bass_max * 100, 2), "             ", end='\r')
-        elif bass < self.bass_max * 0.5:
+            print("OOOOO bass", round(average_amplitude * 100, 2), "bass_max", round(self.bass_max * 100, 2), "             ", end='\r')
+        elif average_amplitude < self.bass_max * 0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
+        
 
     def detect_mid(self):
         mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 120 and val <= 300]
