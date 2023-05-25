@@ -38,7 +38,7 @@ class BeatDetection():
         self.bass_max *= 0.95
 
     def detect_mid(self):
-        mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 90 and val <= 300]
+        mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 120 and val <= 300]
 
         mid = np.max(self.psd[mid_indices])
         self.mid_max = max(self.mid_max, mid)*0.8
