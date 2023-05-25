@@ -20,20 +20,27 @@ class BeatDetection():
 
         self.blank_duration_threshold = 20
         self.blank_count = 0
+
+        self.energy_window = 50
+        self.threshold_multiplier = 1.5
     
     def read_pcf8591(self):
         self.bus.write_byte(0x48, 0x40)
         return self.bus.read_byte(0x48)
     
     def detect_bass(self):
-        bass_indices = [idx for idx,val in enumerate(self.freqs) if val >= 20 and val <= 90]
+        bass_indices = [idx for idx, val in enumerate(self.freqs) if val >= 20 and val <= 90]
 
         bass = np.max(self.psd[bass_indices])
-        self.bass_max = max(self.bass_max, bass)*0.8
-        if bass >= self.bass_max*0.8 and not self.bass_beat:
+        self.bass_max = max(self.bass_max, bass) * 0.8
+
+        # Utilisation d'un seuil adaptatif basé sur la moyenne mobile de l'énergie
+        beat_threshold = np.mean(self.psd[-self.beat_window:]) * 0.8
+
+        if bass >= beat_threshold and not self.bass_beat:
             self.bass_beat = True
-            print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
-        elif bass < self.bass_max*0.5:
+            print("OOOOO bass", round(bass * 100, 2), "bass_max", round(self.bass_max * 100, 2), "             ", end='\r')
+        elif bass < self.bass_max * 0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
 
@@ -60,17 +67,30 @@ class BeatDetection():
             self.blank_count = 0
 
     def run(self):
+        energy_history = np.zeros(self.sample_size)  # Historique de l'énergie
+        self.beat_window = 0  # Taille de la fenêtre de détection adaptative
+
         while True:
             for i in range(self.data.shape[0]):
                 value = self.read_pcf8591()
                 self.data[i] = value
-            
+
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
-            self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
+            self.peaks, _ = signal.find_peaks(self.psd, height=0.1 * np.max(self.psd), distance=50)
 
             self.detect_bass()
-            self.detect_mid()
+            #self.detect_mid()
             self.detect_blank()
+
+            # Calcul de l'énergie actuelle
+            energy = np.sum(self.psd)
+
+            # Mise à jour de l'historique de l'énergie
+            energy_history[1:] = energy_history[:-1]
+            energy_history[0] = energy
+
+            # Calcul de la taille de la fenêtre de détection adaptative
+            self.beat_window = np.argmax(energy_history > np.mean(energy_history)) + 1
 
             print("\n", end='\r')
 
