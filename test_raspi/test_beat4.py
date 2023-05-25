@@ -26,25 +26,49 @@ class BeatDetection():
         return self.bus.read_byte(0x48)
     
     def detect_bass(self):
-        bass_indices = [idx for idx,val in enumerate(self.freqs) if val >= 20 and val <= 90]
+        bass_indices = [idx for idx, val in enumerate(self.freqs) if val >= 20 and val <= 90]
 
         bass = np.max(self.psd[bass_indices])
-        self.bass_max = max(self.bass_max, bass)*0.8
-        if bass >= self.bass_max*0.8 and not self.bass_beat:
+        self.bass_max = max(self.bass_max, bass) * 0.8
+        
+        # Vérifier si un pic se trouve dans les fréquences de basses
+        bass_peaks = np.intersect1d(self.peaks, bass_indices)
+        
+        # Calculer la moyenne des amplitudes des pics dans les fréquences de basses
+        if len(bass_peaks) > 0:
+            bass_peak_amplitudes = self.psd[bass_peaks]
+            average_amplitude = np.mean(bass_peak_amplitudes)
+        else:
+            average_amplitude = 0
+        
+        if average_amplitude >= self.bass_max * 0.8 and not self.bass_beat:
             self.bass_beat = True
-            print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
-        elif bass < self.bass_max*0.5:
+            print("OOOOO bass", round(average_amplitude * 100, 2), "bass_max", round(self.bass_max * 100, 2), "             ", end='\r')
+        elif average_amplitude < self.bass_max * 0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
         
+
     def detect_mid(self):
         mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 120 and val <= 300]
+
         mid = np.max(self.psd[mid_indices])
-        self.mid_max = max(self.mid_max, mid)*0.8
-        if mid >= self.mid_max*0.8 and not self.mid_beat and not self.bass_beat:
+        self.mid_max = max(self.mid_max, mid) * 0.8
+        
+        # Vérifier si un pic se trouve dans les fréquences moyennes
+        mid_peaks = np.intersect1d(self.peaks, mid_indices)
+        
+        # Calculer la moyenne des amplitudes des pics dans les fréquences moyennes
+        if len(mid_peaks) > 0:
+            mid_peak_amplitudes = self.psd[mid_peaks]
+            average_amplitude = np.mean(mid_peak_amplitudes)
+        else:
+            average_amplitude = 0
+        
+        if average_amplitude >= self.mid_max * 0.8 and not self.mid_beat and not self.bass_beat:
             self.mid_beat = True
-            print("----- mid", round(mid*100, 2), "mid_max", round(self.mid_max*100, 2), "             ", end='\r')
-        elif mid < self.mid_max*0.5:
+            print("----- mid", round(average_amplitude * 100, 2), "mid_max", round(self.mid_max * 100, 2), "             ", end='\r')
+        elif average_amplitude < self.mid_max * 0.5:
             self.mid_beat = False
         self.mid_max *= 0.95
 
