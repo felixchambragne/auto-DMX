@@ -30,10 +30,17 @@ class BeatDetection():
 
         bass = np.max(self.psd[bass_indices])
         self.bass_max = max(self.bass_max, bass)*0.8
-        if bass >= self.bass_max*0.8 and not self.bass_beat:
+        """if bass >= self.bass_max*0.8 and not self.bass_beat:
             self.bass_beat = True
             print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
         elif bass < self.bass_max*0.5:
+            self.bass_beat = False
+        self.bass_max *= 0.95"""
+        bass_peaks = np.intersect1d(self.peaks, bass_indices)
+        if len(bass_peaks) > 0 and not self.bass_beat:
+            self.bass_beat = True
+            print("OOOOO bass", round(bass * 100, 2), "bass_max", round(self.bass_max * 100, 2), "             ", end='\r')
+        elif bass < self.bass_max * 0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
 
@@ -49,7 +56,7 @@ class BeatDetection():
             self.mid_beat = False
         self.mid_max *= 0.95
 
-    """def detect_blank(self):
+    def detect_blank(self):
         if len(self.peaks) == 0:
             self.blank_count += 1
         else:
@@ -57,7 +64,7 @@ class BeatDetection():
 
         if self.blank_count >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
             print("Long Blank detected - Silence or no beats to detect", end='\r')
-            self.blank_count = 0"""
+            self.blank_count = 0
 
     def run(self):
         while True:
@@ -66,11 +73,11 @@ class BeatDetection():
                 self.data[i] = value
             
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
-            #self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
+            self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
             self.detect_bass()
             self.detect_mid()
-            #self.detect_blank()
+            self.detect_blank()
 
             print("\n", end='\r')
 
