@@ -72,7 +72,7 @@ class BeatDetection():
             self.detect_mid()
             self.detect_blank()
 
-            #rint("\n", end='\r')
+            print("\n", end='\r')
 
             time.sleep(0.001)
 
