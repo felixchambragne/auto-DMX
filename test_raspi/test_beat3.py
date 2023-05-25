@@ -32,7 +32,7 @@ class BeatDetection():
         self.bass_max = max(self.bass_max, bass)*0.8
         if bass >= self.bass_max*0.8 and not self.bass_beat:
             self.bass_beat = True
-            print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
+            #print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
         elif bass < self.bass_max*0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
@@ -68,7 +68,7 @@ class BeatDetection():
             self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
             self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
 
-            #self.detect_bass()
+            self.detect_bass()
             self.detect_mid()
             self.detect_blank()
 
