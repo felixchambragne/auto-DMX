@@ -66,7 +66,7 @@ class DmxController:
             self.run_animations()
             print("beat", self.beat_count)
         else:
-            print("pas normal")
+            print("Strob active, beat ignored...")
 
     def run_animations(self):
         for device_type, devices in self.device_groups.items(): # For each device type
@@ -111,7 +111,7 @@ class DmxController:
     
     def stop_strob(self):
         self.strob_active = False
-        self.data = self.previous_data
+        self.reset_data()
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():
