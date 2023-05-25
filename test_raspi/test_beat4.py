@@ -73,7 +73,7 @@ class BeatDetection():
         self.mid_max *= 0.95
 
     def detect_blank(self):
-        if len(self.peaks) == 0 or (self.mid_max < 0.001 and self.bass_max < 0.001):
+        if len(self.peaks) == 0 or (self.mid_max < 0.01 and self.bass_max < 0.01):
             self.blank_count += 1
         else:
             self.blank_count = 0
