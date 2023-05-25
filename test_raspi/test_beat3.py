@@ -59,6 +59,16 @@ class BeatDetection():
             print("Long Blank detected - Silence or no beats to detect", end='\r')
             self.blank_count = 0
 
+    def detect_volume_variation(self, signal, window_size, threshold):
+        # Calculer l'enveloppe d'amplitude
+        abs_signal = np.abs(signal)
+        envelope = signal.medfilt(abs_signal, kernel_size=window_size)
+
+        # Comparer avec le seuil pour détecter les variations de volume
+        volume_variations = np.where(envelope > threshold)[0]
+
+        return volume_variations
+
     def run(self):
         while True:
             for i in range(self.data.shape[0]):
@@ -71,6 +81,8 @@ class BeatDetection():
             self.detect_bass()
             self.detect_mid()
             self.detect_blank()
+            volume_variations = self.detect_volume_variation(self.data, window_size=100, threshold=0.1)
+            print("volume_variations", volume_variations, "             ", end='\r')
 
             print("\n", end='\r')
 
