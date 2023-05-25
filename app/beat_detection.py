@@ -48,7 +48,7 @@ class BeatDetection(threading.Thread):
         self.mid_max *= 0.95
 
     def detect_blank(self):
-        if len(self.peaks) == 0:
+        if len(self.peaks) == 0 or (self.mid_max < 0.001 and self.bass_max < 0.001):
             self.blank_count += 1
         else:
             self.blank_count = 0
