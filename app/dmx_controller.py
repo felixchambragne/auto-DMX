@@ -5,6 +5,7 @@ import sys
 import json
 import random
 from device import Device
+import numpy as np
 from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors
 
 class DmxController:
@@ -111,7 +112,7 @@ class DmxController:
     
     def stop_strob(self):
         self.strob_active = False
-        self.reset_data()
+        self.data = np.copy(self.previous_data)
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():

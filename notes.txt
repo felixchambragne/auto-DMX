@@ -57,3 +57,5 @@ sudo reboot
 uninstall xrdp
 uninstall git
 uninstall dkms
+
+optimisé le import dans le python
