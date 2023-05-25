@@ -10,19 +10,19 @@
 <body>
     <form method="POST">
         <div class="sidebar">
-            <button class="side-card-button">
+            <button class="function-button">
                 <p>STOP</p>
             </button>
-            <button class="side-card-button">
+            <button class="function-button">
                 <p>*</p>
             </button>
             <button onmousedown="startStrob()" onmouseup="stopStrob()" class="side-card-button">
                 <p>Strob</p>
             </button>
         </div>
-        <main class="base-main">
-            {% block content %} {% endblock %}
-        </main>
+        <div class="grid-container">
+            {% block grid-content %} {% endblock %}
+        </div>
     </form>
 </body>
 <script>
