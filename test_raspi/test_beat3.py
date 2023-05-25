@@ -34,8 +34,9 @@ class BeatDetection():
         bass = np.max(self.psd[bass_indices])
         self.bass_max = max(self.bass_max, bass) * 0.8
 
-        # Utilisation d'un seuil adaptatif basé sur la moyenne mobile de l'énergie
-        beat_threshold = np.mean(self.psd[-self.beat_window:]) * 0.8
+        # Utilisation d'un seuil adaptatif basé sur l'écart-type de l'énergie
+        energy_std = np.std(self.psd)
+        beat_threshold = np.mean(self.psd[-self.beat_window:]) + energy_std * self.threshold_multiplier
 
         if bass >= beat_threshold and not self.bass_beat:
             self.bass_beat = True
@@ -43,6 +44,20 @@ class BeatDetection():
         elif bass < self.bass_max * 0.5:
             self.bass_beat = False
         self.bass_max *= 0.95
+        """bass_indices = [idx for idx,val in enumerate(self.freqs) if val >= 20 and val <= 90]
+
+        bass = np.max(self.psd[bass_indices])
+        self.bass_max = max(self.bass_max, bass)*0.8
+
+        energy_std = np.std(self.psd)
+        beat_threshold = np.mean(self.psd[-beat_window:]) + energy_std * threshold_multiplier
+        
+        if bass >= self.bass_max*0.8 and not self.bass_beat:
+            self.bass_beat = True
+            print("OOOOO bass", round(bass*100, 2), "bass_max", round(self.bass_max*100, 2), "             ", end='\r')
+        elif bass < self.bass_max*0.5:
+            self.bass_beat = False
+        self.bass_max *= 0.95"""
 
     def detect_mid(self):
         mid_indices = [idx for idx,val in enumerate(self.freqs) if val >= 90 and val <= 300]
@@ -79,7 +94,7 @@ class BeatDetection():
             self.peaks, _ = signal.find_peaks(self.psd, height=0.1 * np.max(self.psd), distance=50)
 
             self.detect_bass()
-            #self.detect_mid()
+            self.detect_mid()
             self.detect_blank()
 
             # Calcul de l'énergie actuelle
@@ -95,6 +110,21 @@ class BeatDetection():
             print("\n", end='\r')
 
             time.sleep(0.001)
+        """while True:
+            for i in range(self.data.shape[0]):
+                value = self.read_pcf8591()
+                self.data[i] = value
+            
+            self.freqs, self.psd = signal.welch(self.data, self.framerate, nperseg=self.sample_size)
+            self.peaks, _ = signal.find_peaks(self.psd, height=0.1*np.max(self.psd), distance=50)
+
+            self.detect_bass()
+            self.detect_mid()
+            self.detect_blank()
+
+            print("\n", end='\r')
+
+            time.sleep(0.001)"""
 
 if __name__ == "__main__":
     beat_detection =  BeatDetection()
