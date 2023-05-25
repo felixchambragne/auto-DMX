@@ -63,6 +63,7 @@ class BeatDetection():
         # Calculer l'enveloppe d'amplitude
         abs_signal = np.abs(input_signal)
         envelope = signal.medfilt(abs_signal, kernel_size=window_size)
+        print("envelope", envelope, "             ", end='\r')
 
         # Comparer avec le seuil pour détecter les variations de volume
         volume_variations = np.where(envelope > threshold)[0]
@@ -82,7 +83,7 @@ class BeatDetection():
             #self.detect_mid()
             #self.detect_blank()
             volume_variations = self.detect_volume_variation(self.data, window_size=127, threshold=0.05)
-            print("volume_variations", volume_variations, "             ", end='\r')
+            #print("volume_variations", volume_variations, "             ", end='\r')
 
             print("\n", end='\r')
 
