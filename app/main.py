@@ -38,12 +38,10 @@ class App():
 
 app = App()
 
-@app.flask_app.route('/requete', methods=['POST'])
-def handle_requete():
-    data = flask.request.get_json()
-    # Traitez les données de la requête
-    # Effectuez les actions souhaitées
-    return 'Requête traitée avec succès'
+@app.flask_app.route('/categories', methods=['GET'])
+def get_categories():
+    filename = 'programs.json'
+    return flask.send_file(filename, mimetype='application/json')
 
 """@app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
