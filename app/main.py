@@ -37,10 +37,17 @@ class App():
 
 app = App()
 
-@app.flask_app.route('/categories', methods=['GET'])
+@app.flask_app.route('/get_categories', methods=['GET'])
 def get_categories():
     filename = 'programs.json'
     return flask.send_file(filename, mimetype='application/json')
+
+@app.flask_app.route('/set_category', methods=['GET'])
+def set_category():
+    category_id = flask.request.args.get('category_id')
+    app.set_current_category(category_id)
+    return "OK"
+    
 
 """@app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
