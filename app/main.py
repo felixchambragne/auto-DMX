@@ -38,7 +38,7 @@ class App():
 
 app = App()
 
-@app.route('/requete', methods=['POST'])
+@app.flask_app.route('/requete', methods=['POST'])
 def handle_requete():
     data = flask.request.get_json()
     # Traitez les données de la requête
