@@ -29,7 +29,6 @@ class App():
         self.selected_category = self.categories[self.selected_category_id]
         self.selected_program = self.selected_category['programs'][self.selected_program_id]
         print("NEW PROGRAM SELECTED: " + self.selected_program["name"])
-        
 
     def run(self):
         self.ola_thread.start()
@@ -37,7 +36,13 @@ class App():
         self.flask_app.run(host='0.0.0.0', debug=True, use_reloader=False)
 
 app = App()
-@app.flask_app.route("/", methods=["GET", "POST"])
+
+@app.flask_app.route('/categories', methods=['GET'])
+def get_categories():
+    filename = 'programs.json'
+    return flask.send_file(filename, mimetype='application/json')
+
+"""@app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
     if flask.request.method == "POST":
          if 'category_id' in flask.request.form:
@@ -82,7 +87,7 @@ def start_strob():
 def stop_strob():
     app.ola_thread.dmx_controller.stop_strob()
     print("FIN STROB")
-    return "FIN STROB"
+    return "FIN STROB"""
 
 if __name__ == '__main__':
     app.run()
