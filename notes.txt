@@ -58,4 +58,5 @@ uninstall xrdp
 uninstall git
 uninstall dkms
 
-optimisé le import dans le python
+optimisé les import dans le python
+enlevé le debug mode sur flask
