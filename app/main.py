@@ -49,7 +49,7 @@ def set_program():
     app.set_selected_program(category_id, program_id)
     app.ola_thread.dmx_controller.beat_count = 0
     app.ola_thread.dmx_controller.update_current_step()
-    return None
+    return "OK"
 
 
 """@app.flask_app.route('/set_category', methods=['GET'])
