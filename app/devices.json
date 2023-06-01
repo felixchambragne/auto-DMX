@@ -17,7 +17,7 @@
         {
             "type": "washbeam",
             "number": 6,
-            "start_address": 1,
+            "start_address": 341,
             "channels": {
                 "pan": 1,
                 "pan_fin": 2,
