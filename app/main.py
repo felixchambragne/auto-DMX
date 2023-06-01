@@ -42,7 +42,7 @@ def get_categories():
     filename = 'programs.json'
     return flask.send_file(filename, mimetype='application/json')
 
-@app.flask_app.route('/set_program', methods=['POST'])
+@app.flask_app.route('/set_program', methods=['GET'])
 def set_program():
     category_id = flask.request.args.get('category_id')
     program_id = flask.request.args.get('program_id')
