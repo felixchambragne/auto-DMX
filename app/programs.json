@@ -179,14 +179,14 @@
                             },
                             "washbeam": {
                                 "color": {
-                                    "values": ["BLUE"],
-                                    "fade": 0,
-                                    "type": "static"
-                                },
-                                "intensity": {
-                                    "values": [255, 0],
+                                    "values": ["BLUE", "RED", "GREEN"],
                                     "fade": 0,
                                     "type": "linear"
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "type": "static"
                                 }
                             } 
                         }
