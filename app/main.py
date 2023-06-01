@@ -49,8 +49,19 @@ def set_program():
     app.set_selected_program(category_id, program_id)
     app.ola_thread.dmx_controller.beat_count = 0
     app.ola_thread.dmx_controller.update_current_step()
-    return "OK"
+    return "New program selected"
 
+@app.flask_app.route('/start_strob', methods=['GET'])
+def start_strob():
+    app.ola_thread.dmx_controller.start_strob()
+    print("DEBUT STROB")
+    return "Start Strob"
+
+@app.flask_app.route('/stop_strob', methods=['GET'])
+def stop_strob():
+    app.ola_thread.dmx_controller.stop_strob()
+    print("FIN STROB")
+    return "Stop Strob"
 
 """@app.flask_app.route('/set_category', methods=['GET'])
 def set_category():
