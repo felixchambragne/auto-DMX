@@ -185,7 +185,7 @@
                                 },
                                 "intensity": {
                                     "values": [255, 0],
-                                    "fade": 0.5,
+                                    "fade": 0,
                                     "type": "linear"
                                 }
                             } 
