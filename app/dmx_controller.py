@@ -61,14 +61,14 @@ class DmxController:
 
     def on_start_blank(self):
         print("Start blank")
-        self.running_animations = False
+        self.is_running_animations = False
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_intensity(0, 2)
 
     def on_stop_blank(self):
         print("Stop blank")
-        self.running_animations = True
+        self.is_running_animations = True
 
     def on_beat(self):
         if self.is_running_animations:
