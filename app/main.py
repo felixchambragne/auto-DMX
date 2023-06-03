@@ -65,13 +65,13 @@ def stop_strob():
 
 @app.flask_app.route('/start_program', methods=['GET'])
 def start_program():
-    app.ola_thread.dmx_controller.on_start_blank()
+    app.ola_thread.dmx_controller.on_stop_blank()
     print("DEBUT PROGRAM")
     return "Start Program"
 
 @app.flask_app.route('/stop_program', methods=['GET'])
 def stop_program():
-    app.ola_thread.dmx_controller.on_stop_blank()
+    app.ola_thread.dmx_controller.on_start_blank()
     print("FIN PROGRAM")
     return "Stop Program"
 
