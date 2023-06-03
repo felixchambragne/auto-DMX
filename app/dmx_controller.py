@@ -60,12 +60,14 @@ class DmxController:
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
     def on_start_blank(self):
+        print("Start blank")
         self.running_animations = False
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_intensity(0, 2)
 
     def on_stop_blank(self):
+        print("Stop blank")
         self.running_animations = True
 
     def on_beat(self):
