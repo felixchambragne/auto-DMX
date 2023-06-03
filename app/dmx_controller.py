@@ -24,7 +24,7 @@ class DmxController:
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
-        self.strob_active = False
+        self.is_running_animations = True
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -59,13 +59,17 @@ class DmxController:
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
-    def on_blank(self):
+    def on_start_blank(self):
+        self.running_animations = False
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_intensity(0, 2)
 
+    def on_stop_blank(self):
+        self.running_animations = True
+
     def on_beat(self):
-        if not self.strob_active:
+        if self.is_running_animations:
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
                 self.beat_count = 0
@@ -73,7 +77,7 @@ class DmxController:
             self.run_animations()
             print("beat", self.beat_count)
         else:
-            print("Strob active, beat ignored...")
+            print("Animations stopped")
 
     def run_animations(self):
         for device_type, devices in self.device_groups.items(): # For each device type
@@ -130,7 +134,7 @@ class DmxController:
     
     def start_strob(self):
         self.previous_data = np.copy(self.data)
-        self.strob_active = True
+        self.is_running_animations = False
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_color("WHITE", 0)
@@ -138,7 +142,7 @@ class DmxController:
                 device.set_strob(True)
     
     def stop_strob(self):
-        self.strob_active = False
+        self.is_running_animations = True
         self.data = np.copy(self.previous_data)
         
     def dmx_sent_callback(self, status):

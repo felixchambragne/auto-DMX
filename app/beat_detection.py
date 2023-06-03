@@ -5,10 +5,11 @@ import scipy.signal as signal
 import time
 
 class BeatDetection(threading.Thread):
-    def __init__(self, on_beat, on_blank):
+    def __init__(self, on_beat, on_start_blank, on_stop_blank):
         threading.Thread.__init__(self)
         self.on_beat = on_beat
-        self.on_blank = on_blank
+        self.on_start_blank = on_start_blank
+        self.on_stop_blank = on_stop_blank
 
         self.sample_size = 128
         self.bus = smbus.SMBus(1)
@@ -58,11 +59,13 @@ class BeatDetection(threading.Thread):
             self.blank_count += 1
         else:
             self.blank_count = 0
+            self.on_stop_blank()
 
         if self.blank_count >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
-            print("Long Blank detected - Silence or no beats to detect", end='\r')
-            self.on_blank()
+            #print("Long Blank detected - Silence or no beats to detect", end='\r')
+            self.on_start_blank()
             self.blank_count = 0
+        
 
     def run(self):
         while True:
