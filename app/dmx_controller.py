@@ -50,11 +50,9 @@ class DmxController:
             self.data[address + channel - 2] = value
 
     def update_dmx(self):
-        if self.run_dmx:
+        if np.any(self.data): # If there is data to send
             self.wrapper.AddEvent(DMX_UPDATE_INTERVAL, self.update_dmx)
             self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
-        else:
-            self.run_dmx = True
 
     def update_current_step(self):
         self.run_dmx = False
