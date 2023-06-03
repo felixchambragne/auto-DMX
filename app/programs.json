@@ -41,7 +41,7 @@
                                 "strob": {
                                     "values": [true, false, false, false, false, false],
                                     "fade": 0,
-                                    "type": "static"
+                                    "type": "linear"
                                 },
                                 "position": {
                                     "values": [[50, 50]],
