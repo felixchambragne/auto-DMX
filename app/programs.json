@@ -51,7 +51,7 @@
                                     "tilt_limit": [20, 120]
                                 },
                                 "zoom": {
-                                    "values": [255],
+                                    "values": [100],
                                     "type": "static"
                                 }
                             } 
@@ -100,7 +100,7 @@
                                     "tilt_limit": [20, 120]
                                 },
                                 "zoom": {
-                                    "values": [0],
+                                    "values": [255],
                                     "type": "static"
                                 }
                             }
