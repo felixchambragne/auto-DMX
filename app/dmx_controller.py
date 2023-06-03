@@ -60,7 +60,6 @@ class DmxController:
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
     def on_blank(self):
-        self.strob_active = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_intensity(0, 2)
