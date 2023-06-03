@@ -59,6 +59,12 @@ class DmxController:
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
+    def on_blank(self):
+        self.strob_active = True
+        for device_type, devices in self.device_groups.items(): # For each device type
+            for device in devices: # For each device of this type
+                device.set_intensity(0, 2)
+
     def on_beat(self):
         if not self.strob_active:
             self.beat_count += 1
@@ -106,7 +112,7 @@ class DmxController:
         return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
 
     def circle_position_shape(self, pan_limit, tilt_limit):
-        # circle shape
+        # TODO : Verification
         pan = pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
         tilt = tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
         return [int(pan), int(tilt)]
