@@ -109,7 +109,7 @@ class DmxController:
         # circle shape
         pan = pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
         tilt = tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
-        return [pan, tilt]
+        return [int(pan), int(tilt)]
 
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]
