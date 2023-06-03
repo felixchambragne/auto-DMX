@@ -97,6 +97,8 @@ class DmxController:
                             device.set_strob(value)
                         elif animation_type == "position":
                             device.set_position(value)
+                        elif animation_type == "zoom":
+                            device.set_zoom(value)
     
     def random_position_shape(self, pan_limit, tilt_limit):
         return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]

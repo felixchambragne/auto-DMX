@@ -75,4 +75,7 @@ class Device():
     def set_position(self, position):
         channels = [self.channels.get("pan"), self.channels.get("tilt")]
         self.set_data(self.address, channels, position)
+
+    def set_zoom(self, zoom):
+        self.set_data(self.address, self.channels.get("zoom"), zoom)
     
