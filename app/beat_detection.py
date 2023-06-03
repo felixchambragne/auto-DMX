@@ -24,6 +24,7 @@ class BeatDetection(threading.Thread):
 
         self.blank_duration_threshold = 20
         self.blank_count = 0
+        self.blank = False
     
     def read_pcf8591(self):
         self.bus.write_byte(0x48, 0x40)
@@ -55,14 +56,17 @@ class BeatDetection(threading.Thread):
         self.mid_max *= 0.95
 
     def detect_blank(self):
-        if len(self.peaks) == 0 and (self.mid_max < 0.005 and self.bass_max < 0.005):
+        if len(self.peaks) == 0 or (self.mid_max < 0.005 and self.bass_max < 0.005):
             self.blank_count += 1
         else:
             self.blank_count = 0
-            self.on_stop_blank()
-
+            if self.blank:
+                self.on_stop_blank()
+                self.blank = False
+                
         if self.blank_count >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
             #print("Long Blank detected - Silence or no beats to detect", end='\r')
+            self.blank = True
             self.on_start_blank()
             self.blank_count = 0
 
