@@ -63,6 +63,18 @@ def stop_strob():
     print("FIN STROB")
     return "Stop Strob"
 
+@app.flask_app.route('/start_program', methods=['GET'])
+def start_strob():
+    app.ola_thread.dmx_controller.on_start_blank()
+    print("DEBUT PROGRAM")
+    return "Start Program"
+
+@app.flask_app.route('/stop_program', methods=['GET'])
+def stop_strob():
+    app.ola_thread.dmx_controller.on_stop_blank()
+    print("FIN PROGRAM")
+    return "Stop Program"
+
 """@app.flask_app.route('/set_category', methods=['GET'])
 def set_category():
     category_id = flask.request.args.get('category_id')
