@@ -88,6 +88,8 @@ class DmxController:
                         elif animation.get("type") == "shape" and animation_type == "position":
                             if animation.get("shape") == "random":
                                 value = self.random_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
+                            elif animation.get("shape") == "circle":
+                                value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
 
                         if animation_type == "color":
                             device.set_color(value, animation.get("fade"))
@@ -103,6 +105,11 @@ class DmxController:
     def random_position_shape(self, pan_limit, tilt_limit):
         return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
 
+    def circle_position_shape(self, pan_limit, tilt_limit):
+        # circle shape
+        pan = pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
+        tilt = tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
+        return [pan, tilt]
 
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]
