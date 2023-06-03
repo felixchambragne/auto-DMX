@@ -251,6 +251,66 @@
                             } 
                         }
                     ]
+                },
+                {
+                    "name": "TEST3",
+                    "colors": ["#0000FF", "#FFFFFF"],
+                    "steps": [
+                        {
+                            "duration": 5,
+                            "pixbar": {
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "type": "static"
+                                },
+                                "color": {
+                                    "values": ["GREEN"],
+                                    "fade": 0,
+                                    "type": "static"
+                                }
+                            },
+                            "washbeam": {
+                                "color": {
+                                    "values": ["GREEN"],
+                                    "fade": 0,
+                                    "type": "static"
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "type": "static"
+                                }
+                            } 
+                        },
+                        {
+                            "duration": 5,
+                            "pixbar": {
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "type": "static"
+                                },
+                                "color": {
+                                    "values": ["GREEN"],
+                                    "fade": 0,
+                                    "type": "static"
+                                }
+                            },
+                            "washbeam": {
+                                "color": {
+                                    "values": ["GREEN"],
+                                    "fade": 0,
+                                    "type": "static"
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "type": "static"
+                                }
+                            } 
+                        }
+                    ]
                 }
             ]
         },
