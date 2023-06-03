@@ -23,6 +23,7 @@ class DmxController:
         self.current_step_id = 0
         self.beat_count = 0
         self.update_current_step()
+        self.run_dmx = True
         self.update_dmx()
         self.strob_active = False
 
@@ -49,10 +50,14 @@ class DmxController:
             self.data[address + channel - 2] = value
 
     def update_dmx(self):
-        self.wrapper.AddEvent(DMX_UPDATE_INTERVAL, self.update_dmx)
-        self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
+        if self.run_dmx:
+            self.wrapper.AddEvent(DMX_UPDATE_INTERVAL, self.update_dmx)
+            self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
+        else:
+            self.run_dmx = True
 
     def update_current_step(self):
+        self.run_dmx = False
         self.reset_data()
         print("---------NEW STEP----------")
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
