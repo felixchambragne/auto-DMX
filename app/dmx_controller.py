@@ -85,6 +85,9 @@ class DmxController:
                             value = self.random_animation(animation.get("values"))
                         elif animation.get("type") == "uniform":
                             value = self.uniform_animation(animation.get("values"))
+                        elif animation.get("type") == "shape" and animation_type == "position":
+                            if animation.get("shape") == "random":
+                                value = self.random_position_shape()
 
                         if animation_type == "color":
                             device.set_color(value, animation.get("fade"))
@@ -95,6 +98,10 @@ class DmxController:
                         elif animation_type == "position":
                             device.set_position(value)
     
+    def random_position_shape(self, pan_limit, tilt_limit):
+        return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
+
+
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]
 
