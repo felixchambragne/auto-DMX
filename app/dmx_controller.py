@@ -83,6 +83,8 @@ class DmxController:
                             value = self.linear_animation(devices.index(device), animation.get("values"))
                         elif animation.get("type") == "random":
                             value = self.random_animation(animation.get("values"))
+                        elif animation.get("type") == "uniform":
+                            value = self.uniform_animation(devices.index(device), animation.get("values"))
 
                         if animation_type == "color":
                             device.set_color(value, animation.get("fade"))
@@ -98,6 +100,9 @@ class DmxController:
 
     def random_animation(self, values):
         return values[random.randint(0, len(values) - 1)]
+
+    def uniform_animation(self, values):
+        return values[self.beat_count % len(values)]
     
     def set_static(self, index, values):
         return values[index % len(values)]

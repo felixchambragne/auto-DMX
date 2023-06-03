@@ -57,7 +57,7 @@
                             } 
                         },
                         {
-                            "duration": 8,
+                            "duration": 16,
                             "pixbar": {     
                                 "color": {
                                     "values": ["WHITE", "BLUE"],
@@ -77,9 +77,9 @@
                             },
                             "washbeam": {
                                 "color": {
-                                    "values": ["WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE", "BLUE"],
+                                    "values": ["WHITE", "BLUE"],
                                     "fade": 1,
-                                    "type": "linear"
+                                    "type": "uniform"
                                 },
                                 "intensity": {
                                     "values": [255],
