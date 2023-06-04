@@ -32,6 +32,7 @@ class Device():
             self.current_color = color
 
     def fade_color(self, channels, target_color, fade_duration):
+        self.current_color = list(self.current_color)
         self.fade_red(target_color[0], fade_duration)
         self.fade_green(target_color[1], fade_duration)
         self.fade_blue(target_color[2], fade_duration)
