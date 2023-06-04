@@ -28,7 +28,11 @@ class Device():
             t = threading.Thread(target=self.fade_color, args=(channels, color, fade_duration))
             t.start()
         else:
-            self.set_data(self.address, channels, color)
+            if self.channels.get("white") and color == colors_constants["WHITE"]:
+                channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue"), self.channels.get("white")]
+                self.set_data(self.address, channels, [0, 0, 0, 255])
+            else:
+                self.set_data(self.address, channels, color)
             self.current_color = color
 
     def fade_color(self, channels, target_color, fade_duration):
