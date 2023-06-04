@@ -24,6 +24,8 @@ class DmxController:
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
+
+        self.manual_program_paused = True
         self.program_paused = True
 
     def get_devices(self):
@@ -123,7 +125,12 @@ class DmxController:
     def set_static(self, index, values):
         return values[index % len(values)]
     
+    def on_new_program_selected(self):
+        self.beat_count = 0
+        self.update_current_step()
+
     def start_strob(self):
+        print("DEBUT STROB")
         #self.previous_data = np.copy(self.data)
         self.program_paused = True
         for device_type, devices in self.device_groups.items(): # For each device type
@@ -133,7 +140,7 @@ class DmxController:
                 device.set_strob(True)
     
     def stop_strob(self):
-        print("RESUME")
+        print("FIN STROB")
         #self.data = np.copy(self.previous_data)
         self.program_paused = False
 
@@ -143,15 +150,23 @@ class DmxController:
                 device.set_intensity(device.previous_intensity, 0)
                 device.set_strob(device.previous_strob)
 
+    def on_start_blank(self):
+        print("AUTOMATIC PAUSE")
+        if not self.manual_program_paused:
+            self.pause_program()
+
+    def on_stop_blank(self):
+        print("AUTOMATIC RESUME")
+        if not self.manual_program_paused:
+            self.resume_program()
+    
     def pause_program(self):
-        print("PAUSE")
         self.program_paused = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_intensity(0, 2)
 
     def resume_program(self):
-        print("RESUME")
         self.program_paused = False
         for device_type, devices in self.device_groups.items():
             for device in devices:

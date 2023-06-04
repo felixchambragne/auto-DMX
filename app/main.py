@@ -28,6 +28,8 @@ class App():
         
         self.selected_category = self.categories[self.selected_category_id]
         self.selected_program = self.selected_category['programs'][self.selected_program_id]
+
+        app.ola_thread.dmx_controller.on_new_program_selected()
         print("NEW PROGRAM SELECTED: " + self.selected_program["name"])
 
     def run(self):
@@ -47,29 +49,27 @@ def set_program():
     category_id = flask.request.args.get('category_id')
     program_id = flask.request.args.get('program_id')
     app.set_selected_program(category_id, program_id)
-    app.ola_thread.dmx_controller.beat_count = 0
-    app.ola_thread.dmx_controller.update_current_step()
     return "New program selected"
 
 @app.flask_app.route('/start_strob', methods=['GET'])
 def start_strob():
     app.ola_thread.dmx_controller.start_strob()
-    print("DEBUT STROB")
     return "Start Strob"
 
 @app.flask_app.route('/stop_strob', methods=['GET'])
 def stop_strob():
     app.ola_thread.dmx_controller.stop_strob()
-    print("FIN STROB")
     return "Stop Strob"
 
 @app.flask_app.route('/resume_program', methods=['GET'])
 def resume_program():
+    app.ola_thread.dmx_controller.manual_program_paused = False
     app.ola_thread.dmx_controller.resume_program()
     return "Resume Program"
 
 @app.flask_app.route('/pause_program', methods=['GET'])
 def pause_program():
+    app.ola_thread.dmx_controller.manual_program_paused = True
     app.ola_thread.dmx_controller.pause_program()
     return "Pause Program"
     
