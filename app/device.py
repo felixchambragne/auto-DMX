@@ -33,13 +33,19 @@ class Device():
 
     def fade_color(self, channels, target_color, fade_duration):
         fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
-        fade_step_values = [(target - current) / fade_steps for current, target in zip(self.current_color, target_color)]
 
+        # Calculate the step value for each channel
+        step_red = (target_color[0] - self.current_color[0]) / fade_steps
+        step_green = (target_color[1] - self.current_color[1]) / fade_steps
+        step_blue = (target_color[2] - self.current_color[2]) / fade_steps
+
+        # Perform the fade by incrementing/decrementing each channel gradually
         for step in range(fade_steps):
-            fade_color = tuple(int(current + (step_value * step)) for current, step_value in zip(self.current_color, fade_step_values))
+            fade_red = int(self.current_color[0] + (step_red * step))
+            fade_green = int(self.current_color[1] + (step_green * step))
+            fade_blue = int(self.current_color[2] + (step_blue * step))
 
-            fade_color = tuple(max(0, min(255, value)) for value in fade_color)  # Correction des valeurs de couleur si nécessaire
-
+            fade_color = (fade_red, fade_green, fade_blue)
 
             self.set_data(self.address, channels, fade_color)
             self.current_color = fade_color  # Update current_color
