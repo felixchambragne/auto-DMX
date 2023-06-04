@@ -61,7 +61,7 @@ class Device():
             else:
                 fade_blue = max(fade_blue, target_color[2])
 
-            self.set_data(self.address, channels, fade_red)
+            self.set_data(self.address, channels, (fade_red, fade_green, fade_blue))
             self.current_color = (fade_red, fade_green, fade_blue)
             time.sleep(DMX_UPDATE_INTERVAL / 1000)
 
