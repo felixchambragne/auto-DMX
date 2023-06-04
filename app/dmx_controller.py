@@ -143,7 +143,6 @@ class DmxController:
         print("FIN STROB")
         #self.data = np.copy(self.previous_data)
         self.program_paused = False
-
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_color(color=device.previous_color, fade_duration=0)
