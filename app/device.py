@@ -32,8 +32,6 @@ class Device():
             self.current_color = color
 
     def fade_color(self, channels, target_color, fade_duration):
-        self.current_color = list(self.current_color)
-
         fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
 
         # Calculate the step value for each channel
@@ -43,19 +41,19 @@ class Device():
 
         # Perform the fade by incrementing/decrementing each channel gradually
         for step in range(fade_steps):
-            fade_red = int(self.current_intensity + (step_red * step))
+            fade_red = int(self.current_color[0] + (step_red * step))
             if step_red >= 0:
                 fade_red = min(fade_red, target_color[0])
             else:
                 fade_red = max(fade_red, target_color[0])
 
-            fade_green = int(self.current_intensity + (step_green * step))
+            fade_green = int(self.current_color[1] + (step_green * step))
             if step_green >= 0:
                 fade_green = min(fade_green, target_color[1])
             else:
                 fade_green = max(fade_green, target_color[1])
 
-            fade_blue = int(self.current_intensity + (step_blue * step))
+            fade_blue = int(self.current_color[2] + (step_blue * step))
             if step_blue >= 0:
                 fade_blue = min(fade_blue, target_color[2])
             else:
@@ -67,48 +65,6 @@ class Device():
 
         self.current_color = target_color
         self.set_data(self.address, channels, target_color)
-    
-    def fade_green(self, target_value, fade_duration):
-        fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
-
-        # Calculate the step value for each channel
-        step_green = (target_value - self.current_color[1]) / fade_steps
-
-        # Perform the fade by incrementing/decrementing each channel gradually
-        for step in range(fade_steps):
-            fade_green = int(self.current_intensity + (step_green * step))
-            if step_green >= 0:
-                fade_green = min(fade_green, target_value)
-            else:
-                fade_green = max(fade_green, target_value)
-
-            self.set_data(self.address, self.channels.get("green"), fade_green)
-            self.current_color[1] = fade_green
-            time.sleep(DMX_UPDATE_INTERVAL / 1000)
-        
-        self.current_color[1] = target_value
-        self.set_data(self.address, self.channels.get("green"), target_value)
-    
-    def fade_blue(self, target_value, fade_duration):
-        fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
-
-        # Calculate the step value for each channel
-        step_blue = (target_value - self.current_color[2]) / fade_steps
-
-        # Perform the fade by incrementing/decrementing each channel gradually
-        for step in range(fade_steps):
-            fade_blue = int(self.current_intensity + (step_blue * step))
-            if step_blue >= 0:
-                fade_blue = min(fade_blue, target_value)
-            else:
-                fade_blue = max(fade_blue, target_value)
-
-            self.set_data(self.address, self.channels.get("blue"), fade_blue)
-            self.current_color[2] = fade_blue
-            time.sleep(DMX_UPDATE_INTERVAL / 1000)
-        
-        self.current_color[2] = target_value
-        self.set_data(self.address, self.channels.get("blue"), target_value)
 
     def set_intensity(self, value, fade_duration):
         self.previous_intensity = self.current_intensity
