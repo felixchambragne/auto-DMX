@@ -41,13 +41,23 @@ class Device():
 
         # Perform the fade by incrementing/decrementing each channel gradually
         for step in range(fade_steps):
-            fade_red = int(self.current_color[0] + (step_red * step))
-            fade_green = int(self.current_color[1] + (step_green * step))
-            fade_blue = int(self.current_color[2] + (step_blue * step))
+            fade_red = int(self.current_intensity + (step_red * step))
+            if step_red >= 0:
+                fade_red = min(fade_red, target_color[0])
+            else:
+                fade_red = max(fade_red, target_color[0])
 
-            fade_red = min(max(fade_red, 0), 255)
-            fade_green = min(max(fade_green, 0), 255)
-            fade_blue = min(max(fade_blue, 0), 255)
+            fade_green = int(self.current_intensity + (step_green * step))
+            if step_green >= 0:
+                fade_green = min(fade_green, target_color[1])
+            else:
+                fade_green = max(fade_green, target_color[1])
+            
+            fade_blue = int(self.current_intensity + (step_blue * step))
+            if step_blue >= 0:
+                fade_blue = min(fade_blue, target_color[2])
+            else:
+                fade_blue = max(fade_blue, target_color[2])
 
             fade_color = (fade_red, fade_green, fade_blue)
 
