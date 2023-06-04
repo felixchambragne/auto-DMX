@@ -29,7 +29,7 @@ class App():
         self.selected_category = self.categories[self.selected_category_id]
         self.selected_program = self.selected_category['programs'][self.selected_program_id]
 
-        app.ola_thread.dmx_controller.on_new_program_selected()
+        self.ola_thread.dmx_controller.on_new_program_selected()
         print("NEW PROGRAM SELECTED: " + self.selected_program["name"])
 
     def run(self):
