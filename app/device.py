@@ -11,9 +11,14 @@ class Device():
         self.set_data = set_data
 
         self.current_color = colors_constants["BLACK"]
+        self.previous_color = self.current_color
         self.current_intensity = 0
+        self.previous_intensity = self.current_intensity
+        self.current_strob = False
+        self.previous_strob = self.current_strob
 
     def set_color(self, color_name, fade_duration):
+        self.previous_color = self.current_color
         color = colors_constants[color_name]
         channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue")]
         if fade_duration > 0:
@@ -41,7 +46,8 @@ class Device():
         self.set_data(self.address, channels, target_color)
 
     def set_intensity(self, value, fade_duration):
-        if fade_duration > 0:
+        self.previous_intensity = self.current_intensity
+        if fade_duration > 0 and self.current_intensity != value:
             t = threading.Thread(target=self.fade_intensity, args=(value, fade_duration))
             t.start()
         else:
@@ -67,10 +73,12 @@ class Device():
         self.set_data(self.address, self.channels.get("intensity"), target_value)
     
     def set_strob(self, strob):
+        self.previous_strob = self.current_strob
         if strob == True:
             self.set_data(self.address, self.channels.get("strob"), STROB_VALUE)
         else:
             self.set_data(self.address, self.channels.get("strob"), 0)
+        self.current_strob = strob
 
     def set_position(self, position):
         channels = [self.channels.get("pan"), self.channels.get("tilt")]

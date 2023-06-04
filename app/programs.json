@@ -311,6 +311,39 @@
                             } 
                         }
                     ]
+                },
+                {
+                    "name": "TEST4",
+                    "colors": ["#0000FF", "#FFFFFF"],
+                    "steps": [
+                        {
+                            "duration": null,
+                            "pixbar": {
+                                "intensity": {
+                                    "values": [255, 0],
+                                    "fade": 1,
+                                    "type": "linear"
+                                },
+                                "color": {
+                                    "values": ["WHITE", "BLUE", "BLUE", "BLUE"],
+                                    "fade": 1,
+                                    "type": "linear"
+                                }
+                            },
+                            "washbeam": {
+                                "color": {
+                                    "values": ["BLUE", "RED", "GREEN"],
+                                    "fade": 2,
+                                    "type": "linear"
+                                },
+                                "intensity": {
+                                    "values": [255],
+                                    "fade": 0,
+                                    "type": "static"
+                                }
+                            } 
+                        }
+                    ]
                 }
             ]
         },

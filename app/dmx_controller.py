@@ -24,7 +24,7 @@ class DmxController:
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
-        self.is_running_animations = True
+        self.program_paused = True
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -59,19 +59,8 @@ class DmxController:
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
 
-    def on_start_blank(self):
-        print("Start blank")
-        self.is_running_animations = False
-        for device_type, devices in self.device_groups.items(): # For each device type
-            for device in devices: # For each device of this type
-                device.set_intensity(0, 2)
-
-    def on_stop_blank(self):
-        print("Stop blank")
-        self.is_running_animations = True
-
     def on_beat(self):
-        if self.is_running_animations:
+        if not self.program_paused:
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
                 self.beat_count = 0
@@ -79,7 +68,7 @@ class DmxController:
             self.run_animations()
             print("beat", self.beat_count)
         else:
-            print("Animations stopped")
+            print("Program paused, beat ignored")
 
     def run_animations(self):
         for device_type, devices in self.device_groups.items(): # For each device type
@@ -135,8 +124,8 @@ class DmxController:
         return values[index % len(values)]
     
     def start_strob(self):
-        self.previous_data = np.copy(self.data)
-        self.is_running_animations = False
+        #self.previous_data = np.copy(self.data)
+        self.program_paused = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
                 device.set_color("WHITE", 0)
@@ -144,8 +133,29 @@ class DmxController:
                 device.set_strob(True)
     
     def stop_strob(self):
-        self.is_running_animations = True
-        self.data = np.copy(self.previous_data)
+        print("RESUME")
+        #self.data = np.copy(self.previous_data)
+        self.program_paused = False
+
+        for device_type, devices in self.device_groups.items(): # For each device type
+            for device in devices: # For each device of this type
+                device.set_color(device.previous_color, 0)
+                device.set_intensity(device.previous_intensity, 0)
+                device.set_strob(device.previous_strob)
+
+    def pause_program(self):
+        print("PAUSE")
+        self.program_paused = True
+        for device_type, devices in self.device_groups.items(): # For each device type
+            for device in devices: # For each device of this type
+                device.set_intensity(0, 2)
+
+    def resume_program(self):
+        print("RESUME")
+        self.program_paused = False
+        for device_type, devices in self.device_groups.items():
+            for device in devices:
+                device.set_intensity(device.previous_intensity, 2)
         
     def dmx_sent_callback(self, status):
         if status.Succeeded():

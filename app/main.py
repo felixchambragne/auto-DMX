@@ -16,7 +16,7 @@ class App():
         self.current_program_id = None
  
         self.ola_thread = OlaThread(self)
-        self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat, self.ola_thread.dmx_controller.on_start_blank, self.ola_thread.dmx_controller.on_stop_blank)
+        self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat, self.ola_thread.dmx_controller.pause_program, self.ola_thread.dmx_controller.resume_program)
 
     """def set_current_category(self, category_id):
         self.current_category_id = int(category_id)
@@ -63,23 +63,15 @@ def stop_strob():
     print("FIN STROB")
     return "Stop Strob"
 
-@app.flask_app.route('/start_program', methods=['GET'])
-def start_program():
-    app.ola_thread.dmx_controller.on_stop_blank()
-    print("DEBUT PROGRAM")
-    return "Start Program"
+@app.flask_app.route('/resume_program', methods=['GET'])
+def resume_program():
+    app.ola_thread.dmx_controller.resume_program()
+    return "Resume Program"
 
-@app.flask_app.route('/stop_program', methods=['GET'])
-def stop_program():
-    app.ola_thread.dmx_controller.on_start_blank()
-    print("FIN PROGRAM")
-    return "Stop Program"
-
-"""@app.flask_app.route('/set_category', methods=['GET'])
-def set_category():
-    category_id = flask.request.args.get('category_id')
-    app.set_current_category(category_id)
-    return "OK"""
+@app.flask_app.route('/pause_program', methods=['GET'])
+def pause_program():
+    app.ola_thread.dmx_controller.pause_program()
+    return "Pause Program"
     
 """@app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
@@ -115,18 +107,7 @@ def programs_page():
         programs = app.current_category['programs'],
         selected_program_id = app.current_program_id
     )
-
-@app.flask_app.route('/start_strob', methods=['POST'])
-def start_strob():
-    app.ola_thread.dmx_controller.start_strob()
-    print("DEBUT STROB")
-    return "DEBUT STROB"
-
-@app.flask_app.route('/stop_strob', methods=['POST'])
-def stop_strob():
-    app.ola_thread.dmx_controller.stop_strob()
-    print("FIN STROB")
-    return "FIN STROB"""
+"""
 
 if __name__ == '__main__':
     app.run()

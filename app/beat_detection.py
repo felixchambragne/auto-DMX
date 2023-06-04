@@ -61,13 +61,13 @@ class BeatDetection(threading.Thread):
         else:
             self.blank_count = 0
             if self.blank:
-                #self.on_stop_blank()
+                self.on_stop_blank()
                 self.blank = False
                 
         if self.blank_count >= self.blank_duration_threshold and not self.bass_beat and not self.mid_beat:
             #print("Long Blank detected - Silence or no beats to detect", end='\r')
             self.blank = True
-            #self.on_start_blank()
+            self.on_start_blank()
             self.blank_count = 0
 
     def run(self):
