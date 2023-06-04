@@ -29,7 +29,6 @@ class App():
         self.selected_category = self.categories[self.selected_category_id]
         self.selected_program = self.selected_category['programs'][self.selected_program_id]
 
-        self.ola_thread.dmx_controller.on_new_program_selected()
         print("NEW PROGRAM SELECTED: " + self.selected_program["name"])
 
     def run(self):
@@ -49,6 +48,7 @@ def set_program():
     category_id = flask.request.args.get('category_id')
     program_id = flask.request.args.get('program_id')
     app.set_selected_program(category_id, program_id)
+    app.ola_thread.dmx_controller.on_new_program_selected()
     return "New program selected"
 
 @app.flask_app.route('/start_strob', methods=['GET'])
