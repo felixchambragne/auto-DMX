@@ -38,6 +38,9 @@ class Device():
         for step in range(fade_steps):
             fade_color = tuple(int(current + (step_value * step)) for current, step_value in zip(self.current_color, fade_step_values))
 
+            fade_color = tuple(max(0, min(255, value)) for value in fade_color)  # Correction des valeurs de couleur si nécessaire
+
+
             self.set_data(self.address, channels, fade_color)
             self.current_color = fade_color  # Update current_color
             time.sleep(DMX_UPDATE_INTERVAL / 1000)
