@@ -17,9 +17,12 @@ class Device():
         self.current_strob = False
         self.previous_strob = self.current_strob
 
-    def set_color(self, color_name, fade_duration):
+    def set_color(self, color=None, color_name=None, fade_duration=0):
         self.previous_color = self.current_color
-        color = colors_constants[color_name]
+
+        if color is None and color_name is not None:
+            color = colors_constants[color_name]
+
         channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue")]
         if fade_duration > 0:
             t = threading.Thread(target=self.fade_color, args=(channels, color, fade_duration))

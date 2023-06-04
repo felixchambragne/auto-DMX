@@ -94,7 +94,7 @@ class DmxController:
                                 value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
 
                         if animation_type == "color":
-                            device.set_color(value, animation.get("fade"))
+                            device.set_color(color_name=value, fade_duration=animation.get("fade"))
                         elif animation_type == "intensity":
                             device.set_intensity(value, animation.get("fade"))
                         elif animation_type == "strob":
@@ -135,7 +135,7 @@ class DmxController:
         self.program_paused = True
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
-                device.set_color("WHITE", 0)
+                device.set_color(color_name="WHITE", fade_duration=0)
                 device.set_intensity(255, 0)
                 device.set_strob(True)
     
@@ -146,7 +146,7 @@ class DmxController:
 
         for device_type, devices in self.device_groups.items(): # For each device type
             for device in devices: # For each device of this type
-                device.set_color(device.previous_color, 0)
+                device.set_color(color=device.previous_color, fade_duration=0)
                 device.set_intensity(device.previous_intensity, 0)
                 device.set_strob(device.previous_strob)
 
