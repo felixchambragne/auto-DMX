@@ -45,6 +45,10 @@ class Device():
             fade_green = int(self.current_color[1] + (step_green * step))
             fade_blue = int(self.current_color[2] + (step_blue * step))
 
+            fade_red = min(max(fade_red, 0), 255)
+            fade_green = min(max(fade_green, 0), 255)
+            fade_blue = min(max(fade_blue, 0), 255)
+
             fade_color = (fade_red, fade_green, fade_blue)
 
             self.set_data(self.address, channels, fade_color)
