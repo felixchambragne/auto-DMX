@@ -333,7 +333,7 @@
                             "washbeam": {
                                 "color": {
                                     "values": ["BLUE", "RED", "GREEN"],
-                                    "fade": 2,
+                                    "fade": 0.5,
                                     "type": "linear"
                                 },
                                 "intensity": {
