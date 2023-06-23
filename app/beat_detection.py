@@ -50,6 +50,7 @@ class BeatDetection(threading.Thread):
         self.mid_max = max(self.mid_max, mid)*0.8
         if mid >= self.mid_max*0.8 and not self.mid_beat and not self.bass_beat:
             self.mid_beat = True
+            self.on_beat()
             #print("----- mid", round(mid*100, 2), "mid_max", round(self.mid_max*100, 2), "             ", end='\r')
         elif mid < self.mid_max*0.5:
             self.mid_beat = False
