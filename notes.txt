@@ -22,7 +22,7 @@ ola_patch -d 1 -p 1 -u 1
 git clone https://github.com/idev1/rpihotspot.git
 cd rpihotspot
 sudo chmod +x setup-network.sh
-sudo ./setup-network.sh --install --ap-ssid="Light" --ap-password="chambfils" --ap-password-encrypt --ap-country-code="FR" --ap-ip-address="192.168.220.1" --wifi-interface="wlan0"
+sudo ./setup-network.sh --install --ap-ssid="" --ap-password="" --ap-password-encrypt --ap-country-code="FR" --ap-ip-address="192.168.220.1" --wifi-interface="wlan0"
 sudo iw dev wlan0 interface add uap0 type __ap
 
 ******************Setup Microphone*************
