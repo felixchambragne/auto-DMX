@@ -41,7 +41,8 @@ class DmxController:
                 self.device_groups[device_data["type"]].append(device)
     
     def reset_data(self):
-        self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
+        #self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
+        pass
     
     def set_data(self, address, channels, values):
         if type(channels) is not list and type(channels) is not tuple:
