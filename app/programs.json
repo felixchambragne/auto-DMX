@@ -48,7 +48,7 @@
 									"tilt_limit": []
 								},
 								"shape": {
-									"type": "rect",
+									"type": "circle",
 									"pan_gap": [-40, 40],
 									"tilt_gap": [-40, 40]
 								},

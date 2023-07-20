@@ -75,18 +75,22 @@ class DmxController:
             for device in devices:
                 shape = device_step.get("shape")
                 if shape != None:
+                    pan_limit = (max(shape.get("pan_gap")[0] + DEFAULT_PAN, 0), min(shape.get("pan_gap")[1] + DEFAULT_PAN, 255))
+                    tilt_limit = (max(shape.get("tilt_gap")[0] + DEFAULT_TILT, 0), min(shape.get("tilt_gap")[1] + DEFAULT_TILT, 255))
                     if shape.get("type") == "random":
                         function = self.random_position_shape
                         args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
-                        pass
-                        
+                        circle = [] # List of positions to go through to make a circle shape with cos
+                        for i in range(pan_limit[0], pan_limit[1] + 1, 5):
+                            circle.append((i, int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 * (1 + np.cos((i - pan_limit[0]) / (pan_limit[1] - pan_limit[0]) * np.pi)))))
+                        for i in range(pan_limit[1], pan_limit[0] - 1, -5):
+                            circle.append((i, int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 * (1 + np.cos((i - pan_limit[0]) / (pan_limit[1] - pan_limit[0]) * np.pi)))))
+                        function = self.position_shape
+                        args = (circle,)
+
                     elif shape.get("type") == "rect":
                         rect = []
-                        pan_limit = (max(shape.get("pan_gap")[0] + DEFAULT_PAN, 0), min(shape.get("pan_gap")[1] + DEFAULT_PAN, 255))
-                        tilt_limit = (max(shape.get("tilt_gap")[0] + DEFAULT_TILT, 0), min(shape.get("tilt_gap")[1] + DEFAULT_TILT, 255))
-
-                        print(pan_limit, tilt_limit)
 
                         for i in range(pan_limit[0], pan_limit[1] + 1, 5):
                             rect.append((i, tilt_limit[0]))
@@ -97,7 +101,7 @@ class DmxController:
                         for i in range(tilt_limit[1], tilt_limit[0] - 1, -5):
                             rect.append((pan_limit[0], i))
                     
-                        function = self.rect_position_shape
+                        function = self.position_shape
                         args = (rect,)
 
                     self.shapes[device] = (function, args)
@@ -117,7 +121,7 @@ class DmxController:
         return [int(pan), int(tilt)]
 
 
-    def rect_position_shape(self, rect, i):
+    def position_shape(self, rect, i):
         pan = rect[i % len(rect)][0]
         tilt = rect[i % len(rect)][1]
         return [int(pan), int(tilt)]
