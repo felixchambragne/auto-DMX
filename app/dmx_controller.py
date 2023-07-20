@@ -75,28 +75,32 @@ class DmxController:
                 shape = device_step.get("shape")
                 if shape != None:
                     if shape.get("type") == "random":
-                        value = self.random_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"))
+                        function = self.random_position_shape
+                        args = (shape.get("pan_limit"), shape.get("tilt_limit"))
                     elif shape.get("type") == "circle":
-                        value = self.circle_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
-                    self.shapes[device] = value
+                        function = self.circle_position_shape
+                        args = (shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
+                    self.shapes[device] = (function, args)
 
     def set_shapes(self):
         print(self.shapes)
         while self.shapes != {}:
-            for device, value in self.shapes.items():
+            for device, (function, args) in self.shapes.items():
+                value = function(*args)
                 device.set_position(value)
 
             time.sleep(self.shape_speed)
 
     def random_position_shape(self, pan_limit, tilt_limit):
-        return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
+        pan = random.randint(pan_limit[0], pan_limit[1])
+        tilt = random.randint(tilt_limit[0], tilt_limit[1])
+        return [int(pan), int(tilt)]
 
     def circle_position_shape(self, pan_limit, tilt_limit, index):
         pan = 1
         tilt = 1
         return [int(pan), int(tilt)]
     
-
     def on_beat(self):
         if not self.program_paused:
             self.beat_count += 1
