@@ -9,12 +9,12 @@
                     "colors": ["#FFA500", "#008000"],
                     "steps": [
                       	{
-							"duration": 500,
+							"duration": 32,
 							"pixbar": {
 								"color": {
 									"values": ["GREEN", "WHITE"],
 									"fade": 0.2,
-									"type": "static"
+									"type": "linear"
 								},
 								"intensity": {
 									"values": [255],
@@ -29,7 +29,7 @@
 							"washbeam": {
 								"color": {
 									"values": ["GREEN", "WHITE"],
-									"fade": 0.5,
+									"fade": 0.2,
 									"type": "uniform"
 								},
 								"intensity": {
@@ -50,8 +50,59 @@
 								"shape": {
 									"type": "circle",
 									"spread": 50,
-									"pan_gap": [-1, 1],
-									"tilt_gap": [-1, 1]
+									"pan_gap": [-20, 20],
+									"tilt_gap": [-20, 20]
+								},
+								"zoom": {
+									"values": [255],
+									"type": "static"
+								}
+                        	}
+                      	}, 
+						{
+							"duration": 32,
+							"pixbar": {
+								"color": {
+									"values": ["GREEN"],
+									"fade": 0,
+									"type": "static"
+								},
+								"intensity": {
+									"values": [255, 0],
+									"fade": 0,
+									"type": "uniform"
+								},
+								"strob": {
+									"values": [false],
+									"type": "static"
+								}
+							},
+							"washbeam": {
+								"color": {
+									"values": ["WHITE", "GREEN", "YELLOW", "ORANGE"],
+									"fade": 0.2,
+									"type": "random"
+								},
+								"intensity": {
+									"values": [255],
+									"fade": 0,
+									"type": "static"
+								},
+								"strob": {
+									"values": [false],
+									"type": "static"
+								},
+								"position": {
+									"values": [],
+									"type": "none",
+									"pan_limit": [],
+									"tilt_limit": []
+								},
+								"shape": {
+									"type": "random",
+									"spread": 0,
+									"pan_gap": [-5, 5],
+									"tilt_gap": [-40, 40]
 								},
 								"zoom": {
 									"values": [255],
@@ -59,6 +110,7 @@
 								}
                         	}
                       	}
+
                     ]
                 }
             ]
