@@ -92,7 +92,7 @@ class DmxController:
                             rect_tilts.append(i)
                             rect_pans.append(shape.get("pan_limit")[1])
 
-                        args = (shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device), rect_pans, rect_tilts)
+                        args = (shape.get("pan_limit"), shape.get("tilt_limit"), rect_pans, rect_tilts)
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
