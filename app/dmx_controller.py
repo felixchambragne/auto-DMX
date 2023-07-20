@@ -83,16 +83,15 @@ class DmxController:
                     elif shape.get("type") == "rect":
                         function = self.rect_position_shape
 
-                        rect_pans = []
-                        rect_tilts = []
-                        for i in range(shape.get("pan_limit")[0], shape.get("pan_limit")[1] + 1):
-                            rect_pans.append(i)
-                            rect_tilts.append(shape.get("tilt_limit")[0])
-                        for i in range(shape.get("tilt_limit")[0], shape.get("tilt_limit")[1] + 1):
-                            rect_tilts.append(i)
-                            rect_pans.append(shape.get("pan_limit")[1])
+                        rect = []
+                        pan_limit = shape.get("pan_limit")
+                        tilt_limit = shape.get("tilt_limit")
+                        for i in range(pan_limit[0], pan_limit[1] + 1):
+                            rect.append((i, tilt_limit[0]))
+                        for i in range(tilt_limit[0], tilt_limit[1] + 1):
+                            rect.append((pan_limit[1], i))
 
-                        args = (shape.get("pan_limit"), shape.get("tilt_limit"), rect_pans, rect_tilts)
+                        args = (pan_limit, tilt_limit, rect)
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
@@ -110,9 +109,9 @@ class DmxController:
         return [int(pan), int(tilt)]
 
 
-    def rect_position_shape(self, pan_limit, tilt_limit, rect_pans, rect_tilts, i):
-        pan = rect_pans[i % len(rect_pans)]
-        tilt = rect_tilts[i % len(rect_tilts)]
+    def rect_position_shape(self, pan_limit, tilt_limit, rect, i):
+        pan = rect[i][0]
+        tilt = rect[i][1]
         return [int(pan), int(tilt)]
     
     def on_beat(self):
