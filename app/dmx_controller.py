@@ -11,6 +11,7 @@ import threading
 import time
 
 class DmxController:
+    UNIVERSE = 1
     wrapper: ClientWrapper
     
     def __init__(self, app, wrapper) -> None:
