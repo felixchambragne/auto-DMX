@@ -61,7 +61,7 @@ class DmxController:
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
         self.get_shapes()
-        self.set_shapes()
+        asyncio.run(self.set_shapes())
 
     def get_shapes(self):
         self.shapes = {}
