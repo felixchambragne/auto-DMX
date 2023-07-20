@@ -24,6 +24,7 @@ class DmxController:
         self.current_step_id = 0
         self.shape_speed = 0.1
         self.last_execution_time = time.time()
+        self.time_beat = 0
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
@@ -118,7 +119,7 @@ class DmxController:
                 value = function(*args, i)
                 device.set_position(value)
             i += 1
-            time.sleep(self.shape_speed)
+            time.sleep(self.time_beat/2)
 
     def random_position_shape(self, pan_gap, tilt_gap):
         pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
@@ -135,8 +136,7 @@ class DmxController:
     def on_beat(self):
         if not self.program_paused:
             current_time = time.time()
-            time_elapsed = current_time - self.last_execution_time
-            print("time_elapsed", time_elapsed)
+            self.time_beat = current_time - self.last_execution_time
 
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
