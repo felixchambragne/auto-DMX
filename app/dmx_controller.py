@@ -69,12 +69,12 @@ class DmxController:
             device_step = self.current_step[device_type]
             for device in devices:
                 shape = device_step.get("shape")
-                
-                if shape.get("type") == "random":
-                    value = self.random_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"))
-                elif shape.get("type") == "circle":
-                    value = self.circle_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
-                self.shapes[device] = value
+                if shape != None:
+                    if shape.get("type") == "random":
+                        value = self.random_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"))
+                    elif shape.get("type") == "circle":
+                        value = self.circle_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
+                    self.shapes[device] = value
 
     async def set_shapes(self):
         print(self.shapes)
