@@ -7,7 +7,8 @@ import random
 from device import Device
 import numpy as np
 from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors
-import asyncio
+import threading
+import time
 
 class DmxController:
     wrapper: ClientWrapper
@@ -61,7 +62,9 @@ class DmxController:
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
         self.get_shapes()
-        asyncio.run(self.set_shapes())
+        
+        t = threading.Thread(target=self.set_shapes, args=())
+        t.start()
 
     def get_shapes(self):
         self.shapes = {}
@@ -76,13 +79,13 @@ class DmxController:
                         value = self.circle_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
                     self.shapes[device] = value
 
-    async def set_shapes(self):
+    def set_shapes(self):
         print(self.shapes)
         while self.shapes != {}:
             for device, value in self.shapes.items():
                 device.set_position(value)
 
-            await asyncio.sleep(self.shape_speed)
+            time.sleep(self.shape_speed)
 
     def random_position_shape(self, pan_limit, tilt_limit):
         return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
