@@ -95,14 +95,13 @@ class DmxController:
                             rect.append((pan_limit[0], i))
 
                         function = self.rect_position_shape
-                        args = rect
-                    self.shapes[device] = (function, args)
+                    self.shapes[device] = (function, rect)
 
     def set_shapes(self):
         i = 0
         while self.shapes != {}:
-            for device, (function, args) in self.shapes.items():
-                value = function(*args, i)
+            for device, (function, values) in self.shapes.items():
+                value = function(values, i)
                 device.set_position(value)
             i += 1
             time.sleep(self.shape_speed)
