@@ -23,12 +23,14 @@ class DmxController:
         self.get_devices()
         self.current_step_id = 0
         self.shape_speed = 0.1
+        self.last_execution_time = time.time()
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
 
         self.manual_program_paused = True
         self.program_paused = False
+        
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
@@ -82,7 +84,6 @@ class DmxController:
                         args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
                         circle = []
-                        #circle with cos and sin
                         for i in range(0, 360, 5):
                             pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(np.deg2rad(i)))
                             tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(np.deg2rad(i)))
@@ -133,10 +134,17 @@ class DmxController:
     
     def on_beat(self):
         if not self.program_paused:
+            current_time = time.time()
+            time_elapsed = current_time - self.last_execution_time
+            print("time_elapsed", time_elapsed)
+
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
                 self.beat_count = 0
                 self.update_current_step()
+
+            self.last_execution_time = current_time
+            
             self.run_animations()
             
             print("beat", self.beat_count)
