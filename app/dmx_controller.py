@@ -6,7 +6,7 @@ import json
 import random
 from device import Device
 import numpy as np
-from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors
+from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors, DEFAULT_PAN, DEFAULT_TILT
 import threading
 import time
 
@@ -77,16 +77,14 @@ class DmxController:
                 if shape != None:
                     if shape.get("type") == "random":
                         function = self.random_position_shape
-                        args = (shape.get("pan_limit"), shape.get("tilt_limit"))
+                        args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
                         function = self.circle_position_shape
                         args = (devices.index(device), device.current_position)
                     elif shape.get("type") == "rect":
-                        
-
                         rect = []
-                        pan_limit = shape.get("pan_limit")
-                        tilt_limit = shape.get("tilt_limit")
+                        pan_limit = (shape.get("pan_gap")[0] + DEFAULT_PAN, shape.get("pan_gap")[1] + DEFAULT_PAN)
+                        tilt_limit = (shape.get("tilt_gap")[0] + DEFAULT_TILT, shape.get("tilt_gap")[1] + DEFAULT_TILT)
                         for i in range(pan_limit[0], pan_limit[1] + 1, 5):
                             rect.append((i, tilt_limit[0]))
                         for i in range(tilt_limit[0], tilt_limit[1] + 1, 5):
@@ -109,9 +107,9 @@ class DmxController:
             i += 1
             time.sleep(self.shape_speed)
 
-    def random_position_shape(self, pan_limit, tilt_limit):
-        pan = random.randint(pan_limit[0], pan_limit[1])
-        tilt = random.randint(tilt_limit[0], tilt_limit[1])
+    def random_position_shape(self, pan_gap, tilt_gap):
+        pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
+        tilt = random.randint(tilt_gap[0] + DEFAULT_TILT, tilt_gap[1] + DEFAULT_TILT)
         return [int(pan), int(tilt)]
 
 
