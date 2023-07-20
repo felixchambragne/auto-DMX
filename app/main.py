@@ -2,7 +2,7 @@ import flask
 import json
 from beat_detection import BeatDetection
 from ola_thread import OlaThread
-import serial
+from serial_thread import SerialThread
 
 class App():
     def __init__(self) -> None:
@@ -16,6 +16,7 @@ class App():
  
         self.ola_thread = OlaThread(self)
         self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat, self.ola_thread.dmx_controller.on_start_blank, self.ola_thread.dmx_controller.on_stop_blank)
+        self.serial_thread = SerialThread(self)
 
     def set_selected_program(self, category_id, program_id):
         self.selected_category_id = int(category_id)
@@ -29,7 +30,8 @@ class App():
     def run(self):
         self.ola_thread.start()
         self.beat_detection.start()
-        
+        self.serial_thread.start()
+
         
 """@app.flask_app.route('/get_categories', methods=['GET'])
 def get_categories():
