@@ -82,7 +82,7 @@ class DmxController:
                         function = self.circle_position_shape
                         args = (devices.index(device), device.current_position)
                     elif shape.get("type") == "rect":
-                        function = self.rect_position_shape
+                        
 
                         rect = []
                         pan_limit = shape.get("pan_limit")
@@ -96,7 +96,8 @@ class DmxController:
                         for i in range(tilt_limit[1], tilt_limit[0] - 1, -5):
                             rect.append((pan_limit[0], i))
 
-                        args = (rect)
+                        function = self.rect_position_shape
+                        args = (rect,)
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
