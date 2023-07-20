@@ -10,8 +10,6 @@ from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors
 import asyncio
 
 class DmxController:
-    UNIVERSE = 1
-    UPDATE_INTERVAL = 1000 #ms
     wrapper: ClientWrapper
     
     def __init__(self, app, wrapper) -> None:
@@ -22,6 +20,7 @@ class DmxController:
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
         self.current_step_id = 0
+        self.shape_speed = 0.3
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
@@ -69,13 +68,13 @@ class DmxController:
         for device_type, devices in self.device_groups.items():
             device_step = self.current_step[device_type]
             for device in devices:
-                for animation_type, animation in device_step.items():
-                    if animation.get("type") == "shape" and animation_type == "position":
-                        if animation.get("shape") == "random":
-                            value = self.random_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
-                        elif animation.get("shape") == "circle":
-                            value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
-                        self.shapes[device] = value
+                shape = device_step.get("shape")
+                
+                if shape.get("type") == "random":
+                    value = self.random_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"))
+                elif shape.get("type") == "circle":
+                    value = self.circle_position_shape(shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
+                self.shapes[device] = value
 
     async def set_shapes(self):
         print(self.shapes)
@@ -83,14 +82,16 @@ class DmxController:
             for device, value in self.shapes.items():
                 device.set_position(value)
 
+            await asyncio.sleep(self.shape_speed)
+
     def random_position_shape(self, pan_limit, tilt_limit):
         return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
 
-    def circle_position_shape(self, pan_limit, tilt_limit):
-        # TODO : Verification
-        pan = pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
-        tilt = tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
+    def circle_position_shape(self, pan_limit, tilt_limit, index):
+        pan = 1
+        tilt = 1
         return [int(pan), int(tilt)]
+    
 
     def on_beat(self):
         if not self.program_paused:
@@ -99,6 +100,7 @@ class DmxController:
                 self.beat_count = 0
                 self.update_current_step()
             self.run_animations()
+            
             print("beat", self.beat_count)
         else:
             print("Program paused, beat ignored")
@@ -109,7 +111,7 @@ class DmxController:
 
             for device in devices: # For each device of this type
                 for animation_type, animation in device_step.items(): # For each animation type
-                    if animation.get("values") != None:
+                    if animation.get("values") != None and animation_type != "shape":
                         if animation.get("type") == "static":
                             value = self.set_static(devices.index(device), animation.get("values"))
                         elif animation.get("type") == "linear":
@@ -130,7 +132,7 @@ class DmxController:
                             device.set_intensity(value, animation.get("fade"))
                         elif animation_type == "strob":
                             device.set_strob(value)
-                        elif animation_type == "position":
+                        elif animation_type == "position" and animation.get("values") != "none":
                             device.set_position(value)
                         elif animation_type == "zoom":
                             device.set_zoom(value)
