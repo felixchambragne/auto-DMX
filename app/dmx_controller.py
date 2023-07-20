@@ -64,8 +64,8 @@ class DmxController:
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
         self.get_shapes()
         
-        t = threading.Thread(target=self.set_shapes, args=())
-        t.start()
+        #t = threading.Thread(target=self.set_shapes, args=())
+        #t.start()
 
     def get_shapes(self):
         self.shapes = {}
