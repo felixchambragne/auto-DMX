@@ -79,7 +79,7 @@ class DmxController:
                         args = (shape.get("pan_limit"), shape.get("tilt_limit"))
                     elif shape.get("type") == "circle":
                         function = self.circle_position_shape
-                        args = (shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device))
+                        args = (shape.get("pan_limit"), shape.get("tilt_limit"), devices.index(device), shape.get("gap"), device.get_position(), len(devices))
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
@@ -94,9 +94,16 @@ class DmxController:
         tilt = random.randint(tilt_limit[0], tilt_limit[1])
         return [int(pan), int(tilt)]
 
-    def circle_position_shape(self, pan_limit, tilt_limit, index):
-        pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) * np.cos(2 * np.pi * index / len(self.device_groups)))
-        tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) * np.sin(2 * np.pi * index / len(self.device_groups)))
+    def circle_position_shape(self, pan_limit, tilt_limit, index, gap, current_position, nb_devices):
+        # gap = 0 all devices do the same circle
+        # gap = 0.5 each device is 180° out of phase
+        # gap = 1 each device is 360° out of phase
+        current_pan = current_position[0]
+        current_tilt = current_position[1]
+        #get next position on circle
+        #do not use beat_count and duration because it is not updated in this thread. this function is called every 0.01s
+        pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) * (self.beat_count + index * gap) / nb_devices)
+        tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) * (self.beat_count + index * gap) / nb_devices)
         return [int(pan), int(tilt)]
     
     def on_beat(self):
