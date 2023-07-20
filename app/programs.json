@@ -50,8 +50,8 @@
 								"shape": {
 									"type": "circle",
 									"spread": 50,
-									"pan_gap": [-20, 20],
-									"tilt_gap": [-20, 20]
+									"pan_gap": [-1, 1],
+									"tilt_gap": [-1, 1]
 								},
 								"zoom": {
 									"values": [255],
