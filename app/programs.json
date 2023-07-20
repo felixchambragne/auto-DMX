@@ -101,7 +101,7 @@
 								"shape": {
 									"type": "random",
 									"spread": 0,
-									"pan_gap": [-5, 5],
+									"pan_gap": [-40, 40],
 									"tilt_gap": [-40, 40]
 								},
 								"zoom": {
