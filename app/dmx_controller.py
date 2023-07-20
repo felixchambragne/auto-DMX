@@ -7,6 +7,7 @@ import random
 from device import Device
 import numpy as np
 from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors
+import asyncio
 
 class DmxController:
     UNIVERSE = 1
@@ -60,6 +61,36 @@ class DmxController:
         print("---------NEW STEP----------")
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
+        self.get_shapes()
+        self.set_shapes()
+
+    def get_shapes(self):
+        self.shapes = {}
+        for device_type, devices in self.device_groups.items():
+            device_step = self.current_step[device_type]
+            for device in devices:
+                for animation_type, animation in device_step.items():
+                    if animation.get("type") == "shape" and animation_type == "position":
+                        if animation.get("shape") == "random":
+                            value = self.random_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
+                        elif animation.get("shape") == "circle":
+                            value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
+                        self.shapes[device] = value
+
+    async def set_shapes(self):
+        print(self.shapes)
+        while self.shapes != {}:
+            for device, value in self.shapes.items():
+                device.set_position(value)
+
+    def random_position_shape(self, pan_limit, tilt_limit):
+        return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
+
+    def circle_position_shape(self, pan_limit, tilt_limit):
+        # TODO : Verification
+        pan = pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
+        tilt = tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
+        return [int(pan), int(tilt)]
 
     def on_beat(self):
         if not self.program_paused:
@@ -87,11 +118,11 @@ class DmxController:
                             value = self.random_animation(animation.get("values"))
                         elif animation.get("type") == "uniform":
                             value = self.uniform_animation(animation.get("values"))
-                        elif animation.get("type") == "shape" and animation_type == "position":
+                        """elif animation.get("type") == "shape" and animation_type == "position":
                             if animation.get("shape") == "random":
                                 value = self.random_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
                             elif animation.get("shape") == "circle":
-                                value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
+                                value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))"""
 
                         if animation_type == "color":
                             device.set_color(color_name=value, fade_duration=animation.get("fade"))
@@ -103,15 +134,6 @@ class DmxController:
                             device.set_position(value)
                         elif animation_type == "zoom":
                             device.set_zoom(value)
-    
-    def random_position_shape(self, pan_limit, tilt_limit):
-        return [random.randint(pan_limit[0], pan_limit[1]), random.randint(tilt_limit[0], tilt_limit[1])]
-
-    def circle_position_shape(self, pan_limit, tilt_limit):
-        # TODO : Verification
-        pan = pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
-        tilt = tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(self.beat_count * 2 * np.pi / self.current_step.get("duration"))
-        return [int(pan), int(tilt)]
 
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]

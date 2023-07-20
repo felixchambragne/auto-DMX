@@ -18,7 +18,7 @@
                                 },
                                 "intensity": {
                                     "values": [255, 0],
-                                    "fade": 1,
+                                    "fade": 0.2,
                                     "type": "linear"
                                 },
                                 "strob": {
@@ -91,7 +91,6 @@
                                     "values": [],
                                     "type": "shape",
                                     "shape": "random",
-                                    "speed": 255,
                                     "pan_limit": [20, 120],
                                     "tilt_limit": [20, 120]
                                 },

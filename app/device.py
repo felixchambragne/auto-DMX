@@ -24,9 +24,11 @@ class Device():
             color = colors_constants[color_name]
 
         channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue")]
+        t = threading.Thread(target=self.fade_color, args=(channels, color, fade_duration))
         if fade_duration > 0:
-            t = threading.Thread(target=self.fade_color, args=(channels, color, fade_duration))
-            t.start()
+            # check if already in fade
+            if not t.is_alive():
+                t.start()
         else:
             if self.channels.get("white") and color == colors_constants["WHITE"]:
                 channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue"), self.channels.get("white")]
@@ -72,9 +74,10 @@ class Device():
 
     def set_intensity(self, value, fade_duration):
         self.previous_intensity = self.current_intensity
+        t = threading.Thread(target=self.fade_intensity, args=(value, fade_duration))
         if fade_duration > 0 and self.current_intensity != value:
-            t = threading.Thread(target=self.fade_intensity, args=(value, fade_duration))
-            t.start()
+            if not t.is_alive():
+                t.start()
         else:
             self.current_intensity = value
             self.set_data(self.address, self.channels.get("intensity"), value)
