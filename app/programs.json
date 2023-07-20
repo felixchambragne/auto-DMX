@@ -29,7 +29,7 @@
 							"washbeam": {
 								"color": {
 									"values": ["GREEN", "WHITE"],
-									"fade": 0.5,
+									"fade": 0,
 									"type": "uniform"
 								},
 								"intensity": {
