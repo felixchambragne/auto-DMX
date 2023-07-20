@@ -119,7 +119,7 @@ class DmxController:
                 value = function(*args, i)
                 device.set_position(value)
             i += 1
-            time.sleep(self.time_beat / 10)
+            time.sleep(self.time_beat / 30)
 
     def random_position_shape(self, pan_gap, tilt_gap):
         pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
