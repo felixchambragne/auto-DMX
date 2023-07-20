@@ -15,6 +15,7 @@ class SerialThread(threading.Thread):
         return self.ser.readline().decode().strip()
 
     def run(self):
+        print("Serial thread started")
         self.send_serial("Hello from Raspberry Pi!")
         while True:
             received_data = self.receive_serial()
