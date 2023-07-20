@@ -9,7 +9,7 @@
                     "colors": ["#FFA500", "#008000"],
                     "steps": [
                       	{
-							"duration": 16,
+							"duration": 500,
 							"pixbar": {
 								"color": {
 									"values": ["GREEN", "WHITE"],
