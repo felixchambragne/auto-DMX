@@ -95,7 +95,7 @@ class DmxController:
                             rect.append((pan_limit[0], i))
 
                         function = self.rect_position_shape
-                        args = (rect,)
+                        args = rect
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
