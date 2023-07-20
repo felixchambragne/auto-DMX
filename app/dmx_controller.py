@@ -81,11 +81,10 @@ class DmxController:
                         function = self.random_position_shape
                         args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
-                        circle = [] # List of positions to go through to make a circle shape with cos
+                        circle = []
                         for i in range(pan_limit[0], pan_limit[1] + 1, 5):
                             circle.append((i, int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 * (1 + np.cos((i - pan_limit[0]) / (pan_limit[1] - pan_limit[0]) * np.pi)))))
-                        for i in range(pan_limit[1], pan_limit[0] - 1, -5):
-                            circle.append((i, int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 * (1 + np.cos((i - pan_limit[0]) / (pan_limit[1] - pan_limit[0]) * np.pi)))))
+
                         function = self.position_shape
                         args = (circle,)
 
