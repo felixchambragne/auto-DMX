@@ -22,7 +22,7 @@ class DmxController:
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
         self.current_step_id = 0
-        self.shape_speed = 0.1
+        self.shape_speed = 1
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
