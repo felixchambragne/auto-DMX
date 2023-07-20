@@ -85,9 +85,13 @@ class DmxController:
                         args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
                         circle = []
-                        for i in range(0, 360, self.shape_step):
+                        """for i in range(0, 360, self.shape_step):
                             pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(np.deg2rad(i)))
                             tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(np.deg2rad(i)))
+                            circle.append((pan, tilt))""" # this is not centered
+                        for i in range(0, 360, self.shape_step):
+                            pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(np.deg2rad(i)))
+                            tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(np.deg2rad(i)))
                             circle.append((pan, tilt))
                         
                         function = self.position_shape
