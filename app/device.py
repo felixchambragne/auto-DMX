@@ -1,7 +1,7 @@
 from app_constants import colors as colors_constants
 import threading
 import time
-from app_constants import STROB_VALUE, DMX_UPDATE_INTERVAL
+from app_constants import STROB_VALUE, DMX_UPDATE_INTERVAL, DEFAULT_POSITION
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -16,6 +16,7 @@ class Device():
         self.previous_intensity = self.current_intensity
         self.current_strob = False
         self.previous_strob = self.current_strob
+        self.current_position = DEFAULT_POSITION
 
     def set_color(self, color=None, color_name=None, fade_duration=0):
         self.previous_color = self.current_color
@@ -111,6 +112,7 @@ class Device():
     def set_position(self, position):
         channels = [self.channels.get("pan"), self.channels.get("tilt")]
         self.set_data(self.address, channels, position)
+        self.current_position = position
 
     def set_zoom(self, zoom):
         self.set_data(self.address, self.channels.get("zoom"), zoom)
