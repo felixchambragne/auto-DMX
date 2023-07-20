@@ -48,7 +48,7 @@
 									"tilt_limit": []
 								},
 								"shape": {
-									"type": "random",
+									"type": "circle",
 									"pan_limit": [20, 120],
 									"tilt_limit": [20, 120]
 								},

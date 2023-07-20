@@ -95,8 +95,8 @@ class DmxController:
         return [int(pan), int(tilt)]
 
     def circle_position_shape(self, pan_limit, tilt_limit, index):
-        pan = 1
-        tilt = 1
+        pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) * np.cos(2 * np.pi * index / len(self.device_groups)))
+        tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) * np.sin(2 * np.pi * index / len(self.device_groups)))
         return [int(pan), int(tilt)]
     
     def on_beat(self):
