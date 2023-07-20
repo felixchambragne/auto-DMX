@@ -22,7 +22,7 @@ class DmxController:
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.get_devices()
         self.current_step_id = 0
-        self.shape_speed = 0.3
+        self.shape_speed = 0.1
         self.beat_count = 0
         self.update_current_step()
         self.update_dmx()
@@ -83,12 +83,10 @@ class DmxController:
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
-        print(self.shapes)
         while self.shapes != {}:
             for device, (function, args) in self.shapes.items():
                 value = function(*args)
                 device.set_position(value)
-
             time.sleep(self.shape_speed)
 
     def random_position_shape(self, pan_limit, tilt_limit):
