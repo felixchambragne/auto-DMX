@@ -79,12 +79,13 @@ class DmxController:
                         function = self.random_position_shape
                         args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
-                        function = self.circle_position_shape
-                        args = (devices.index(device), device.current_position)
+                        pass
+                        
                     elif shape.get("type") == "rect":
                         rect = []
-                        pan_limit = (shape.get("pan_gap")[0] + DEFAULT_PAN, shape.get("pan_gap")[1] + DEFAULT_PAN)
-                        tilt_limit = (shape.get("tilt_gap")[0] + DEFAULT_TILT, shape.get("tilt_gap")[1] + DEFAULT_TILT)
+                        pan_limit = (max(shape.get("pan_gap")[0] + DEFAULT_PAN, 0), min(shape.get("pan_gap")[1] + DEFAULT_PAN, 255))
+                        tilt_limit = (max(shape.get("tilt_gap")[0] + DEFAULT_TILT, 0), min(shape.get("tilt_gap")[1] + DEFAULT_TILT, 255))
+
                         for i in range(pan_limit[0], pan_limit[1] + 1, 5):
                             rect.append((i, tilt_limit[0]))
                         for i in range(tilt_limit[0], tilt_limit[1] + 1, 5):
@@ -93,15 +94,17 @@ class DmxController:
                             rect.append((i, tilt_limit[1]))
                         for i in range(tilt_limit[1], tilt_limit[0] - 1, -5):
                             rect.append((pan_limit[0], i))
-
+                    
                         function = self.rect_position_shape
-                    self.shapes[device] = (function, rect)
+                        args = (rect,)
+
+                    self.shapes[device] = (function, args)
 
     def set_shapes(self):
         i = 0
         while self.shapes != {}:
-            for device, (function, values) in self.shapes.items():
-                value = function(values, i)
+            for device, (function, args) in self.shapes.items():
+                value = function(*args, i)
                 device.set_position(value)
             i += 1
             time.sleep(self.shape_speed)
@@ -113,6 +116,7 @@ class DmxController:
 
 
     def rect_position_shape(self, rect, i):
+        print(rect)
         pan = rect[i % len(rect)][0]
         tilt = rect[i % len(rect)][1]
         return [int(pan), int(tilt)]

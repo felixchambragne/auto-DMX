@@ -49,8 +49,8 @@
 								},
 								"shape": {
 									"type": "rect",
-									"pan_gap": [40, -40],
-									"tilt_gap": [40, -40]
+									"pan_gap": [-40, 40],
+									"tilt_gap": [-40, 40]
 								},
 								"zoom": {
 									"values": [255],
