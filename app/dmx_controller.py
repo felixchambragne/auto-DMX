@@ -89,7 +89,7 @@ class DmxController:
                             circle.append((pan, tilt))
                         
                         function = self.position_shape
-                        spread = shape.get("spread")*len(rect)/100
+                        spread = shape.get("spread")*len(circle)/100
                         args = (circle, spread, devices.index(device))
 
                     elif shape.get("type") == "rect":
