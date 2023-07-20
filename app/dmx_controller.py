@@ -6,7 +6,7 @@ import json
 import random
 from device import Device
 import numpy as np
-from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors, DEFAULT_PAN, DEFAULT_TILT, SHAPE_STEP
+from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors, DEFAULT_PAN, DEFAULT_TILT
 import threading
 import time
 
@@ -23,6 +23,7 @@ class DmxController:
         self.get_devices()
         self.current_step_id = 0
         self.last_execution_time = time.time()
+        self.shape_step = 3
         self.time_beat = 0
         self.beat_count = 0
         self.update_current_step()
@@ -84,7 +85,7 @@ class DmxController:
                         args = (shape.get("pan_gap"), shape.get("tilt_gap"))
                     elif shape.get("type") == "circle":
                         circle = []
-                        for i in range(0, 360, SHAPE_STEP):
+                        for i in range(0, 360, self.shape_step):
                             pan = int(pan_limit[0] + (pan_limit[1] - pan_limit[0]) / 2 + (pan_limit[1] - pan_limit[0]) / 2 * np.cos(np.deg2rad(i)))
                             tilt = int(tilt_limit[0] + (tilt_limit[1] - tilt_limit[0]) / 2 + (tilt_limit[1] - tilt_limit[0]) / 2 * np.sin(np.deg2rad(i)))
                             circle.append((pan, tilt))
@@ -96,13 +97,13 @@ class DmxController:
                     elif shape.get("type") == "rect":
                         rect = []
 
-                        for i in range(pan_limit[0], pan_limit[1] + 1, SHAPE_STEP):
+                        for i in range(pan_limit[0], pan_limit[1] + 1, self.shape_step):
                             rect.append((i, tilt_limit[0]))
-                        for i in range(tilt_limit[0], tilt_limit[1] + 1, SHAPE_STEP):
+                        for i in range(tilt_limit[0], tilt_limit[1] + 1, self.shape_step):
                             rect.append((pan_limit[1], i))
-                        for i in range(pan_limit[1], pan_limit[0] - 1, -SHAPE_STEP):
+                        for i in range(pan_limit[1], pan_limit[0] - 1, -self.shape_step):
                             rect.append((i, tilt_limit[1]))
-                        for i in range(tilt_limit[1], tilt_limit[0] - 1, -SHAPE_STEP):
+                        for i in range(tilt_limit[1], tilt_limit[0] - 1, -self.shape_step):
                             rect.append((pan_limit[0], i))
                     
                         function = self.position_shape
@@ -118,7 +119,7 @@ class DmxController:
                 value = function(*args, i)
                 device.set_position(value)
             i += 1
-            time.sleep(self.time_beat/5)
+            time.sleep(self.time_beat / 10)
 
     def random_position_shape(self, pan_gap, tilt_gap):
         pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
@@ -134,6 +135,8 @@ class DmxController:
         if not self.program_paused:
             current_time = time.time()
             self.time_beat = current_time - self.last_execution_time
+            if self.time_beat > 0.6:
+                self.time_beat = 0.6
 
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
