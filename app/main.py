@@ -2,21 +2,25 @@ import flask
 import json
 from beat_detection import BeatDetection
 from ola_thread import OlaThread
-from serial_thread import SerialThread
 
 class App():
     def __init__(self) -> None:
-
+        self.flask_app = flask.Flask(__name__)
 
         with open('programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
 
         self.set_selected_program(0, 0)
+        """self.current_category = None
+        self.current_category_id = None"""
         self.current_program_id = None
  
         self.ola_thread = OlaThread(self)
         self.beat_detection = BeatDetection(self.ola_thread.dmx_controller.on_beat, self.ola_thread.dmx_controller.on_start_blank, self.ola_thread.dmx_controller.on_stop_blank)
-        self.serial_thread = SerialThread(self)
+
+    """def set_current_category(self, category_id):
+        self.current_category_id = int(category_id)
+        self.current_category = self.categories[self.current_category_id]"""
 
     def set_selected_program(self, category_id, program_id):
         self.selected_category_id = int(category_id)
@@ -30,10 +34,11 @@ class App():
     def run(self):
         self.ola_thread.start()
         self.beat_detection.start()
-        self.serial_thread.start()
+        self.flask_app.run(host='0.0.0.0', debug=True, use_reloader=False)
 
-        
-"""@app.flask_app.route('/get_categories', methods=['GET'])
+app = App()
+
+@app.flask_app.route('/get_categories', methods=['GET'])
 def get_categories():
     filename = 'programs.json'
     return flask.send_file(filename, mimetype='application/json')
@@ -66,8 +71,43 @@ def resume_program():
 def pause_program():
     app.ola_thread.dmx_controller.manual_program_paused = True
     app.ola_thread.dmx_controller.pause_program()
-    return "Pause Program"""""
+    return "Pause Program"
+    
+"""@app.flask_app.route("/", methods=["GET", "POST"])
+def categories_page():
+    if flask.request.method == "POST":
+         if 'category_id' in flask.request.form:
+            app.set_current_category(flask.request.form['category_id'])
+            return flask.redirect(flask.url_for('programs_page'))
+    
+    return flask.render_template(
+        'categories.html',
+        categories=app.categories,
+        selected_category_id = app.selected_category_id
+    )
+
+@app.flask_app.route("/programs", methods=["GET", "POST"])
+def programs_page():
+    if app.current_category == None:
+        return flask.redirect(flask.url_for('categories_page'))
+
+    if flask.request.method == "POST":
+        if 'program_id' in flask.request.form:
+            app.set_selected_program(app.current_category_id, flask.request.form['program_id'])
+            app.ola_thread.dmx_controller.beat_count = 0
+            app.ola_thread.dmx_controller.update_current_step()
+
+    if app.current_category == app.selected_category:
+        app.current_program_id = app.selected_program_id
+    else:
+        app.current_program_id = None
+
+    return flask.render_template(
+        'programs.html',
+        programs = app.current_category['programs'],
+        selected_program_id = app.current_program_id
+    )
+"""
 
 if __name__ == '__main__':
-    app = App()
     app.run()
