@@ -89,7 +89,7 @@ class DmxController:
                             circle.append((pan, tilt))
                         
                         function = self.position_shape
-                        args = (circle,)
+                        args = (circle, shape.get("device_gap"), devices.index(device))
 
                     elif shape.get("type") == "rect":
                         rect = []
@@ -104,7 +104,7 @@ class DmxController:
                             rect.append((pan_limit[0], i))
                     
                         function = self.position_shape
-                        args = (rect, 5, devices.index(device))
+                        args = (rect, shape.get("device_gap"), devices.index(device))
 
                     self.shapes[device] = (function, args)
 
