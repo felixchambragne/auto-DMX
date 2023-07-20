@@ -26,7 +26,7 @@ class DmxController:
         self.update_dmx()
 
         self.manual_program_paused = True
-        self.program_paused = True
+        self.program_paused = False
 
     def get_devices(self):
         with open('devices.json', 'r') as file:
