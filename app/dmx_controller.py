@@ -121,7 +121,7 @@ class DmxController:
             i += 1
             time.sleep(self.time_beat / 30)
 
-    def random_position_shape(self, pan_gap, tilt_gap):
+    def random_position_shape(self, pan_gap, tilt_gap, i):
         pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
         tilt = random.randint(tilt_gap[0] + DEFAULT_TILT, tilt_gap[1] + DEFAULT_TILT)
         return [int(pan), int(tilt)]
