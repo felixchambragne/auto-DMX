@@ -12,8 +12,8 @@
 							"duration": 16,
 							"pixbar": {
 								"color": {
-									"values": ["GREEN"],
-									"fade": 0,
+									"values": ["GREEN", "WHITE"],
+									"fade": 0.2,
 									"type": "static"
 								},
 								"intensity": {
@@ -29,7 +29,7 @@
 							"washbeam": {
 								"color": {
 									"values": ["GREEN", "WHITE"],
-									"fade": 0,
+									"fade": 0.5,
 									"type": "uniform"
 								},
 								"intensity": {

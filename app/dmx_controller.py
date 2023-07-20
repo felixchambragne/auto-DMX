@@ -180,12 +180,14 @@ class DmxController:
     def on_start_blank(self):
         print("AUTOMATIC PAUSE")
         if not self.manual_program_paused:
-            self.pause_program()
+            #self.pause_program()
+            pass
 
     def on_stop_blank(self):
         print("AUTOMATIC RESUME")
         if not self.manual_program_paused:
-            self.resume_program()
+            #self.resume_program()
+            pass
     
     def pause_program(self):
         self.program_paused = True
