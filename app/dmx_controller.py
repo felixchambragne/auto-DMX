@@ -89,7 +89,8 @@ class DmxController:
                             circle.append((pan, tilt))
                         
                         function = self.position_shape
-                        args = (circle, shape.get("device_gap"), devices.index(device))
+                        spread = shape.get("spread")*len(rect)/100
+                        args = (circle, spread, devices.index(device))
 
                     elif shape.get("type") == "rect":
                         rect = []
@@ -104,7 +105,8 @@ class DmxController:
                             rect.append((pan_limit[0], i))
                     
                         function = self.position_shape
-                        args = (rect, shape.get("device_gap"), devices.index(device))
+                        spread = shape.get("spread")*len(rect)/100
+                        args = (rect, spread, devices.index(device))
 
                     self.shapes[device] = (function, args)
 
@@ -123,10 +125,10 @@ class DmxController:
         return [int(pan), int(tilt)]
 
 
-    def position_shape(self, rect, device_gap, device_index, i):
-        # device_gap is the delay between each device
-        pan = rect[int(i + device_gap*device_index) % len(rect)][0]
-        tilt = rect[int(i + device_gap*device_index) % len(rect)][1]
+    def position_shape(self, rect, spread, device_index, i):
+        
+        pan = rect[int(i + spread*device_index) % len(rect)][0]
+        tilt = rect[int(i + spread*device_index) % len(rect)][1]
         return [int(pan), int(tilt)]
     
     def on_beat(self):

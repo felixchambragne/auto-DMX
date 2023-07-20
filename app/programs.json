@@ -49,7 +49,7 @@
 								},
 								"shape": {
 									"type": "circle",
-									"device_gap": 5,
+									"spread": 50,
 									"pan_gap": [-20, 20],
 									"tilt_gap": [-20, 20]
 								},
