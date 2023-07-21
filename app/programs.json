@@ -150,9 +150,10 @@
 							"values": [true, false, false, false, false, false],
 							"type": "linear"
 						  },
-						  "zoom": {
-							"values": [100],
-							"type": "static"
+						  "position": {
+							"values": [[170, 60], [30, 90], [120, 120], [200, 30]],
+							"type": "linear",
+							"speed": 200
 						  }
 						}
 					  },
@@ -189,9 +190,10 @@
 							"values": [false],
 							"type": "static"
 						  },
-						  "zoom": {
-							"values": [255],
-							"type": "static"
+						  "position": {
+							"values": [[90, 120], [200, 30], [170, 60], [30, 90]],
+							"type": "linear",
+							"speed": 200
 						  }
 						}
 					  },
@@ -228,9 +230,10 @@
 							"values": [true, false, false, false, false, false],
 							"type": "linear"
 						  },
-						  "zoom": {
-							"values": [100],
-							"type": "static"
+						  "position": {
+							"values": [[120, 120], [90, 120], [200, 30], [170, 60]],
+							"type": "linear",
+							"speed": 200
 						  }
 						}
 					  },
@@ -267,9 +270,10 @@
 							"values": [false],
 							"type": "static"
 						  },
-						  "zoom": {
-							"values": [255],
-							"type": "static"
+						  "position": {
+							"values": [[30, 90], [120, 120], [90, 120], [200, 30]],
+							"type": "linear",
+							"speed": 200
 						  }
 						}
 					  }
