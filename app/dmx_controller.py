@@ -124,6 +124,8 @@ class DmxController:
     def random_position_shape(self, pan_gap, tilt_gap, i):
         pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
         tilt = random.randint(tilt_gap[0] + DEFAULT_TILT, tilt_gap[1] + DEFAULT_TILT)
+        pan = max(0, min(pan, 255))
+        tilt = max(0, min(tilt, 255))
         return [int(pan), int(tilt)]
 
     def position_shape(self, rect, spread, device_index, i):
