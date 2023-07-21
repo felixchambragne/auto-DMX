@@ -63,7 +63,7 @@ def stop_strob():
 
 @app.flask_app.route('/resume_pause_program', methods=['GET'])
 def resume_program():
-    app.ola_thread.dmx_controller.manual_program_paused = False
+    
     app.ola_thread.dmx_controller.resume_pause_program()
     return "Resume/Pause Program"
 

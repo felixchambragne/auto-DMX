@@ -21,7 +21,8 @@ class DmxController:
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
         self.manual_program_paused = True
-        self.pause_program()
+        self.program_paused = True
+        self.reset_data()
         self.get_devices()
         self.current_step_id = 0
         self.last_execution_time = time.time()
@@ -42,8 +43,7 @@ class DmxController:
                 self.device_groups[device_data["type"]].append(device)
     
     def reset_data(self):
-        #self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
-        pass
+        self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
     
     def set_data(self, address, channels, values):
         if type(channels) is not list and type(channels) is not tuple:
@@ -60,7 +60,7 @@ class DmxController:
             self.client.SendDmx(self.UNIVERSE, self.data, self.dmx_sent_callback)
 
     def update_current_step(self):
-        self.reset_data()
+        #self.reset_data()
         print("---------NEW STEP----------")
         self.current_step_id = (self.current_step_id + 1) % len(self.app.selected_program["steps"])
         self.current_step = self.app.selected_program["steps"][self.current_step_id]
@@ -243,8 +243,10 @@ class DmxController:
 
     def resume_pause_program(self):
         if self.program_paused:
+            self.manual_program_paused = True
             self.resume_program()
         else:
+            self.manual_program_paused = False
             self.pause_program()
     
     def pause_program(self):
