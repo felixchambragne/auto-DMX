@@ -71,6 +71,9 @@ class DmxController:
         t = threading.Thread(target=self.set_shapes, args=())
         t.start()
 
+        t_random = threading.Thread(target=self.set_random_shapes, args=())
+        t_random.start()
+
     def get_shapes(self):
         self.shapes = {}
         for device_type, devices in self.device_groups.items():
@@ -116,10 +119,19 @@ class DmxController:
         i = 0
         while self.shapes != {}:
             for device, (function, args) in self.shapes.items():
-                value = function(*args, i)
-                device.set_position(value)
+                if function != self.random_position_shape:
+                    value = function(*args, i)
+                    device.set_position(value)
             i += 1
             time.sleep(self.time_beat / 30)
+
+    def set_random_shapes(self):
+        while self.shapes != {}:
+            for device, (function, args) in self.shapes.items():
+                if function == self.random_position_shape:
+                    value = function(*args, 0)
+                    device.set_position(value)
+            time.sleep(self.time_beat / 5)
 
     def random_position_shape(self, pan_gap, tilt_gap, i):
         pan = random.randint(pan_gap[0] + DEFAULT_PAN, pan_gap[1] + DEFAULT_PAN)
