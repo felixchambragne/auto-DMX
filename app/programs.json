@@ -153,8 +153,8 @@
 						  "shape": {
 							"type": "random",
 							"spread": 50,
-							"pan_gap": [-20, 20],
-							"tilt_gap": [-20, 20]
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [100],
@@ -183,7 +183,7 @@
 						"washbeam": {
 						  "color": {
 							"values": ["WHITE", "RED"],
-							"fade": 1,
+							"fade": 0,
 							"type": "uniform"
 						  },
 						  "intensity": {
@@ -198,8 +198,8 @@
 						  "shape": {
 							"type": "random",
 							"spread": 50,
-							"pan_gap": [-20, 20],
-							"tilt_gap": [-20, 20]
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -243,8 +243,8 @@
 						  "shape": {
 							"type": "random",
 							"spread": 50,
-							"pan_gap": [-20, 20],
-							"tilt_gap": [-20, 20]
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [100],
@@ -273,7 +273,7 @@
 						"washbeam": {
 						  "color": {
 							"values": ["WHITE", "RED"],
-							"fade": 1,
+							"fade": 0,
 							"type": "uniform"
 						  },
 						  "intensity": {
@@ -286,9 +286,9 @@
 							"type": "static"
 						  },
 						  "shape": {
-							"type": "random",
+							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-20, 20],
+							"pan_gap": [-25, 25],
 							"tilt_gap": [-20, 20]
 						  },
 						  "zoom": {
