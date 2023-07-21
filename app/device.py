@@ -87,7 +87,7 @@ class Device():
 
         def fade_thread():
             with self.fade_lock_intensity:
-                self.fade_color(value, fade_duration)
+                self.fade_intensity(value, fade_duration)
 
         t = threading.Thread(target=fade_thread)
 
