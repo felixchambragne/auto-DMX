@@ -153,8 +153,8 @@
 						  "shape": {
 							"type": "random",
 							"spread": 0,
-							"pan_gap": [-60, 60],
-							"tilt_gap": [-60, 60]
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [100],
@@ -198,8 +198,8 @@
 						  "shape": {
 							"type": "random",
 							"spread": 0,
-							"pan_gap": [-60, 60],
-							"tilt_gap": [-60, 60]
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -243,8 +243,8 @@
 						  "shape": {
 							"type": "random",
 							"spread": 0,
-							"pan_gap": [-60, 60],
-							"tilt_gap": [-60, 60]
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [100],

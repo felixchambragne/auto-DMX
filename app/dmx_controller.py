@@ -120,8 +120,9 @@ class DmxController:
         while self.shapes != {}:
             for device, (function, args) in self.shapes.items():
                 if function != self.random_position_shape:
-                    value = function(*args, i)
-                    device.set_position(value)
+                    if not self.program_paused:
+                        value = function(*args, i)
+                        device.set_position(value)
             i += 1
             time.sleep(self.time_beat / 30)
 
@@ -129,8 +130,9 @@ class DmxController:
         while self.shapes != {}:
             for device, (function, args) in self.shapes.items():
                 if function == self.random_position_shape:
-                    value = function(*args, 0)
-                    device.set_position(value)
+                    if not self.program_paused:
+                        value = function(*args, 0)
+                        device.set_position(value)
             time.sleep(self.time_beat)
 
     def random_position_shape(self, pan_gap, tilt_gap, i):
@@ -149,8 +151,8 @@ class DmxController:
         if not self.program_paused:
             current_time = time.time()
             self.time_beat = current_time - self.last_execution_time
-            if self.time_beat > 0.6:
-                self.time_beat = 0.6
+            if self.time_beat > 1.5:
+                self.time_beat = 1.5
 
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
@@ -180,22 +182,18 @@ class DmxController:
                             value = self.random_animation(animation.get("values"))
                         elif animation.get("type") == "uniform":
                             value = self.uniform_animation(animation.get("values"))
-                        """elif animation.get("type") == "shape" and animation_type == "position":
-                            if animation.get("shape") == "random":
-                                value = self.random_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))
-                            elif animation.get("shape") == "circle":
-                                value = self.circle_position_shape(animation.get("pan_limit"), animation.get("tilt_limit"))"""
 
-                        if animation_type == "color":
-                            device.set_color(color_name=value, fade_duration=animation.get("fade"))
-                        elif animation_type == "intensity":
-                            device.set_intensity(value, animation.get("fade"))
-                        elif animation_type == "strob":
-                            device.set_strob(value)
-                        elif animation_type == "position" and animation.get("values") != "none":
-                            device.set_position(value)
-                        elif animation_type == "zoom":
-                            device.set_zoom(value)
+                        if not self.program_paused:
+                            if animation_type == "color":
+                                device.set_color(color_name=value, fade_duration=animation.get("fade"))
+                            elif animation_type == "intensity":
+                                device.set_intensity(value, animation.get("fade"))
+                            elif animation_type == "strob":
+                                device.set_strob(value)
+                            elif animation_type == "position" and animation.get("values") != "none":
+                                device.set_position(value)
+                            elif animation_type == "zoom":
+                                device.set_zoom(value)
 
     def linear_animation(self, index, values):
         return values[(self.beat_count + index) % len(values)]
@@ -244,6 +242,12 @@ class DmxController:
         if not self.manual_program_paused:
             self.resume_program()
             pass
+
+    def resume_pause_program(self):
+        if self.program_paused:
+            self.resume_program()
+        else:
+            self.pause_program()
     
     def pause_program(self):
         self.program_paused = True

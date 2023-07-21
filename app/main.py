@@ -53,15 +53,21 @@ def set_program():
 
 @app.flask_app.route('/start_strob', methods=['GET'])
 def start_strob():
-    app.ola_thread.dmx_controller.start_strob()
+    #app.ola_thread.dmx_controller.start_strob()
     return "Start Strob"
 
 @app.flask_app.route('/stop_strob', methods=['GET'])
 def stop_strob():
-    app.ola_thread.dmx_controller.stop_strob()
+    #app.ola_thread.dmx_controller.stop_strob()
     return "Stop Strob"
 
-@app.flask_app.route('/resume_program', methods=['GET'])
+@app.flask_app.route('/resume_pause_program', methods=['GET'])
+def resume_program():
+    app.ola_thread.dmx_controller.manual_program_paused = False
+    app.ola_thread.dmx_controller.resume_pause_program()
+    return "Resume/Pause Program"
+
+"""@app.flask_app.route('/resume_program', methods=['GET'])
 def resume_program():
     app.ola_thread.dmx_controller.manual_program_paused = False
     app.ola_thread.dmx_controller.resume_program()
@@ -71,7 +77,7 @@ def resume_program():
 def pause_program():
     app.ola_thread.dmx_controller.manual_program_paused = True
     app.ola_thread.dmx_controller.pause_program()
-    return "Pause Program"
+    return "Pause Program"""""
     
 """@app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
