@@ -864,7 +864,7 @@
 						"duration": 20,
 						"pixbar": {
 						  "color": {
-							"values": ["DEEPPINK", "BLUE"],
+							"values": ["PINK", "BLUE"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -876,7 +876,7 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["DEEPPINK", "BLUE"],
+							"values": ["PINK", "BLUE"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -901,7 +901,7 @@
 						"duration": 25,
 						"pixbar": {
 						  "color": {
-							"values": ["LIGHTPINK", "BLUE"],
+							"values": ["PINK", "BLUE"],
 							"fade": 1,
 							"type": "linear"
 						  },
@@ -913,7 +913,7 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["DEEPPINK"],
+							"values": ["PINK"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -928,12 +928,12 @@
 						  },
 						  "position": {
 							"values": [
-							  [150, 50],
-							  [160, 45],
-							  [170, 40],
-							  [170, 40],
-							  [180, 45],
-							  [190, 50]
+							  [150, 40],
+							  [160, 35],
+							  [170, 30],
+							  [170, 30],
+							  [180, 35],
+							  [190, 40]
 							],
 							"type": "static"
 						  }
@@ -943,7 +943,7 @@
 						"duration": 20,
 						"pixbar": {
 						  "color": {
-							"values": ["DEEPPINK", "BLUE"],
+							"values": ["PINK", "BLUE"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -955,7 +955,7 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["DEEPPINK", "BLUE"],
+							"values": ["PINK", "BLUE"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -977,7 +977,242 @@
 						}
 					  }
 					]
+				  },
+				  {
+					"name": "Slow Rose",
+					"colors": ["#FF1493"],
+					"steps": [
+					  {
+						"duration": 15,
+						"pixbar": {
+						  "color": {
+							"values": ["PINK"],
+							"fade": 1,
+							"type": "random"
+						  },
+						  "intensity": {
+							"values": [150],
+							"fade": 1,
+							"type": "linear"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["PINK"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 30,
+							"pan_gap": [-20, 20],
+							"tilt_gap": [-10, 10]
+						  }
+						}
+					  },
+					  {
+						"duration": 10,
+						"pixbar": {
+						  "color": {
+							"values": ["PINK"],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [150],
+							"fade": 1,
+							"type": "random"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["PINK"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [150],
+							"type": "linear"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 20,
+							"pan_gap": [-30, 30],
+							"tilt_gap": [-30, 30]
+						  }
+						}
+					  },
+					  {
+						"duration": 20,
+						"pixbar": {
+						  "color": {
+							"values": ["PINK"],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 1,
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["PINK"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 50,
+							"pan_gap": [-10, 10],
+							"tilt_gap": [-10, 10]
+						  }
+						}
+					  }
+					]
+				  },
+				  {
+					"name": "Slow Ambre et Blanc",
+					"colors": ["#FFBF00", "#FFFFFF"],
+					"steps": [
+					  {
+						"duration": 20,
+						"pixbar": {
+						  "color": {
+							"values": ["AMBER"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 1,
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 30,
+							"pan_gap": [-20, 20],
+							"tilt_gap": [-10, 10]
+						  }
+						}
+					  },
+					  {
+						"duration": 15,
+						"pixbar": {
+						  "color": {
+							"values": ["AMBER", "WHITE"],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200, 150],
+							"fade": 1,
+							"type": "linear"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [150],
+							"type": "linear"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 20,
+							"pan_gap": [-30, 30],
+							"tilt_gap": [-30, 30]
+						  }
+						}
+					  },
+					  {
+						"duration": 25,
+						"pixbar": {
+						  "color": {
+							"values": ["AMBER"],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 1,
+							"type": "random"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE", "AMBER"],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 50,
+							"pan_gap": [-20, 20],
+							"tilt_gap": [-20, 20]
+						  }
+						}
+					  }
+					]
 				  }
+				  
 				  
             ]
         },
