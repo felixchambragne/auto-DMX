@@ -112,7 +112,169 @@
                       	}
 
                     ]
-                }
+                },
+				{
+					"name": "Electro Dynamique",
+					"colors": ["#FF0000", "#FFFFFF"],
+					"steps": [
+					  {
+						"duration": 8,
+						"pixbar": {
+						  "color": {
+							"values": ["RED", "RED", "WHITE", "WHITE"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [255, 0],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [true, false, false, false, false, false],
+							"type": "linear"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  }
+						}
+					  },
+					  {
+						"duration": 8,
+						"pixbar": {
+						  "color": {
+							"values": ["WHITE", "RED"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [true, false, true, false],
+							"type": "random"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE", "RED"],
+							"fade": 1,
+							"type": "uniform"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [255],
+							"type": "static"
+						  }
+						}
+					  },
+					  {
+						"duration": 8,
+						"pixbar": {
+						  "color": {
+							"values": ["RED", "RED", "WHITE", "WHITE"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [0, 255],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [true, false, false, false, false, false],
+							"type": "linear"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  }
+						}
+					  },
+					  {
+						"duration": 8,
+						"pixbar": {
+						  "color": {
+							"values": ["WHITE", "RED"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [true, false, true, false],
+							"type": "random"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE", "RED"],
+							"fade": 1,
+							"type": "uniform"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [255],
+							"type": "static"
+						  }
+						}
+					  }
+					]
+				  }
             ]
         },
         {
