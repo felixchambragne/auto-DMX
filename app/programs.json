@@ -45,7 +45,7 @@
 							"type": "random",
 							"spread": 0,
 							"pan_gap": [-50, 50],
-							"tilt_gap": [-50, 50]
+							"tilt_gap": [-30, 50]
 						  },
 						  "zoom": {
 							"values": [100],
@@ -90,7 +90,7 @@
 							"type": "random",
 							"spread": 0,
 							"pan_gap": [-50, 50],
-							"tilt_gap": [-50, 50]
+							"tilt_gap": [-30, 50]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -135,7 +135,7 @@
 							"type": "random",
 							"spread": 0,
 							"pan_gap": [-50, 50],
-							"tilt_gap": [-50, 50]
+							"tilt_gap": [-30, 50]
 						  },
 						  "zoom": {
 							"values": [100],
@@ -144,7 +144,7 @@
 						}
 					  },
 					  {
-						"duration": 8,
+						"duration": 16,
 						"pixbar": {
 						  "color": {
 							"values": ["WHITE", "RED"],
@@ -296,12 +296,12 @@
 						  "color": {
 							"values": ["GREEN", "WHITE"],
 							"fade": 1,
-							"type": "static"
+							"type": "random"
 						  },
 						  "intensity": {
 							"values": [255, 100],
 							"fade": 1,
-							"type": "static"
+							"type": "linear"
 						  },
 						  "strob": {
 							"values": [false],
@@ -365,10 +365,10 @@
 						  "intensity": {
 							"values": [255, 100],
 							"fade": 1,
-							"type": "static"
+							"type": "linear"
 						  },
 						  "strob": {
-							"values": [false],
+							"values": [false, true, false, true, false, true],
 							"type": "static"
 						  },
 						  "zoom": {
@@ -376,14 +376,16 @@
 							"type": "static"
 						  },
 						  "position": {
-							"values": [
-							  [170, 100],
-							  [170, 60],
-							  [170, 20],
-							  [170, 60]
-							],
-							"type": "linear"
+							"values": [],
+							"type": "none"
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 10,
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  }
+
 						}
 					  }
 					]
