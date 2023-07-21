@@ -34,7 +34,7 @@ class DmxController:
         
 
     def get_devices(self):
-        with open('devices.json', 'r') as file:
+        with open('./devices.json', 'r') as file:
             devices_data = json.load(file)["devices"]
         for device_data in devices_data:
             self.device_groups[device_data["type"]] = []

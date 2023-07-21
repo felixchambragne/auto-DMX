@@ -7,7 +7,7 @@ class App():
     def __init__(self) -> None:
         self.flask_app = flask.Flask(__name__)
 
-        with open('programs.json', 'r') as file:
+        with open('./programs.json', 'r') as file:
             self.categories = json.load(file)["categories"]
 
         self.set_selected_program(0, 0)

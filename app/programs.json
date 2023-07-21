@@ -449,8 +449,8 @@
 							"type": "linear"
 						  },
 						  "position": {
-							"values": [[170, 60], [170, 170], [190, 120], [190, 190]],
-							"type": "linear"
+							"values": [[170, 60], [170, 170]],
+							"type": "uniform"
 						  },
 						  "zoom": {
 							"values": [100],
