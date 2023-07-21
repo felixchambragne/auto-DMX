@@ -127,13 +127,13 @@
 						"duration": 16,
 						"pixbar": {
 						  "color": {
-							"values": ["RED", "YELLOW", "RED", "YELLOW"],
+							"values": ["RED", "YELLOW"],
 							"fade": 0,
 							"type": "linear"
 						  },
 						  "intensity": {
 							"values": [255, 0],
-							"fade": 1,
+							"fade": 0,
 							"type": "linear"
 						  },
 						  "strob": {
@@ -178,13 +178,13 @@
 						"duration": 16,
 						"pixbar": {
 						  "color": {
-							"values": ["RED", "YELLOW", "RED", "YELLOW"],
+							"values": ["RED", "YELLOW"],
 							"fade": 0,
 							"type": "linear"
 						  },
 						  "intensity": {
 							"values": [0, 255],
-							"fade": 1,
+							"fade": 0,
 							"type": "linear"
 						  },
 						  "strob": {
@@ -200,7 +200,7 @@
 						  },
 						  "intensity": {
 							"values": [255, 0],
-							"fade": 1,
+							"fade": 0.5,
 							"type": "linear"
 						  },
 						  "strob": {
@@ -209,9 +209,7 @@
 						  },
 						  "position": {
 							"values": [[170, 60]],
-							"type": "static",
-							"pan_limit": [],
-							"tilt_limit": []
+							"type": "static"
 						  },
 						  "shape": {
 							"type": "none",

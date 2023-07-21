@@ -18,6 +18,8 @@ class Device():
         self.previous_strob = self.current_strob
         self.current_position = (DEFAULT_PAN, DEFAULT_TILT)
 
+        self.fade_lock = threading.Lock()
+
     def set_color(self, color=None, color_name=None, fade_duration=0):
         self.previous_color = self.current_color
 
@@ -25,7 +27,13 @@ class Device():
             color = colors_constants[color_name]
 
         channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue")]
-        t = threading.Thread(target=self.fade_color, args=(channels, color, fade_duration))
+
+        def fade_thread():
+            with self.fade_lock:
+                self.fade_color(channels, color, fade_duration)
+
+        t = threading.Thread(target=fade_thread)
+        
         if fade_duration > 0:
             # check if already in fade
             if not t.is_alive():
