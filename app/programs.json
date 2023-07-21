@@ -133,7 +133,7 @@
 						  },
 						  "intensity": {
 							"values": [255, 0],
-							"fade": 0,
+							"fade": 1,
 							"type": "linear"
 						  },
 						  "strob": {
@@ -179,7 +179,7 @@
 						"pixbar": {
 						  "color": {
 							"values": ["RED", "YELLOW"],
-							"fade": 0,
+							"fade": 4,
 							"type": "linear"
 						  },
 						  "intensity": {
