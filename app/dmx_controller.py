@@ -1,12 +1,12 @@
 from ola.ClientWrapper import ClientWrapper
-from ola.DMXConstants import (DMX_MAX_SLOT_VALUE, DMX_MIN_SLOT_VALUE, DMX_UNIVERSE_SIZE)
+from ola.DMXConstants import (DMX_MIN_SLOT_VALUE, DMX_UNIVERSE_SIZE)
 import array
 import sys
 import json
 import random
 from device import Device
 import numpy as np
-from app_constants import DMX_UPDATE_INTERVAL, STROB_VALUE, colors, DEFAULT_PAN, DEFAULT_TILT
+from app_constants import DMX_UPDATE_INTERVAL, DEFAULT_PAN, DEFAULT_TILT
 import threading
 import time
 

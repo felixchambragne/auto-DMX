@@ -1,7 +1,5 @@
 from app_constants import colors as colors_constants
-import threading
-import time
-from app_constants import STROB_VALUE, DMX_UPDATE_INTERVAL, DEFAULT_PAN, DEFAULT_TILT
+from app_constants import STROB_VALUE, DEFAULT_PAN, DEFAULT_TILT
 
 class Device():
     def __init__(self, set_data, address, channels, type) -> None:
@@ -26,7 +24,7 @@ class Device():
 
         channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue")]
 
-        def fade_thread():
+        """def fade_thread():
             self.fade_color(channels, color, fade_duration)
 
         t = threading.Thread(target=fade_thread)
@@ -35,16 +33,16 @@ class Device():
             # check if already in fade
             if not t.is_alive():
                 t.start()
-        else:
-            """if self.channels.get("white") and color == colors_constants["WHITE"]:
+        else:"""
+        """if self.channels.get("white") and color == colors_constants["WHITE"]:
                 channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue"), self.channels.get("white")]
                 self.set_data(self.address, channels, [0, 0, 0, 255])
             else:"""
-            self.set_data(self.address, channels, color)
+        self.set_data(self.address, channels, color)
 
-            self.current_color = color
+        self.current_color = color
 
-    def fade_color(self, channels, target_color, fade_duration):
+    """def fade_color(self, channels, target_color, fade_duration):
         fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
 
         # Calculate the step value for each channel
@@ -77,12 +75,12 @@ class Device():
             time.sleep(DMX_UPDATE_INTERVAL / 1000)
 
         self.current_color = target_color
-        self.set_data(self.address, channels, target_color)
+        self.set_data(self.address, channels, target_color)"""
 
     def set_intensity(self, value, fade_duration):
         self.previous_intensity = self.current_intensity
 
-        def fade_thread():
+        """def fade_thread():
             self.fade_intensity(value, fade_duration)
 
         t = threading.Thread(target=fade_thread)
@@ -90,11 +88,11 @@ class Device():
         if fade_duration > 0 and self.current_intensity != value:
             if not t.is_alive():
                 t.start()
-        else:
-            self.current_intensity = value
-            self.set_data(self.address, self.channels.get("intensity"), value)
+        else:"""
+        self.current_intensity = value
+        self.set_data(self.address, self.channels.get("intensity"), value)
     
-    def fade_intensity(self, target_value, fade_duration):
+    """def fade_intensity(self, target_value, fade_duration):
         fade_steps = int(fade_duration // (DMX_UPDATE_INTERVAL / 1000))
         fade_step_value = (target_value - self.current_intensity) / fade_steps
 
@@ -110,7 +108,7 @@ class Device():
             time.sleep(DMX_UPDATE_INTERVAL / 1000)
 
         self.current_intensity = target_value
-        self.set_data(self.address, self.channels.get("intensity"), target_value)
+        self.set_data(self.address, self.channels.get("intensity"), target_value)"""
     
     def set_strob(self, strob):
         self.previous_strob = self.current_strob
