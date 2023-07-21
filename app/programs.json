@@ -1291,8 +1291,8 @@
             "color": "#53D1D1",
             "programs": [
 				{
-					"name": "Programme Générique Rouge",
-					"colors": ["#FF0000", "#FFFFFF"],
+					"name": "Generique Rouge",
+					"colors": ["#FF0000"],
 					"steps": [
 					  {
 						"duration": 10,
@@ -1306,6 +1306,10 @@
 							"values": [255],
 							"fade": 0,
 							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
 						  }
 						},
 						"washbeam": {
@@ -1317,6 +1321,10 @@
 						  "intensity": {
 							"values": [255],
 							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
 							"type": "static"
 						  },
 						  "zoom": {
@@ -1343,6 +1351,10 @@
 							"values": [255],
 							"fade": 0,
 							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
 						  }
 						},
 						"washbeam": {
@@ -1354,6 +1366,10 @@
 						  "intensity": {
 							"values": [255],
 							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
 							"type": "static"
 						  },
 						  "zoom": {
@@ -1383,6 +1399,10 @@
 							"values": [255],
 							"fade": 0,
 							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
 						  }
 						},
 						"washbeam": {
@@ -1396,8 +1416,12 @@
 							"fade": 0,
 							"type": "static"
 						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
 						  "zoom": {
-							"values": [100],
+							"values": [50],
 							"type": "static"
 						  },
 						  "shape": {
@@ -1410,6 +1434,7 @@
 					  }
 					]
 				  }
+				  
             ]
         }
     ]
