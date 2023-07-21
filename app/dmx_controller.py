@@ -77,7 +77,7 @@ class DmxController:
             device_step = self.current_step[device_type]
             for device in devices:
                 shape = device_step.get("shape")
-                if shape != None:
+                if shape != None and shape.get("type") != "none":
                     pan_limit = (max(shape.get("pan_gap")[0] + DEFAULT_PAN, 0), min(shape.get("pan_gap")[1] + DEFAULT_PAN, 255))
                     tilt_limit = (max(shape.get("tilt_gap")[0] + DEFAULT_TILT, 0), min(shape.get("tilt_gap")[1] + DEFAULT_TILT, 255))
                     if shape.get("type") == "random":
