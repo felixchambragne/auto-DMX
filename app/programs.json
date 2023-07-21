@@ -1364,7 +1364,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 255, 0, 255, 255, 0],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -1510,7 +1510,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 255, 0, 255, 255, 0],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -1656,7 +1656,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 255, 0, 255, 255, 0],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -1802,7 +1802,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 255, 0, 255, 255, 0],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -1948,7 +1948,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 255, 0, 255, 255, 0],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -2020,10 +2020,6 @@
 					  }
 					]
 				  }
-				  
-				  
-				  
-				  
             ]
         }
     ]
