@@ -30,7 +30,7 @@ class DmxController:
         self.update_dmx()
 
         self.manual_program_paused = True
-        self.program_paused = False
+        self.program_paused = True
         
 
     def get_devices(self):
@@ -222,13 +222,13 @@ class DmxController:
     def on_start_blank(self):
         print("AUTOMATIC PAUSE")
         if not self.manual_program_paused:
-            #self.pause_program()
+            self.pause_program()
             pass
 
     def on_stop_blank(self):
         print("AUTOMATIC RESUME")
         if not self.manual_program_paused:
-            #self.resume_program()
+            self.resume_program()
             pass
     
     def pause_program(self):
