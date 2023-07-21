@@ -8,7 +8,10 @@ colors = {
     'CYAN': (0, 255, 255),
     'MAGENTA': (255, 0, 255),
     'ORANGE': (255, 127, 0),
-    'PURPLE': (127, 0, 255)
+    'PURPLE': (127, 0, 255),
+    'DEEPPINK': (255, 20, 147),
+    'LIGHTPINK': (255, 182, 193),
+    'PINK': (255, 192, 203),
 }
 STROB_VALUE = 250
 DMX_UPDATE_INTERVAL = 30

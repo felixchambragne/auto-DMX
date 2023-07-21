@@ -149,8 +149,8 @@ class DmxController:
         if not self.program_paused:
             current_time = time.time()
             self.time_beat = current_time - self.last_execution_time
-            if self.time_beat > 1.5:
-                self.time_beat = 1.5
+            if self.time_beat > 3:
+                self.time_beat = 3
 
             self.beat_count += 1
             if self.beat_count == self.current_step.get("duration"):
