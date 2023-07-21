@@ -1295,7 +1295,7 @@
 					"colors": ["#FF0000"],
 					"steps": [
 					  {
-						"duration": 10,
+						"duration": 16,
 						"pixbar": {
 						  "color": {
 							"values": ["RED"],
@@ -1303,9 +1303,9 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 0],
 							"fade": 0,
-							"type": "static"
+							"type": "linear"
 						  },
 						  "strob": {
 							"values": [false],
@@ -1328,19 +1328,19 @@
 							"type": "static"
 						  },
 						  "zoom": {
-							"values": [100],
+							"values": [255],
 							"type": "static"
 						  },
 						  "shape": {
 							"type": "random",
-							"spread": 50,
+							"spread": 0,
 							"pan_gap": [-30, 30],
 							"tilt_gap": [-30, 30]
 						  }
 						}
 					  },
 					  {
-						"duration": 15,
+						"duration": 16,
 						"pixbar": {
 						  "color": {
 							"values": ["RED"],
@@ -1348,9 +1348,9 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 0, 50],
 							"fade": 0,
-							"type": "static"
+							"type": "random"
 						  },
 						  "strob": {
 							"values": [false],
@@ -1373,17 +1373,19 @@
 							"type": "static"
 						  },
 						  "zoom": {
-							"values": [100],
+							"values": [0],
 							"type": "static"
 						  },
 						  "position": {
 							"values": [
-							  [170, 60],
+							  [160, 60],
 							  [170, 30],
-							  [170, 90],
-							  [170, 60]
+							  [150, 90],
+							  [170, 60],
+							  [190, 30],
+							  [170, 90]
 							],
-							"type": "linear"
+							"type": "random"
 						  }
 						}
 					  },
@@ -1412,9 +1414,9 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
+							"values": [255, 255, 255, 255, 255, 0],
 							"fade": 0,
-							"type": "static"
+							"type": "linear"
 						  },
 						  "strob": {
 							"values": [false],
