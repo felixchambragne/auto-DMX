@@ -119,6 +119,114 @@
             "name": "Rock",
             "color": "#6B70FA",
             "programs": [
+				{
+					"name": "Rock Energique",
+					"colors": ["#FF0000", "#FFFF00"],
+					"steps": [
+					  {
+						"duration": 16,
+						"pixbar": {
+						  "color": {
+							"values": ["RED", "YELLOW", "RED", "YELLOW"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [255, 0],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["RED", "YELLOW"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [true, false, true, false, false, false],
+							"type": "random"
+						  },
+						  "position": {
+							"values": [],
+							"type": "none",
+							"pan_limit": [],
+							"tilt_limit": []
+						  },
+						  "shape": {
+							"type": "circle",
+							"spread": 50,
+							"pan_gap": [-20, 20],
+							"tilt_gap": [-20, 20]
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  }
+						}
+					  },
+					  {
+						"duration": 16,
+						"pixbar": {
+						  "color": {
+							"values": ["RED", "YELLOW", "RED", "YELLOW"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [0, 255],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["YELLOW", "RED", "YELLOW"],
+							"fade": 0,
+							"type": "linear"
+						  },
+						  "intensity": {
+							"values": [255, 0],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [true, false, false, false, false, false],
+							"type": "random"
+						  },
+						  "position": {
+							"values": [[170, 60]],
+							"type": "static",
+							"pan_limit": [],
+							"tilt_limit": []
+						  },
+						  "shape": {
+							"type": "none",
+							"spread": 0,
+							"pan_gap": [],
+							"tilt_gap": []
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  }
+						}
+					  }
+					]
+				  }
             ]
         },
         {
