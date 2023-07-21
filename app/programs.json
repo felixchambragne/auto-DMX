@@ -291,7 +291,7 @@
 				"colors": ["#00FF00", "#FFFFFF"],
 				"steps": [
 					{
-					"duration": 16,
+					"duration": 8,
 					"pixbar": {
 						"color": {
 						"values": ["GREEN", "WHITE"],
@@ -321,7 +321,7 @@
 						},
 						"strob": {
 						"values": [true, false, true, false, true, false],
-						"type": "random"
+						"type": "linear"
 						},
 						"zoom": {
 						"values": [100],
@@ -352,8 +352,8 @@
 						"type": "static"
 						},
 						"strob": {
-						"values": [false],
-						"type": "static"
+						"values": [false, true, false, false],
+						"type": "random"
 						}
 					},
 					"washbeam": {
@@ -410,6 +410,148 @@
             "name": "Reggae",
             "color": "#63BE4C",
             "programs": [
+				{
+					"name": "Reggae Vert et Orange",
+					"colors": ["#00FF00", "#FFA500"],
+					"steps": [
+					  {
+						"duration": 8,
+						"pixbar": {
+						  "color": {
+							"values": ["GREEN", "ORANGE"],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200, 100],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["GREEN"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  },
+						  "position": {
+							"values": [
+							  [170, 60]
+							],
+							"type": "static"
+						  }
+						}
+					  },
+					  {
+						"duration": 12,
+						"pixbar": {
+						  "color": {
+							"values": ["ORANGE", "GREEN"],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [100, 255],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["ORANGE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [150],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [255],
+							"type": "static"
+						  },
+						  "position": {
+							"values": [
+							  [170, 40]
+							],
+							"type": "static"
+						  }
+						}
+					  },
+					  {
+						"duration": 16,
+						"pixbar": {
+						  "color": {
+							"values": ["GREEN", "ORANGE", "GREEN"],
+							"fade": 1,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200, 150, 100],
+							"fade": 1,
+							"type": "linear"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["ORANGE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [200],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  },
+						  "position": {
+							"values": [
+							  [170, 80]
+							],
+							"type": "static"
+						  }
+						}
+					  }
+					]
+				  }
+				  
             ]
         },
         {
