@@ -152,9 +152,9 @@
 						  },
 						  "shape": {
 							"type": "random",
-							"spread": 50,
-							"pan_gap": [-50, 50],
-							"tilt_gap": [-50, 50]
+							"spread": 0,
+							"pan_gap": [-80, 80],
+							"tilt_gap": [-80, 80]
 						  },
 						  "zoom": {
 							"values": [100],
@@ -197,9 +197,9 @@
 						  },
 						  "shape": {
 							"type": "random",
-							"spread": 50,
-							"pan_gap": [-50, 50],
-							"tilt_gap": [-50, 50]
+							"spread": 0,
+							"pan_gap": [-80, 80],
+							"tilt_gap": [-80, 80]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -242,9 +242,9 @@
 						  },
 						  "shape": {
 							"type": "random",
-							"spread": 50,
-							"pan_gap": [-50, 50],
-							"tilt_gap": [-50, 50]
+							"spread": 0,
+							"pan_gap": [-80, 80],
+							"tilt_gap": [-80, 80]
 						  },
 						  "zoom": {
 							"values": [100],
