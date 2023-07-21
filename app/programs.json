@@ -114,14 +114,14 @@
                     ]
                 },
 				{
-					"name": "Electro Dynamique",
-					"colors": ["#FF0000", "#FFFFFF"],
+					"name": "Rock Dynamique",
+					"colors": ["#8B00FF", "#FFFF00"],
 					"steps": [
 					  {
 						"duration": 8,
 						"pixbar": {
 						  "color": {
-							"values": ["RED", "RED", "WHITE", "WHITE"],
+							"values": ["MAGENTA", "YELLOW"],
 							"fade": 0,
 							"type": "linear"
 						  },
@@ -137,7 +137,7 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["WHITE"],
+							"values": ["YELLOW"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -150,11 +150,9 @@
 							"values": [true, false, false, false, false, false],
 							"type": "linear"
 						  },
-						  "shape": {
-							"type": "random",
-							"spread": 0,
-							"pan_gap": [-80, 80],
-							"tilt_gap": [-80, 80]
+						  "position": {
+							"values": [[170, 60], [170, 170]],
+							"type": "linear"
 						  },
 						  "zoom": {
 							"values": [100],
@@ -166,7 +164,7 @@
 						"duration": 8,
 						"pixbar": {
 						  "color": {
-							"values": ["WHITE", "RED"],
+							"values": ["YELLOW", "MAGENTA"],
 							"fade": 0,
 							"type": "linear"
 						  },
@@ -182,8 +180,8 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["WHITE", "RED"],
-							"fade": 0,
+							"values": ["YELLOW", "MAGENTA"],
+							"fade": 1,
 							"type": "uniform"
 						  },
 						  "intensity": {
@@ -196,10 +194,10 @@
 							"type": "static"
 						  },
 						  "shape": {
-							"type": "random",
-							"spread": 0,
-							"pan_gap": [-80, 80],
-							"tilt_gap": [-80, 80]
+							"type": "circle",
+							"spread": 30,
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-50, 50]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -211,7 +209,7 @@
 						"duration": 8,
 						"pixbar": {
 						  "color": {
-							"values": ["RED", "RED", "WHITE", "WHITE"],
+							"values": ["MAGENTA", "YELLOW"],
 							"fade": 0,
 							"type": "linear"
 						  },
@@ -227,7 +225,7 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["WHITE"],
+							"values": ["YELLOW"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -240,11 +238,9 @@
 							"values": [true, false, false, false, false, false],
 							"type": "linear"
 						  },
-						  "shape": {
-							"type": "random",
-							"spread": 0,
-							"pan_gap": [-80, 80],
-							"tilt_gap": [-80, 80]
+						  "position": {
+							"values": [[170, 170], [190, 120]],
+							"type": "linear"
 						  },
 						  "zoom": {
 							"values": [100],
@@ -256,7 +252,7 @@
 						"duration": 8,
 						"pixbar": {
 						  "color": {
-							"values": ["WHITE", "RED"],
+							"values": ["YELLOW", "MAGENTA"],
 							"fade": 0,
 							"type": "linear"
 						  },
@@ -272,8 +268,8 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["WHITE", "RED"],
-							"fade": 0,
+							"values": ["YELLOW", "MAGENTA"],
+							"fade": 1,
 							"type": "uniform"
 						  },
 						  "intensity": {
@@ -286,10 +282,10 @@
 							"type": "static"
 						  },
 						  "shape": {
-							"type": "circle",
-							"spread": 50,
-							"pan_gap": [-25, 25],
-							"tilt_gap": [-20, 20]
+							"type": "rect",
+							"spread": 40,
+							"pan_gap": [-30, 30],
+							"tilt_gap": [-30, 30]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -411,7 +407,181 @@
 						}
 					  }
 					]
-				  }
+				  },
+				{
+  "name": "Rock Dynamique",
+  "colors": ["#8B00FF", "#FFFF00"],
+  "steps": [
+    {
+      "duration": 8,
+      "pixbar": {
+        "color": {
+          "values": ["MAGENTA", "YELLOW"],
+          "fade": 0,
+          "type": "linear"
+        },
+        "intensity": {
+          "values": [255, 0],
+          "fade": 1,
+          "type": "linear"
+        },
+        "strob": {
+          "values": [false],
+          "type": "static"
+        }
+      },
+      "washbeam": {
+        "color": {
+          "values": ["YELLOW"],
+          "fade": 0,
+          "type": "static"
+        },
+        "intensity": {
+          "values": [255],
+          "fade": 0,
+          "type": "static"
+        },
+        "strob": {
+          "values": [true, false, false, false, false, false],
+          "type": "linear"
+        },
+        "zoom": {
+          "values": [100],
+          "type": "static"
+        }
+      }
+    },
+    {
+      "duration": 8,
+      "pixbar": {
+        "color": {
+          "values": ["YELLOW", "MAGENTA"],
+          "fade": 0,
+          "type": "linear"
+        },
+        "intensity": {
+          "values": [255],
+          "fade": 0,
+          "type": "static"
+        },
+        "strob": {
+          "values": [true, false, true, false],
+          "type": "random"
+        }
+      },
+      "washbeam": {
+        "color": {
+          "values": ["YELLOW", "MAGENTA"],
+          "fade": 1,
+          "type": "uniform"
+        },
+        "intensity": {
+          "values": [255],
+          "fade": 0,
+          "type": "static"
+        },
+        "strob": {
+          "values": [false],
+          "type": "static"
+        },
+        "shape": {
+          "type": "random",
+          "spread": 50,
+          "pan_gap": [-20, 20],
+          "tilt_gap": [-20, 20]
+        },
+        "zoom": {
+          "values": [255],
+          "type": "static"
+        }
+      }
+    },
+    {
+      "duration": 8,
+      "pixbar": {
+        "color": {
+          "values": ["MAGENTA", "YELLOW"],
+          "fade": 0,
+          "type": "linear"
+        },
+        "intensity": {
+          "values": [0, 255],
+          "fade": 1,
+          "type": "linear"
+        },
+        "strob": {
+          "values": [false],
+          "type": "static"
+        }
+      },
+      "washbeam": {
+        "color": {
+          "values": ["YELLOW"],
+          "fade": 0,
+          "type": "static"
+        },
+        "intensity": {
+          "values": [255],
+          "fade": 0,
+          "type": "static"
+        },
+        "strob": {
+          "values": [true, false, false, false, false, false],
+          "type": "linear"
+        },
+        "zoom": {
+          "values": [100],
+          "type": "static"
+        }
+      }
+    },
+    {
+      "duration": 8,
+      "pixbar": {
+        "color": {
+          "values": ["YELLOW", "MAGENTA"],
+          "fade": 0,
+          "type": "linear"
+        },
+        "intensity": {
+          "values": [255],
+          "fade": 0,
+          "type": "static"
+        },
+        "strob": {
+          "values": [true, false, true, false],
+          "type": "random"
+        }
+      },
+      "washbeam": {
+        "color": {
+          "values": ["YELLOW", "MAGENTA"],
+          "fade": 1,
+          "type": "uniform"
+        },
+        "intensity": {
+          "values": [255],
+          "fade": 0,
+          "type": "static"
+        },
+        "strob": {
+          "values": [false],
+          "type": "static"
+        },
+        "shape": {
+          "type": "random",
+          "spread": 50,
+          "pan_gap": [-20, 20],
+          "tilt_gap": [-20, 20]
+        },
+        "zoom": {
+          "values": [255],
+          "type": "static"
+        }
+      }
+    }
+  ]
+}
             ]
         },
         {
