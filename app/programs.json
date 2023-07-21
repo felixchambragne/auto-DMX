@@ -291,16 +291,16 @@
 					"colors": ["#00FF00", "#FFFFFF"],
 					"steps": [
 					  {
-						"duration": 8,
+						"duration": 16,
 						"pixbar": {
 						  "color": {
-							"values": ["GREEN"],
-							"fade": 0,
+							"values": ["GREEN", "WHITE"],
+							"fade": 1,
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
-							"fade": 0,
+							"values": [255, 100],
+							"fade": 1,
 							"type": "static"
 						  },
 						  "strob": {
@@ -310,7 +310,7 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["WHITE"],
+							"values": ["GREEN"],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -330,8 +330,8 @@
 						  "position": {
 							"values": [
 							  [170, 60],
-							  [170, 20],
-							  [170, 100],
+							  [170, 30],
+							  [170, 90],
 							  [170, 60]
 							],
 							"type": "linear"
@@ -339,16 +339,16 @@
 						}
 					  },
 					  {
-						"duration": 8,
+						"duration": 16,
 						"pixbar": {
 						  "color": {
-							"values": ["GREEN", "GREEN", "GREEN"],
-							"fade": 0,
+							"values": ["WHITE", "GREEN"],
+							"fade": 1,
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
-							"fade": 0,
+							"values": [100, 255],
+							"fade": 1,
 							"type": "static"
 						  },
 						  "strob": {
@@ -358,18 +358,18 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["WHITE", "GREEN"],
-							"fade": 0,
-							"type": "linear"
+							"values": ["GREEN", "WHITE"],
+							"fade": 1,
+							"type": "static"
 						  },
 						  "intensity": {
-							"values": [255],
-							"fade": 0,
+							"values": [255, 100],
+							"fade": 1,
 							"type": "static"
 						  },
 						  "strob": {
-							"values": [true, false, true, false],
-							"type": "random"
+							"values": [false],
+							"type": "static"
 						  },
 						  "zoom": {
 							"values": [255],
