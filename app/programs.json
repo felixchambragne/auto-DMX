@@ -423,7 +423,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [200, 100],
+							"values": [255, 50],
 							"fade": 1,
 							"type": "linear"
 						  },
@@ -504,8 +504,8 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-50, 50],
-							"tilt_gap": [-40, 40]
+							"pan_gap": [-30, 30],
+							"tilt_gap": [-30, 30]
 						  }
 						}
 					  },
@@ -518,9 +518,9 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [200, 150, 100],
+							"values": [255, 50, 0, 255],
 							"fade": 1,
-							"type": "linear"
+							"type": "uniform"
 						  },
 						  "strob": {
 							"values": [false],
@@ -549,8 +549,8 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-50, 50],
-							"tilt_gap": [-40, 40]
+							"pan_gap": [-30, 30],
+							"tilt_gap": [-30, 30]
 						  }
 						}
 					  }
