@@ -20,6 +20,8 @@ class DmxController:
         self.client = self.wrapper.Client()
         self.device_groups = {}
         self.data = array.array('B', [DMX_MIN_SLOT_VALUE] * DMX_UNIVERSE_SIZE)
+        self.manual_program_paused = True
+        self.program_paused = True
         self.get_devices()
         self.current_step_id = 0
         self.last_execution_time = time.time()
@@ -29,8 +31,7 @@ class DmxController:
         self.update_current_step()
         self.update_dmx()
 
-        self.manual_program_paused = True
-        self.program_paused = True
+
         
 
     def get_devices(self):
