@@ -40,14 +40,11 @@ class Device():
             if not t.is_alive():
                 t.start()
         else:
-            if self.channels.get("white") and color == colors_constants["WHITE"]:
+            """if self.channels.get("white") and color == colors_constants["WHITE"]:
                 channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue"), self.channels.get("white")]
                 self.set_data(self.address, channels, [0, 0, 0, 255])
-            elif self.channels.get("white"):
-                channels = [self.channels.get("red"), self.channels.get("green"), self.channels.get("blue"), self.channels.get("white")]
-                self.set_data(self.address, channels, list(color).append(0))
-            else:
-                self.set_data(self.address, channels, color)
+            else:"""
+            self.set_data(self.address, channels, color)
 
             self.current_color = color
 
