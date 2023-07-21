@@ -156,12 +156,6 @@
 							"values": [true, false, true, false, false, false],
 							"type": "random"
 						  },
-						  "position": {
-							"values": [],
-							"type": "none",
-							"pan_limit": [],
-							"tilt_limit": []
-						  },
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
@@ -212,12 +206,6 @@
 							"type": "static",
 							"pan_limit": [],
 							"tilt_limit": []
-						  },
-						  "shape": {
-							"type": "none",
-							"spread": 0,
-							"pan_gap": [],
-							"tilt_gap": []
 						  },
 						  "zoom": {
 							"values": [100],

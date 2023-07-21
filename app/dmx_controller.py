@@ -109,7 +109,7 @@ class DmxController:
                         function = self.position_shape
                         spread = shape.get("spread") * len(rect) / 100
                         args = (rect, spread, devices.index(device))
-
+                    
                     self.shapes[device] = (function, args)
 
     def set_shapes(self):
