@@ -133,7 +133,7 @@
 						  },
 						  "intensity": {
 							"values": [255, 0],
-							"fade": 1,
+							"fade": 2,
 							"type": "linear"
 						  },
 						  "strob": {
@@ -183,9 +183,9 @@
 							"type": "linear"
 						  },
 						  "intensity": {
-							"values": [0, 255],
+							"values": [255],
 							"fade": 0,
-							"type": "linear"
+							"type": "static"
 						  },
 						  "strob": {
 							"values": [false],
