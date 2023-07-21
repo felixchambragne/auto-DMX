@@ -439,7 +439,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [200],
+							"values": [255],
 							"fade": 0,
 							"type": "static"
 						  },
@@ -448,14 +448,19 @@
 							"type": "static"
 						  },
 						  "zoom": {
-							"values": [100],
+							"values": [0, 255, 255, 255, 255, 0],
 							"type": "static"
 						  },
 						  "position": {
 							"values": [
-							  [170, 60]
+							  [170, 60],
+							  [150, 40],
+							  [190, 80],
+							  [170, 40],
+							  [150, 90],
+							  [190, 60]
 							],
-							"type": "static"
+							"type": "random"
 						  }
 						}
 					  },
@@ -468,7 +473,7 @@
 							"type": "static"
 						  },
 						  "intensity": {
-							"values": [100, 255],
+							"values": [0, 125, 255, 255],
 							"fade": 1,
 							"type": "linear"
 						  },
@@ -479,9 +484,9 @@
 						},
 						"washbeam": {
 						  "color": {
-							"values": ["ORANGE"],
+							"values": ["ORANGE", "GREEN"],
 							"fade": 0,
-							"type": "static"
+							"type": "uniform"
 						  },
 						  "intensity": {
 							"values": [150],
@@ -496,11 +501,11 @@
 							"values": [255],
 							"type": "static"
 						  },
-						  "position": {
-							"values": [
-							  [170, 40]
-							],
-							"type": "static"
+						  "shape": {
+							"type": "circle",
+							"spread": 50,
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-40, 40]
 						  }
 						}
 					  },
@@ -538,14 +543,14 @@
 							"type": "static"
 						  },
 						  "zoom": {
-							"values": [100],
+							"values": [50],
 							"type": "static"
 						  },
-						  "position": {
-							"values": [
-							  [170, 80]
-							],
-							"type": "static"
+						  "shape": {
+							"type": "circle",
+							"spread": 50,
+							"pan_gap": [-50, 50],
+							"tilt_gap": [-40, 40]
 						  }
 						}
 					  }
