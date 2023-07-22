@@ -180,7 +180,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-25, 25],
-							"tilt_gap": [-25, 25]
+							"tilt_gap": [-20, 25]
 						  },
 						  "zoom": {
 							"values": [255],
@@ -382,8 +382,8 @@
 						"shape": {
 						"type": "circle",
 						"spread": 10,
-						"pan_gap": [-50, 50],
-						"tilt_gap": [-50, 50]
+						"pan_gap": [-25, 25],
+						"tilt_gap": [-20, 25]
 						}
 
 					}
@@ -491,7 +491,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  }
 						}
 					  },
@@ -536,7 +536,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  }
 						}
 					  }
@@ -637,7 +637,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  }
 						}
 					  },
@@ -682,7 +682,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  }
 						}
 					  }
@@ -796,7 +796,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  }
 						}
 					  },
@@ -841,7 +841,7 @@
 							"type": "circle",
 							"spread": 50,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  }
 						}
 					  }
@@ -989,8 +989,8 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-40, 40],
-							"tilt_gap": [-40, 40]
+							"pan_gap": [-30, 30],
+							"tilt_gap": [-20, 30]
 						  },
 						  "strob": {
 							"values": [false],
@@ -1086,7 +1086,7 @@
 							"type": "circle",
 							"spread": 20,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  },
 						  "strob": {
 							"values": [false],
@@ -1227,7 +1227,7 @@
 							"type": "circle",
 							"spread": 20,
 							"pan_gap": [-30, 30],
-							"tilt_gap": [-30, 30]
+							"tilt_gap": [-20, 30]
 						  },
 						  "strob": {
 							"values": [false],
@@ -1429,7 +1429,7 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-40, 40],
+							"pan_gap": [-30, 30],
 							"tilt_gap": [-20, 40]
 						  }
 						}
@@ -1575,7 +1575,7 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-40, 40],
+							"pan_gap": [-30, 30],
 							"tilt_gap": [-20, 40]
 						  }
 						}
@@ -1721,7 +1721,7 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-40, 40],
+							"pan_gap": [-30, 30],
 							"tilt_gap": [-20, 40]
 						  }
 						}
@@ -1867,7 +1867,7 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-40, 40],
+							"pan_gap": [-30, 30],
 							"tilt_gap": [-20, 40]
 						  }
 						}
@@ -2013,7 +2013,7 @@
 						  "shape": {
 							"type": "circle",
 							"spread": 50,
-							"pan_gap": [-40, 40],
+							"pan_gap": [-30, 30],
 							"tilt_gap": [-20, 40]
 						  }
 						}
