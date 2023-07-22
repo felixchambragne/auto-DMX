@@ -695,6 +695,52 @@
             "name": "Statique",
             "color": "#E59434",
             "programs": [
+				{
+					"name": "Blanc",
+					"colors": ["#FFFFFF"],
+					"steps": [
+					  {
+						"duration": 30,
+						"pixbar": {
+						  "color": {
+							"values": ["WHITE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [100],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  }
+						},
+						"washbeam": {
+						  "color": {
+							"values": ["WHITE"],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "intensity": {
+							"values": [255],
+							"fade": 0,
+							"type": "static"
+						  },
+						  "strob": {
+							"values": [false],
+							"type": "static"
+						  },
+						  "zoom": {
+							"values": [100],
+							"type": "static"
+						  }
+						}
+					  }
+					]
+				  }
+				  
             ]
         },
         {
@@ -702,7 +748,7 @@
             "color": "#63BE4C",
             "programs": [
 				{
-					"name": "Reggae Vert et Orange",
+					"name": "Vert et Orange",
 					"colors": ["#00FF00", "#FFA500"],
 					"steps": [
 					  {
@@ -855,7 +901,7 @@
             "color": "#CF53D1",
             "programs": [
 				{
-					"name": "Slow Rose et Bleu",
+					"name": " ose et Bleu",
 					"colors": ["#FF1493", "#0000FF"],
 					"steps": [
 					  {
@@ -1001,7 +1047,7 @@
 					]
 				  },
 				  {
-					"name": "Slow Rose",
+					"name": "Rose",
 					"colors": ["#FF1493"],
 					"steps": [
 					  {
@@ -1142,7 +1188,7 @@
 					]
 				  },
 				  {
-					"name": "Slow Ambre et Blanc",
+					"name": "Ambre et Blanc",
 					"colors": ["#FFBF00", "#FFFFFF"],
 					"steps": [
 					  {
