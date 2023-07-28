@@ -123,7 +123,7 @@ class DmxController:
                         device.set_position(value)
             i += 1
 
-            device.set_pan_tilt_speed(max(0, min(int(self.time_beat * 50), 255)))
+            device.set_pan_tilt_speed(max(0, min(int(self.time_beat * 30), 255)))
             time.sleep(self.time_beat / 30)
 
     def set_random_shapes(self):
@@ -133,7 +133,7 @@ class DmxController:
                     if not self.program_paused:
                         value = function(*args, 0)
                         device.set_position(value)
-            device.set_pan_tilt_speed(max(0, min(int(self.time_beat * 50), 255)))
+            device.set_pan_tilt_speed(max(0, min(int(self.time_beat * 30), 255)))
             time.sleep(self.time_beat)
 
     def random_position_shape(self, pan_gap, tilt_gap, i):
