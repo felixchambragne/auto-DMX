@@ -22,6 +22,15 @@ class App():
         self.current_category_id = int(category_id)
         self.current_category = self.categories[self.current_category_id]"""
 
+    """def set_category(self, category_id):
+        self.selected_category_id = int(category_id)
+        self.selected_category = self.categories[self.selected_category_id]
+
+    def set_selected_program(self, program_id):
+        self.selected_program_id = int(program_id)
+        self.selected_program = self.selected_category['programs'][self.selected_program_id]"""
+
+
     def set_selected_program(self, category_id, program_id):
         self.selected_category_id = int(category_id)
         self.selected_program_id = int(program_id)
@@ -47,6 +56,8 @@ def get_categories():
 def set_program():
     category_id = flask.request.args.get('category_id')
     program_id = flask.request.args.get('program_id')
+    """app.set_category(category_id)
+    app.set_selected_program(program_id)"""
     app.set_selected_program(category_id, program_id)
     app.ola_thread.dmx_controller.on_new_program_selected()
     return "New program selected"
@@ -81,11 +92,13 @@ def pause_program():
     
 """@app.flask_app.route("/", methods=["GET", "POST"])
 def categories_page():
+
     if flask.request.method == "POST":
-         if 'category_id' in flask.request.form:
-            app.set_current_category(flask.request.form['category_id'])
-            return flask.redirect(flask.url_for('programs_page'))
-    
+        selected_category = flask.request.form.get("category_id") #is category name
+        app.selected_category_id = app.categories.index(next((item for item in app.categories if item["name"] == selected_category), None))
+
+        app.set_category(app.selected_category_id)
+
     return flask.render_template(
         'categories.html',
         categories=app.categories,
@@ -94,26 +107,13 @@ def categories_page():
 
 @app.flask_app.route("/programs", methods=["GET", "POST"])
 def programs_page():
-    if app.current_category == None:
-        return flask.redirect(flask.url_for('categories_page'))
-
-    if flask.request.method == "POST":
-        if 'program_id' in flask.request.form:
-            app.set_selected_program(app.current_category_id, flask.request.form['program_id'])
-            app.ola_thread.dmx_controller.beat_count = 0
-            app.ola_thread.dmx_controller.update_current_step()
-
-    if app.current_category == app.selected_category:
-        app.current_program_id = app.selected_program_id
-    else:
-        app.current_program_id = None
 
     return flask.render_template(
         'programs.html',
         programs = app.current_category['programs'],
         selected_program_id = app.current_program_id
-    )
-"""
+    )"""
+
 
 if __name__ == '__main__':
     app.run()

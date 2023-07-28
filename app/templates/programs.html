@@ -10,7 +10,7 @@
             class="card-button" style="background: linear-gradient(135deg, {{ program.colors[0] }} 50%, {{ program.colors[1] }} 50%);"
             {% if loop.index0 == selected_program_id %} selected {% endif %} >
             <input 
-                type="radio" value="{{ loop.index0 }}" name="program_id" onchange="this.form.submit()"
+                type="radio" value="{{ loop.index0 }}" name="program_id" onchange=""
             />
             <p>{{ program.name}}</p>
         </label>

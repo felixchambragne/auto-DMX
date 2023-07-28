@@ -123,6 +123,9 @@ class Device():
         self.set_data(self.address, channels, position)
         self.current_position = position
 
+    def set_pan_tilt_speed(self, speed):
+        self.set_data(self.address, self.channels.get("pan_tilt_speed"), speed)
+
     def set_zoom(self, zoom):
         self.set_data(self.address, self.channels.get("zoom"), zoom)
     

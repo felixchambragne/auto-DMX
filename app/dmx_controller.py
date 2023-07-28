@@ -122,7 +122,10 @@ class DmxController:
                         value = function(*args, i)
                         device.set_position(value)
             i += 1
-            time.sleep(self.time_beat / 30)
+            # change speed of pan and tilt function of the time_beat in second (ex. 0.5; 2; 5; 2.3; 1.47). speed is between 0 and 255. 255 is slowest and 0 is fastest
+            # high time is low speed and low time is high speed
+            device.
+            time.sleep(self.time_beat)
 
     def set_random_shapes(self):
         while self.shapes != {}:
