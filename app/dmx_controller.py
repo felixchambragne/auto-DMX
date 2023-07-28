@@ -124,6 +124,7 @@ class DmxController:
             i += 1
 
             device.set_pan_tilt_speed(max(0, min(int(self.time_beat * 50), 255)))
+            time.sleep(self.time_beat / 30)
 
     def set_random_shapes(self):
         while self.shapes != {}:
