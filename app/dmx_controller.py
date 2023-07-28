@@ -124,7 +124,7 @@ class DmxController:
             i += 1
             # change speed of pan and tilt function of the time_beat in second (ex. 0.5; 2; 5; 2.3; 1.47). speed is between 0 and 255. 255 is slowest and 0 is fastest
             # high time is low speed and low time is high speed
-            device.
+            device.set_pan_tilt_speed(max(0, min(int(self.time_beat * 50), 255)))
             time.sleep(self.time_beat)
 
     def set_random_shapes(self):
